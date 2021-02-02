@@ -10,7 +10,7 @@ using System.Web.Routing;
 using ARB.App_Start;
 
 
-namespace Graduation_Project
+namespace ARB
 {
     public class MvcApplication : System.Web.HttpApplication
     {
