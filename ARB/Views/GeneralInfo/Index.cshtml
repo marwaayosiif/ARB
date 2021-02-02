@@ -1,0 +1,236 @@
+﻿@model Graduation_Project.Models.GeneralInfo
+@{
+    ViewBag.Title = "GeneralInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Save", "GeneralInfo"))
+{
+<form id="GeneralInformation" class="level1" data-section-name="General Info">
+    <h1> General Info</h1>
+
+    <div>
+        <label>Exam Reason</label>
+        @Html.RadioButtonFor(m => m.ExamReason, "Screeing", false) Screening
+    </div>
+    <div>
+        @Html.RadioButtonFor(m => m.ExamReason, "Follow Up", false) Follow Up
+    </div>
+    <div>
+        @Html.RadioButtonFor(m => m.ExamReason, "Complain", false) Complain
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Complain)
+        @Html.TextBoxFor(m => m.Complain, new { @class = "form-control" })
+
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.ExamDate)
+        @Html.TextBoxFor(m => m.ExamDate, "{0:d MMM yyyy}", new { @class = "form-control" })
+    </div>
+
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.HadAMammogram) Have you ever had a mammogram?
+        </label>
+    </div>
+    <div>
+        @Html.LabelFor(m => m.WhenHadAMammogram)
+        @Html.TextBoxFor(m => m.WhenHadAMammogram, new { @class = "form-control" })
+        @Html.LabelFor(m => m.WhereHadAMammogram)
+        @Html.TextBoxFor(m => m.WhereHadAMammogram, new { @class = "form-control" })
+        @Html.LabelFor(m => m.HistoryOfMammogram)
+        @Html.TextBoxFor(m => m.HistoryOfMammogram, new { @class = "form-control" })
+    </div>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.PersonalHistoryOfBreastCancer) Personal history of breast cancer
+        </label>
+    </div>
+
+    <div>
+
+        <label>Family history of breast cancer</label>
+        <div class="checkbox">
+            <label>
+                @Html.CheckBoxFor(m => m.Mother) Mother
+            </label>
+
+        </div>
+        @Html.LabelFor(m => m.MotherAge)
+        @Html.TextBoxFor(m => m.MotherAge, new { @class = "form-control" })
+        <div class="checkbox">
+            <label>
+                @Html.CheckBoxFor(m => m.Sister) Sister
+            </label>
+
+        </div>
+        @Html.LabelFor(m => m.SisterAge)
+        @Html.TextBoxFor(m => m.SisterAge, new { @class = "form-control" })
+        <div class="checkbox">
+            <label>
+                @Html.CheckBoxFor(m => m.Daughter) Daughter
+            </label>
+
+        </div>
+        @Html.LabelFor(m => m.DaughterAge)
+        @Html.TextBoxFor(m => m.DaughterAge, new { @class = "form-control" })
+        <div class="checkbox">
+            <label>
+                @Html.CheckBoxFor(m => m.Grandmother) Grandmother
+            </label>
+
+        </div>
+        @Html.LabelFor(m => m.GrandmotherAge)
+        @Html.TextBoxFor(m => m.GrandmotherAge, new { @class = "form-control" })
+        <div class="checkbox">
+            <label>
+                @Html.CheckBoxFor(m => m.Aunt) Aunt
+            </label>
+
+        </div>
+        @Html.LabelFor(m => m.AuntAge)
+        @Html.TextBoxFor(m => m.AuntAge, new { @class = "form-control" })
+        <div class="checkbox">
+            <label>
+                @Html.CheckBoxFor(m => m.Cousin) Cousin
+            </label>
+
+        </div>
+        @Html.LabelFor(m => m.CousinAge)
+        @Html.TextBoxFor(m => m.CousinAge, new { @class = "form-control" })
+
+    </div>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.TakingHormones) Taking hormones
+        </label>
+    </div>
+    @Html.LabelFor(m => m.HowlongTakingHormones)
+    @Html.TextBoxFor(m => m.HowlongTakingHormones, new { @class = "form-control" })
+
+    <button type="submit" class="btn btn-primary">SAVE</button>
+</form>
+}
+
+
+        @*<h2>General Info</h2>
+
+            <body>
+                <section id="procedureInformation" class="level1" data-section-name="Procedure Information">
+                    <header class="level1">
+                        Procedure Information
+                    </header>
+                    <section id="SECTION_HEADER_1450682011283" class="level2" data-section-name="General information">
+                        <header class="level2">
+                            General information
+                        </header>
+                        <section id="SECTION_HEADER_1450685126630" class="level2" data-section-name="">
+                            <header class="level2"></header>
+                            <p title="">
+                                <label><b>Exam Reason</b></label><br>
+
+                                <input type="radio" id="Check Up" name="Reason" value="Check Up">
+                                <label for="male" style="margin-right: 20px;">ٍScreening</label><br><br>
+                                <input type="radio" id="Pain or Problem" name="Reason" value="Pain or Problem">
+                                <label for="female" style="margin-right: 20px;">Follow Up</label><br><br>
+                                <input type="radio" id="Follow Up" name="Reason" value="Follow Up">
+                                <label for="other">
+                                    Complain  <textarea name="message" id="message" cols="30" rows="10"
+                                                        style="width: 300px;
+                                        height: 40px;
+                                        background: transparent;
+                                        border-radius: 2px;
+                                        "></textarea>
+                                </label>
+
+
+                            </p>
+
+                            <p title="">
+                                <label for="DATE_1449431264015"><b>Exam Date</b></label>
+                                <input type="date" id="DATE_1449431264015" name="" data-field-type="DATE" data-field-completion-action="NONE" value="" />
+                            </p>
+
+                            <p title="">
+                                <label><b>Have you ever had a mammogram?</b></label>
+                                <input type="checkbox" name="vehicle1" value="Bike">
+                                <label for="vehicle1" style="margin-right: 3px;"> </label><br>
+                                <label style="margin-right: 15px;">Where? </label>
+                                <input type="text" id="TEXT_1450682011285" name="" data-field-type="TEXT" data-field-completion-action="NONE" value="" /><br><br>
+                                <label> When?  <input type="text" id="TEXT_1450682011285" name="" data-field-type="TEXT" data-field-completion-action="NONE" value="" style="width: 30px;" />(Year)</label><br><br>
+                                <label>
+                                    Findings <label for="other">
+                                        <textarea name="message" id="message" cols="30" rows="10"
+                                                  style="width: 300px;
+                                            height: 40px;
+                                            background: transparent;
+                                            border-radius: 2px;
+                                            "></textarea>
+                                    </label>
+                                </label>
+
+                            </p>
+                            <p title="">
+                                <label><b>Personal history of breast cancer:</b></label>
+                                <input type="checkbox" name="vehicle1" value="Yes">
+                                <label for="vehicle1" style="margin-right: 3px;"> Yes</label>
+                                <!-- <input type="checkbox" name="vehicle2" value="No">
+                                <label for="vehicle2"> No</label><br>           -->
+
+                            </p>
+                            <p title="">
+                                <label><b>Family history of breast cancer:</b></label><br>
+                                <table style="width:50%">
+
+                                    <tr>
+                                        <td>Mother</td>
+                                        <td>Age: <input type="text" id="TEXT_1450682011285" name="" data-field-type="TEXT" data-field-completion-action="NONE" value="" style="width: 30px;" /></td>
+                                        <td>Grandmother</td>
+                                        <td>Age: <input type="text" id="TEXT_1450682011285" name="" data-field-type="TEXT" data-field-completion-action="NONE" value="" style="width: 30px;" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sister</td>
+                                        <td>Age: <input type="text" id="TEXT_1450682011285" name="" data-field-type="TEXT" data-field-completion-action="NONE" value="" style="width: 30px;" /></td>
+                                        <td>Aunt</td>
+                                        <td>Age: <input type="text" id="TEXT_1450682011285" name="" data-field-type="TEXT" data-field-completion-action="NONE" value="" style="width: 30px;" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Daughter</td>
+                                        <td>Age: <input type="text" id="TEXT_1450682011285" name="" data-field-type="TEXT" data-field-completion-action="NONE" value="" style="width: 30px;" /></td>
+                                        <td>Cousin</td>
+                                        <td>Age: <input type="text" id="TEXT_1450682011285" name="" data-field-type="TEXT" data-field-completion-action="NONE" value="" style="width: 30px;" /></td>
+                                    </tr>
+                                </table>
+
+
+                            </p>
+                            <p title="">
+                                <label><b>Taking hormones:</b></label>
+                                <input type="checkbox" name="vehicle1" value="Yes">
+                                <label for="vehicle1" style="margin-right: 3px;"> </label>
+                                <!-- <input type="checkbox" name="vehicle2" value="No">
+                                <label for="vehicle2" style="margin-right: 15px;"> No</label>  -->
+                                <label>For how long? <input type="text" id="TEXT_1450682011285" name="" data-field-type="TEXT" data-field-completion-action="NONE" value="" style="width:40px ;" /> (Years)</label>
+
+                            </p>
+                            <p title="">
+                                <label><b>Pregnant</b></label>
+                                <input type="checkbox" name="vehicle1" value="Yes">
+                                <label for="vehicle1" style="margin-right: 3px;"> </label>
+                                <!-- <input type="checkbox" name="vehicle2" value="No">
+                                <label for="vehicle2" style="margin-right: 15px;"> No</label>  -->
+                            </p>
+                            <p title="">
+                                <label><b>Have you ever given birth?</b></label>
+                                <input type="checkbox" name="vehicle1" value="Yes">
+                                <label for="vehicle1" style="margin-right: 3px;"> </label>
+                                <!-- <input type="checkbox" name="vehicle2" value="No">
+                                <label for="vehicle2" style="margin-right: 15px;"> No</label>  -->
+                            </p>
+
+                        </section>
+                    </section>
+                </section>
+            </body>*@

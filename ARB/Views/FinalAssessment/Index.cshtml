@@ -1,0 +1,98 @@
+﻿@model Graduation_Project.ViewModels.FinalAssessmentViewModel
+
+@{
+    ViewBag.Title = "FinalAssissment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Save", "FinalAssessment")) {
+<form id="FinalAssessment" class="level1" data-section-name="Final Assessment">
+    <h1> Final Assessment</h1>
+
+
+    <div>
+        @Html.LabelFor(m => m.FinalAssessment.BiradsId)
+        @Html.DropDownListFor(m => m.FinalAssessment.BiradsId, new SelectList(Model.BiRads, "Id", "Name"), "SELECT PLEASE", new { @class = "form-control" })
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.FinalAssessment.RecommendationId)
+        @Html.DropDownListFor(m => m.FinalAssessment.RecommendationId, new SelectList(Model.Recommendations, "Id" ,"Name"), "SELECT PLEASE", new { @class = "form-control" })
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.FinalAssessment.RecommendationText)
+
+        @Html.TextBoxFor(m => m.FinalAssessment.RecommendationText, new { @class = "form-control" })
+    </div>
+    <div>
+        @Html.LabelFor(m => m.FinalAssessment.Conc)
+
+        @Html.TextBoxFor(m => m.FinalAssessment.Conc, new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">SAVE</button>
+</form>
+
+}
+
+    @*<h2>Final Assissment</h2>
+
+        <body>
+            <section id="impression" class="level1" data-section-name="Impression" >
+
+                <section id="SECTION_HEADER_1450682011292" class="level2" data-section-name="Conclusie en advies">
+                    <header class="level1">
+                        <b>
+                            Final assessment
+                        </b>
+                    </header>
+                    <section id="SECTION_HEADER_1450685126622" class="level2" data-section-name="">
+                        <header class="level2"></header>
+                        <section id="SECTION_HEADER_1450685126627" class="level2" data-section-name="conclusie">
+
+
+                            <p title="">
+                                <label for="SELECTION_LIST_1449432120754">BIRADS Categories</label>
+                                <select id="SELECTION_LIST_1449432120754" name="" data-field-type="SELECTION_LIST" data-field-completion-action="NONE" value="0">
+                                    <option id="SELECTION_LIST_1449432120754_0" value="0" name="SELECTION_LIST_1449432120754" selected="">0</option>
+                                    <option id="SELECTION_LIST_1449432120754_1" value="1" name="SELECTION_LIST_1449432120754">1</option>
+                                    <option id="SELECTION_LIST_1449432120754_2" value="2" name="SELECTION_LIST_1449432120754">2</option>
+                                    <option id="SELECTION_LIST_1449432120754_3" value="3" name="SELECTION_LIST_1449432120754">3</option>
+                                    <option id="SELECTION_LIST_1449432120754_4" value="4" name="SELECTION_LIST_1449432120754">4</option>
+                                    <option id="SELECTION_LIST_1449432120754_5" value="4a" name="SELECTION_LIST_1449432120754">4a</option>
+                                    <option id="SELECTION_LIST_1449432120754_6" value="4b" name="SELECTION_LIST_1449432120754">4b</option>
+                                    <option id="SELECTION_LIST_1449432120754_7" value="4c" name="SELECTION_LIST_1449432120754">4c</option>
+                                    <option id="SELECTION_LIST_1449432120754_8" value="5" name="SELECTION_LIST_1449432120754">5</option>
+                                    <option id="SELECTION_LIST_1449432120754_9" value="6" name="SELECTION_LIST_1449432120754">6</option>
+                                </select>
+                            </p>
+                        </section>
+
+                        <p title="">
+                            <label for="SELECTION_LIST_1450682011251">Recommendation</label>
+                            <select id="SELECTION_LIST_1450682011251" name="" data-field-type="SELECTION_LIST" data-field-completion-action="NONE" value="echografie">
+                                <option id="SELECTION_LIST_1450682011251_0" value="echografie" name="SELECTION_LIST_1450682011251" selected="">Ultrasound</option>
+                                <option id="SELECTION_LIST_1450682011251_1" value="MRI" name="SELECTION_LIST_1450682011251">MRI</option>
+                                <option id="SELECTION_LIST_1450682011251_2" value="histologie" name="SELECTION_LIST_1450682011251">Histology</option>
+                                <option id="SELECTION_LIST_1450682011251_3" value="stereotactische bioptie" name="SELECTION_LIST_1450682011251">Stereotactic Biopsy</option>
+                                <option id="SELECTION_LIST_1450682011251_4" value="herhaling beeldvorming over 6 maanden" name="SELECTION_LIST_1450682011251">Repeat imaging over 6 months</option>
+                                <option id="SELECTION_LIST_1450682011251_5" value="geen verder onderzoek meer nodig" name="SELECTION_LIST_1450682011251">No further investigation necessary</option>
+                                <option id="SELECTION_LIST_1450682011251_6" value="geen verder onderzoek meer nodig, retour bevolkingsonderzoek" name="SELECTION_LIST_1450682011251">no further research necessary, return screening</option>
+                            </select><br>
+                            <textarea name="email" value=""></textarea>
+                        </p>
+
+                        <p title="">
+                            <label for="SELECTION_LIST_1449431434881"><b>Conclusion</b></label><br>
+
+                            <textarea name="email" value=""></textarea>
+
+                        </p>
+
+
+
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </section>
+                </section>
+            </section>
+        </body>*@

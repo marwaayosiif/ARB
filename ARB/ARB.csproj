@@ -165,19 +165,50 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\API\ClinicalInfoController.cs" />
+    <Compile Include="Controllers\API\FinalAssessmentController.cs" />
+    <Compile Include="Controllers\API\GeneralInfoController.cs" />
+    <Compile Include="Controllers\ClinicalInfoController.cs" />
+    <Compile Include="Controllers\FinalAssessmentController.cs" />
+    <Compile Include="Controllers\GeneralInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Dtos\BiRadsDto.cs" />
+    <Compile Include="Dtos\ClinicalInfoDto.cs" />
+    <Compile Include="Dtos\FinalAssessmentDto.cs" />
+    <Compile Include="Dtos\GeneralInfoDto.cs" />
+    <Compile Include="Dtos\RecommendationDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Asymmetries.cs" />
+    <Compile Include="Models\BiRads.cs" />
+    <Compile Include="Models\ClacificationDistribution.cs" />
+    <Compile Include="Models\ClacificationSuspiciousMorphology.cs" />
+    <Compile Include="Models\ClacificationTypicallyBenign.cs" />
+    <Compile Include="Models\ClinicalInfo.cs" />
+    <Compile Include="Models\ClockFace.cs" />
+    <Compile Include="Models\Doctor.cs" />
+    <Compile Include="Models\Features.cs" />
+    <Compile Include="Models\FinalAssessment.cs" />
+    <Compile Include="Models\GeneralInfo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MassDensity.cs" />
+    <Compile Include="Models\MassMargin.cs" />
+    <Compile Include="Models\Patient.cs" />
+    <Compile Include="Models\Quadrant.cs" />
+    <Compile Include="Models\Recommendation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ClinicalInfoViewModel.cs" />
+    <Compile Include="ViewModels\FinalAssessmentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -201,21 +232,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
@@ -227,14 +243,32 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\ClinicalInfo\Index.cshtml" />
+    <Content Include="Views\FinalAssessment\Index.cshtml" />
+    <Content Include="Views\GeneralInfo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

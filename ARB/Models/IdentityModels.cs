@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using ARB.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -20,10 +21,31 @@ namespace ARB.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<ClinicalInfo> ClinicalInfos { get; set; }
+        public DbSet<Asymmetries> Asymmetries { get; set; }
+        public DbSet<Features> Features { get; set; }
+        public DbSet<Quadrant> Quadrants { get; set; }
+        public DbSet<MassMargin> MassMargin { get; set; }
+        public DbSet<MassDensity> MassDensity { get; set; }
+        public DbSet<ClacificationTypicallyBenign> ClacificationTypicallyBenign { get; set; }
+        public DbSet<ClacificationSuspiciousMorphology> ClacificationSuspiciousMorphology { get; set; }
+        public DbSet<ClacificationDistribution> ClacificationDistribution { get; set; }
+        public DbSet<ClockFace> ClockFaces { get; set; }
+        public DbSet<GeneralInfo> GeneralInfos { get; set; }
+        public DbSet<FinalAssessment> FinalAssessments { get; set; }
+        public DbSet<BiRads> BiRads { get; set; }
+        public DbSet<Recommendation> Recommendations { get; set; }
+    
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+        
+
+
 
         public static ApplicationDbContext Create()
         {

@@ -1,0 +1,196 @@
+﻿@model  Graduation_Project.ViewModels.ClinicalInfoViewModel
+
+@{
+    ViewBag.Title = "ClinicalInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Save", "ClinicalInfo"))
+{
+<form id="clinicalInformation" class="level1" data-section-name="Clinical Information">
+    <h1> Clinical Info</h1>
+
+
+    <div>
+        <label> Breast Compostion</label>
+        <div>
+            @Html.RadioButtonFor(model => model.ClinicalInfo.BreastCompostion, "a", false)@Html.Label("a. The Breasts are almost entirely fatty")
+
+        </div>
+        <div>
+            @Html.RadioButtonFor(model => model.ClinicalInfo.BreastCompostion, "b", false)@Html.Label("b. There are scattered areas of fibroglandular density")
+
+        </div>
+        <div>
+            @Html.RadioButtonFor(model => model.ClinicalInfo.BreastCompostion, "c", false)@Html.Label("c. The breasts are heterogeneously dense, which may obscure small masses")
+
+        </div>
+        <div>
+            @Html.RadioButtonFor(model => model.ClinicalInfo.BreastCompostion, "d", false)@Html.Label("d. The breasts are extremely dense, which lowers the sensitivity of mammography")
+
+        </div>
+
+    </div>
+
+    <div>
+      
+
+        @Html.LabelFor(m => m.ClinicalInfo.AsyId)
+
+        @Html.DropDownListFor(m => m.ClinicalInfo.AsyId
+                                   , new SelectList(Model.Asymmetries, "Name")
+                                   , "Asymmetries"
+                                   , new { @class = "form-control" })
+
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.ClinicalInfo.NumOfMass)
+
+        @Html.TextBoxFor(m => m.ClinicalInfo.NumOfMass, new { @class = "form-control" })
+    </div>
+
+
+
+   <div>
+       <div>
+           <label>Mass: </label>
+           <div>
+               @Html.LabelFor(m => m.ClinicalInfo.MassShape)
+               @Html.RadioButtonFor(model => model.ClinicalInfo.MassShape, "oval", false)@Html.Label("Oval")
+               @Html.RadioButtonFor(model => model.ClinicalInfo.MassShape, "Round", false)@Html.Label("Round")
+               @Html.RadioButtonFor(model => model.ClinicalInfo.MassShape, "Irregular", false)@Html.Label("Irregular")
+           </div>
+
+       </div>
+
+       <div>
+           @Html.LabelFor(m => m.ClinicalInfo.MassMarginId)
+
+           @Html.DropDownListFor(m => m.ClinicalInfo.MassMarginId
+                                    , new SelectList(Model.MassMargin, "Id", "Name")
+                                    , "MassMargin"
+                                    , new { @class = "form-control" })
+       </div>
+
+       <div>
+           @Html.LabelFor(m => m.ClinicalInfo.MassDensityId)
+
+           @Html.DropDownListFor(m => m.ClinicalInfo.MassDensityId
+                                    , new SelectList(Model.MassDensity, "Id", "Name")
+                                    , "MassDensity"
+                                    , new { @class = "form-control" })
+       </div>
+
+   </div>
+
+    <div>
+        <label>Location of Masses:</label>
+        <div>
+            <div>
+                @Html.RadioButtonFor(model => model.ClinicalInfo.Laterality, "Right", false)@Html.Label("Right")
+                @Html.RadioButtonFor(model => model.ClinicalInfo.Laterality, "Left", false)@Html.Label("Left")
+            </div>
+            <div>
+                @Html.LabelFor(m => m.ClinicalInfo.QuadrantId)
+
+                @Html.DropDownListFor(m => m.ClinicalInfo.QuadrantId
+                                         , new SelectList(Model.Quadrant, "Id", "Name")
+                                         , "Quadrant"
+                                         , new { @class = "form-control" })
+            </div>
+            <div>
+                @Html.LabelFor(m => m.ClinicalInfo.ClockFaceId)
+
+                @Html.DropDownListFor(m => m.ClinicalInfo.ClockFaceId
+                                         , new SelectList(Model.ClockFace, "Id", "Name")
+                                         , "ClockFace"
+                                         , new { @class = "form-control" })
+
+            </div>
+
+            <div>
+                @Html.LabelFor(m => m.ClinicalInfo.Depth)
+
+                @Html.TextBoxFor(m => m.ClinicalInfo.Depth, new { @class = "form-control" })
+
+
+            </div>
+
+            <div>
+                @Html.LabelFor(m => m.ClinicalInfo.DistanceFromTheNipple)
+                @Html.TextBoxFor(m => m.ClinicalInfo.DistanceFromTheNipple, new { @class = "form-control" })
+            </div>
+
+        </div>
+    </div>
+    <div>
+        <h1>
+            Clacifications:
+        </h1>
+        <div>
+            @Html.LabelFor(m => m.ClinicalInfo.TypicallyBenignId)
+
+            @Html.DropDownListFor(m => m.ClinicalInfo.TypicallyBenignId
+                                     , new SelectList(Model.ClacificationTypicallyBenign, "Id", "Name")
+                                     , "ClacificationTypicallyBenign"
+                                     , new { @class = "form-control" })
+        </div>
+        <div>
+            @Html.LabelFor(m => m.ClinicalInfo.SuspiciousMorphologyId)
+
+            @Html.DropDownListFor(m => m.ClinicalInfo.SuspiciousMorphologyId
+                                     , new SelectList(Model.ClacificationSuspiciousMorphology, "Id", "Name")
+                                     , "ClacificationSuspiciousMorphology"
+                                     , new { @class = "form-control" })
+        </div>
+        <div>
+            @Html.LabelFor(m => m.ClinicalInfo.DistributionId)
+
+            @Html.DropDownListFor(m => m.ClinicalInfo.DistributionId
+                                     , new SelectList(Model.ClacificationDistribution, "Id", "Name")
+                                     , "ClacificationDistribution"
+                                     , new { @class = "form-control" })
+        </div>
+    </div>
+   
+    <div>
+
+    </div>
+
+    <div>
+        <h1>Features</h1>
+        <label>
+            @Html.CheckBoxFor(m => m.ClinicalInfo.Features.SkinRetraction) Skin Retraction
+        </label>
+        <label>
+            @Html.CheckBoxFor(m => m.ClinicalInfo.Features.NippleRetraction) Nipple Retraction
+        </label>
+        <label>
+            @Html.CheckBoxFor(m => m.ClinicalInfo.Features.ArchitecturalDistortion) Architectural Distortion
+        </label>
+        <label>
+            @Html.CheckBoxFor(m => m.ClinicalInfo.Features.IntramammaryLymphNode) Intramammary lymph nod
+        </label>
+        <label>
+            @Html.CheckBoxFor(m => m.ClinicalInfo.Features.SkinLesion) Skin Lesion
+        </label>
+        <label>
+            @Html.CheckBoxFor(m => m.ClinicalInfo.Features.SolitaryDilatedDuct) Solitary Dilated Duct
+        </label>
+        <label>
+            @Html.CheckBoxFor(m => m.ClinicalInfo.Features.TrabecularThickening) Trabecular Thickening
+        </label>
+        <label>
+            @Html.CheckBoxFor(m => m.ClinicalInfo.Features.AxillaryAdenopathy) Axillary adenopathy
+        </label>
+        <label>
+        </label>
+    </div>
+
+     @Html.HiddenFor(m => m.ClinicalInfo.Id)
+        @*@Html.AntiForgeryToken() //to prevent hackers to sign in from more than username*@
+    <button type="submit" class="btn btn-primary"></button>
+</form>
+   
+}
