@@ -21,6 +21,7 @@ namespace ARB.Controllers.API
         // GET api/<controller>
         public IHttpActionResult GetClinicalInfo()
         {
+     
             var clinicalInfoDtos = _context.ClinicalInfos
                 .Include(c => c.Asymmetries)
                 .Include(c => c.ClockFace)
@@ -36,7 +37,7 @@ namespace ARB.Controllers.API
 
         }
 
-        // GET api/<controller>/5
+        // GET api/<controller>/5-
         public IHttpActionResult Get(int id)
         {
             var clinicalInfo = _context.ClinicalInfos.SingleOrDefault(c => c.Id == id);

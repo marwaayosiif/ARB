@@ -9,7 +9,7 @@ namespace ARB.Dtos
     {
         public int Id { get; set; }
         public DateTime ExamDate { get; set; }
-        public int ExamReason { get; set; }
+        public string ExamReason { get; set; }
         public string Complain { get; set; }
         public bool HadAMammogram { get; set; }
         public string WhenHadAMammogram { get; set; }

@@ -38,7 +38,7 @@ namespace ARB.Models
         public DbSet<FinalAssessment> FinalAssessments { get; set; }
         public DbSet<BiRads> BiRads { get; set; }
         public DbSet<Recommendation> Recommendations { get; set; }
-    
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

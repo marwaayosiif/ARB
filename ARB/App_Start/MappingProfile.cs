@@ -27,6 +27,8 @@ namespace ARB.App_Start
                 .ForMember(c => c.Id, opt => opt.Ignore());
             Mapper.CreateMap<RecommendationDto, Recommendation>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
+            Mapper.CreateMap<GeneralInfoDto, GeneralInfo>()
+                .ForMember(c => c.Id, opt => opt.Ignore());
         }
 
     
