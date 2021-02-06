@@ -16,10 +16,11 @@ namespace ARB
         {
             services.AddCors();
         }
+
         public void Configure(IApplicationBuilder app)
         {
             app.UseCors(builder =>
-                builder.WithOrigins("http://10.5.50.75:4200 ")
+                builder.WithOrigins("http://localhost:4200")
                 .AllowAnyMethod()
                 .AllowAnyHeader() 
                 );
