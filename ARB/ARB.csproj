@@ -185,6 +185,7 @@
     <Compile Include="Controllers\API\ClinicalInfoController.cs" />
     <Compile Include="Controllers\API\FinalAssessmentController.cs" />
     <Compile Include="Controllers\API\GeneralInfoController.cs" />
+    <Compile Include="Controllers\API\PatientController.cs" />
     <Compile Include="Controllers\ClinicalInfoController.cs" />
     <Compile Include="Controllers\FinalAssessmentController.cs" />
     <Compile Include="Controllers\GeneralInfoController.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="Dtos\ClinicalInfoDto.cs" />
     <Compile Include="Dtos\FinalAssessmentDto.cs" />
     <Compile Include="Dtos\GeneralInfoDto.cs" />
+    <Compile Include="Dtos\PatientDto.cs" />
     <Compile Include="Dtos\RecommendationDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
