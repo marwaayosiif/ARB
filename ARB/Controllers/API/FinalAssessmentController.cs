@@ -36,7 +36,8 @@ namespace ARB.Controllers.API
         //GET /api/finalassessment/1
         public IHttpActionResult GetFinalAssessment(int id)
         {
-            var finalAssessment = _context.FinalAssessments.SingleOrDefault(f => f.Id == id);
+            var finalAssessment = _context.FinalAssessments.Include(f => f.BiRads)
+                .Include(f => f.Recommendation).SingleOrDefault(f => f.Id == id);
 
             if (finalAssessment == null)
                 return NotFound();
