@@ -18,6 +18,7 @@ namespace ARB.App_Start
             Mapper.CreateMap<Recommendation, RecommendationDto>();
             Mapper.CreateMap<ClinicalInfo, ClinicalInfoDto>();
             Mapper.CreateMap<Patient, PatientDto>();
+            Mapper.CreateMap<Doctor, DoctorDto>();
 
             Mapper.CreateMap<GeneralInfo, GeneralInfoDto>();
 
@@ -31,6 +32,8 @@ namespace ARB.App_Start
             Mapper.CreateMap<GeneralInfoDto, GeneralInfo>()
                 .ForMember(c => c.Id, opt => opt.Ignore());   
             Mapper.CreateMap<PatientDto, Patient>()
+                  .ForMember(c => c.Id, opt => opt.Ignore());
+            Mapper.CreateMap<DoctorDto, Doctor>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
         }
 

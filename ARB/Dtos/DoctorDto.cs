@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ARB.Models
+namespace ARB.Dtos
 {
-    public class Doctor
+    public class DoctorDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        public List<Patient> Patients { get; set; }
-        public List<int> PatientsId { get; set; }
-
+        public List<PatientDto> Patient { get; set; }
+        public List<int> PatientId { get; set; }
     }
 }

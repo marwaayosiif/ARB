@@ -79,11 +79,17 @@ namespace ARB.Controllers.API
         public IHttpActionResult Delete(int id)
         {
             var patientInDb = _context.Patients.SingleOrDefault(g => g.Id == id);
+            var clincalinfoInDb = _context.ClinicalInfos.SingleOrDefault(c => c.Id== patientInDb.ClinicalInfoId);
+            var featuresInDb = _context.Features.SingleOrDefault(c => c.Id == clincalinfoInDb.FeatureId);
 
             if (patientInDb == null)
                 return NotFound();
-
+          
+            
+            _context.Features.Remove(featuresInDb);
+            _context.ClinicalInfos.Remove(clincalinfoInDb);
             _context.Patients.Remove(patientInDb);
+
             _context.SaveChanges();
 
             return Ok();
