@@ -243,6 +243,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\ClinicalInfoController.cs" />
+    <Compile Include="Controllers\API\ComboBoxController.cs" />
     <Compile Include="Controllers\API\DoctorController.cs" />
     <Compile Include="Controllers\API\FinalAssessmentController.cs" />
     <Compile Include="Controllers\API\GeneralInfoController.cs" />
@@ -319,6 +320,10 @@
     <Compile Include="Migrations\202102071153139_AddingcomboBoxName.cs" />
     <Compile Include="Migrations\202102071153139_AddingcomboBoxName.Designer.cs">
       <DependentUpon>202102071153139_AddingcomboBoxName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102071234159_RemovingRadio.cs" />
+    <Compile Include="Migrations\202102071234159_RemovingRadio.Designer.cs">
+      <DependentUpon>202102071234159_RemovingRadio.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -474,6 +479,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102071153139_AddingcomboBoxName.resx">
       <DependentUpon>202102071153139_AddingcomboBoxName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102071234159_RemovingRadio.resx">
+      <DependentUpon>202102071234159_RemovingRadio.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,6 +1,7 @@
 ﻿using ARB.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -20,7 +21,7 @@ namespace ARB.Controllers.API
         // GET api/<controller>
         public IHttpActionResult Gettests()
         {
-            var test = _context.test.ToList();
+            var test = _context.test.Include(t => t.ComboBox).ToList();
 
             return Ok(test);
         }
@@ -63,14 +64,13 @@ namespace ARB.Controllers.API
                 return BadRequest();
 
             var testInDb = _context.test.SingleOrDefault(g => g.Id == id);
-
+             
             if (testInDb == null)
                 return NotFound();
             else
                 testInDb.Name = TEST.Name;
                 testInDb.Number = TEST.Number;
                 testInDb.Checkbox = TEST.Checkbox;
-            testInDb.Radio = TEST.Radio;
             testInDb.ComboBoxId = TEST.ComboBoxId;
             _context.SaveChanges();
 
