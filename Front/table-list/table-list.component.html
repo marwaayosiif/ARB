@@ -1,0 +1,140 @@
+
+
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title ">Simple Table</h4>
+                      <p class="card-category"> Here is a subtitle for this table</p>
+                      <form class="navbar-form">
+                        <div class="input-group no-border">
+                            <input type="text" value="" class="form-control" placeholder="Search...">
+                            <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                <i class="material-icons">search</i>
+                                <div class="ripple-container"></div>
+                            </button>
+                        </div>
+                    </form>
+                  </div>
+                  
+                  <div class="card-body">
+                      <div class="table-responsive"> 
+                          
+                           <!-- <form >
+                              <thead class=" text-primary">
+                                  <th>
+                                    Patient Id
+                                  </th>
+                                  <th>
+                                    Patient Name
+                                  </th>
+                                  <th>
+                                    Modality
+                                  </th>
+                                  <th>
+                                    Study Date
+                                  </th>
+                                  <th>
+                                    Status
+                                  </th>
+                                  <th>
+                                    Referring Doctor 
+                                  </th>
+                              </thead>
+                            <tbody>
+Henaaa Insert "POST"
+                            </tbody>
+                            </form> -->
+                         
+                                <form #form="ngForm" (submit)="OnSubmit(form)">
+                                    <input name = "id" type="hidden" [value]="service.testData.id"/>
+                                    <div class="form-group">
+                                        <label>
+                                            Name
+                                        </label>
+                                        <input placeholder="name" name = "name" #name = "ngModel" [(ngModel)] = "service.testData.name">
+                                
+                                    </div>
+                                    <div class="form-group">
+                                      <label>
+                                          Number
+                                      </label>
+                                      <input placeholder="number" name = "number" #number = "ngModel" [(ngModel)] = "service.testData.number">
+                              
+                                  </div>
+                                  <div class="form-group">
+                                    <label>
+                                        Checkbox
+                                    </label>
+                                    <input type = "checkbox" name = "checkbox" #checkbox = "ngModel" [(ngModel)] = "service.testData.checkbox">
+                            
+                                </div>
+                                <!-- <label class="container">Screaning
+                                  <input type="radio" name="radio" #radio = "ngModel" [(ngModel)] = "service.testData.radio">
+                                  <span class="checkmark"></span>
+                                </label>
+                                <label class="container">Follow Up
+                                  <input type="radio" name="radio" #radio = "ngModel" [(ngModel)] = "service.testData.radio">
+                                  <span class="checkmark"></span>
+                                </label>
+                                <label class="container">Complain
+                                  <input type="radio" name="radio" #radio = "ngModel" [(ngModel)] = "service.testData.radio">
+                                  <span class="checkmark"></span>
+                                </label> -->
+                              
+                                <div class="form-group focused">
+                                  <h5 class="form-control-label" for="Mammo-history" style="margin-right: 15px; padding-top: 15px;"> Test </h5>
+                                  <select class="custom-select" name = "comboBoxId" #comboBoxId = "ngModel" [(ngModel)] = "service.testData.comboBoxId">
+                                    <option value = "0"> SELECT</option>
+                                    <option *ngFor="let item of comboList" value="{{item.id}}">{{item.name}}</option>
+                                  </select>
+                                </div>
+                        
+                                    <div>
+                                        <button type="submit"> Submit </button>
+                                    </div>
+                                   
+                                </form> 
+                              
+                             
+                                <div>
+                                  <!-- <label> TESTS</label> -->
+                                  <table class="table">
+                                    <thead class="thead-light">
+                                      <tr>
+                                        <th> Name</th>
+                                        <th> Number</th>
+                                        <th> Checkbox</th>
+                                        <!-- <th> Radio</th> -->
+                                        <th> Combo</th>
+                                        <th> Delete</th>
+                                      </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                      <tr *ngFor = "let pd of service.list">
+                                        
+                                          <td (click)="populateForm(pd)">{{pd.name}}</td>
+                                          <td (click)="populateForm(pd)">{{pd.number}}</td>
+                                          <td (click)="populateForm(pd)">{{pd.checkbox}}</td>
+                                          <!-- <td (click)="populateForm(pd)">{{pd.radio}}</td> -->
+                                          <td (click)="populateForm(pd)">{{pd.comboBoxId}}</td>
+                                          <td>
+                                             <button (click)= DeleteOn(pd.id)>Delete</button>
+                                          </td>
+                                      </tr>
+                                      
+                                    </tbody>
+                                  </table>
+                                </div>
+
+                    </div>            
+                  </div>
+              </div>
+          </div>
+
+      </div>
+  </div>
+</div>
