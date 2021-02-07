@@ -12,6 +12,7 @@ namespace ARB.Models
         public int Number { get; set; }
         public bool Checkbox { get; set; }
         public string Radio { get; set; }
-        public string Combo { get; set; }
+        public ComboBox ComboBox { get; set; }
+        public int ComboBoxId { get; set; }
     }
 }
