@@ -12,11 +12,11 @@ namespace ARB.Dtos
         public DateTime BirthDate { get; set; }
         public string Modality { get; set; }
         public string Status { get; set; }
-        public ClinicalInfo ClinicalInfo { get; set; }
+        public ClinicalInfoDto ClinicalInfo { get; set; }
         public int ClinicalInfoId { get; set; }
         public GeneralInfo GeneralInfo { get; set; }
         public int GeneralInfoId { get; set; }
-        public FinalAssessment FinalAssessment { get; set; }
+        public FinalAssessmentDto FinalAssessment { get; set; }
         public int FinalAssessmentId { get; set; }
     }
 }

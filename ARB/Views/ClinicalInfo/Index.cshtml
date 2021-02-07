@@ -38,7 +38,7 @@
         @Html.LabelFor(m => m.ClinicalInfo.AsyId)
 
         @Html.DropDownListFor(m => m.ClinicalInfo.AsyId
-                                   , new SelectList(Model.Asymmetries, "Name")
+                                   , new SelectList(Model.Asymmetries,"Id" ,"Name")
                                    , "Asymmetries"
                                    , new { @class = "form-control" })
 

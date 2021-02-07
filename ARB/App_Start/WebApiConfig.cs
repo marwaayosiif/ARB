@@ -28,3 +28,104 @@ namespace ARB
         }
     }
 }
+
+/*{
+    "name": "name",
+"birthDate": "12Dec1999",
+"modality": "Mamaograph",
+"status": "incomplete",
+"clinicalInfo":
+	{
+
+        "id": 1,
+        "breastCompostion": "a",
+        "numOfMass": 110,
+        "asymmetries": null,
+        "asyId": 0,
+        "features": null,
+        "featuresId": 0,
+        "massShape": "oval",
+        "massMargin": {
+            "id": 2,
+            "name": "Microlobulated"
+        },
+        "massMarginId": 2,
+        "massDensity": {
+            "id": 2,
+            "name": "Equal density"
+        },
+        "massDensityId": 2,
+        "typicallyBenign": {
+            "id": 3,
+            "name": "Large"
+        },
+        "typicallyBenignId": 3,
+        "suspiciousMorphology": {
+            "id": 3,
+            "name": "Fine pleomorphic"
+        },
+        "suspiciousMorphologyId": 3,
+        "distribution": null,
+        "distributionId": 1,
+        "laterality": "Right",
+        "quadrant": {
+            "id": 2,
+            "name": "Lower inner"
+        },
+        "quadrantId": 2,
+        "clockFace": {
+            "id": 3,
+            "name": 3
+        },
+        "clockFaceId": 3,
+        "depth": "12",
+        "distanceFromTheNipple": "1"
+},
+"ClinicalInfoId": 1,
+"GeneralInfo":
+	{
+        "id": 2,
+        "examDate": "0001-01-01T00:00:00",
+        "examReason": "Follow Up",
+        "complain": null,
+        "hadAMammogram": false,
+        "whenHadAMammogram": null,
+        "whereHadAMammogram": null,
+        "historyOfMammogram": null,
+        "personalHistoryOfBreastCancer": false,
+        "mother": false,
+        "motherAge": 0,
+        "sister": false,
+        "sisterAge": 0,
+        "daughter": false,
+        "daughterAge": 0,
+        "grandmother": false,
+        "grandmotherAge": 0,
+        "aunt": false,
+        "auntAge": 0,
+        "cousin": false,
+        "cousinAge": 0,
+        "takingHormones": false,
+        "howlongTakingHormones": null
+    },
+
+"GeneralInfoId": 2,
+"FinalAssessment":
+{
+
+        "id": 6,
+    "biRads": {
+            "id": 2,
+        "name": "1"
+    },
+    "recommendation": {
+            "id": 2,
+        "name": "MRI"
+    },
+    "recommendationId": 2,
+    "recommendationText": "112",
+    "conc": "11"
+
+},
+"FinalAssessmentId": 6
+}*/
