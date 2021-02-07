@@ -16,6 +16,7 @@ namespace ARB
         {
             services.AddCors();
         }
+
         public void Configure(IApplicationBuilder app)
         {
             app.UseCors(builder =>

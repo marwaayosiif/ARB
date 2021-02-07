@@ -30,7 +30,6 @@ namespace ARB.Controllers.API
                 .Include(c => c.Quadrant)
                 .Include(c => c.SuspiciousMorphology)
                 .Include(c => c.TypicallyBenign)
-                .Include(c=>c.Features)
                 .ToList()
                 .Select(Mapper.Map<ClinicalInfo, ClinicalInfoDto>);
             return Ok(clinicalInfoDtos);
@@ -40,7 +39,15 @@ namespace ARB.Controllers.API
         // GET api/<controller>/5-
         public IHttpActionResult Get(int id)
         {
-            var clinicalInfo = _context.ClinicalInfos.SingleOrDefault(c => c.Id == id);
+            var clinicalInfo = _context.ClinicalInfos
+                .Include(c => c.Asymmetries)
+                .Include(c => c.ClockFace)
+                .Include(c => c.MassMargin)
+                .Include(c => c.MassDensity)
+                .Include(c => c.Quadrant)
+                .Include(c => c.SuspiciousMorphology)
+                .Include(c => c.TypicallyBenign)
+                .ToList().SingleOrDefault(c => c.Id == id);
             if (clinicalInfo == null)
             {
                 return NotFound();

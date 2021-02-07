@@ -4,10 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Data.Entity;
+using AutoMapper;
 using ARB.Models;
 using ARB.Dtos;
-using AutoMapper;
-
 namespace ARB.Controllers.API
 {
     public class PatientController : ApiController
@@ -18,11 +18,43 @@ namespace ARB.Controllers.API
         {
             _context = new ApplicationDbContext();
         }
+
+
+     
+
         // GET api/<controller>
 
         public IHttpActionResult Get()
         {
-            var patient = _context.Patients.ToList().Select(Mapper.Map<Patient, PatientDto>);
+
+            var patient = _context.Patients
+                .ToList()
+                .Select(Mapper.Map<Patient, PatientDto>);
+
+            var clinicalInfoDtos = _context.ClinicalInfos
+                                            .Include(c => c.Asymmetries)
+                                            .Include(c => c.ClockFace)
+                                            .Include(c => c.MassMargin)
+                                            .Include(c => c.MassDensity)
+                                            .Include(c => c.Quadrant)
+                                            .Include(c => c.SuspiciousMorphology)
+                                            .Include(c => c.TypicallyBenign)
+                                            .ToList()
+                                            .Select(Mapper.Map<ClinicalInfo, ClinicalInfoDto>);
+
+            var finalAssessmentDto = _context.FinalAssessments
+                                            .Include(f => f.BiRads)
+                                            .Include(f => f.Recommendation).ToList()
+                                            .Select(Mapper.Map<FinalAssessment, FinalAssessmentDto>);
+
+            foreach (var p in patient)
+            {
+
+                p.ClinicalInfo = clinicalInfoDtos.SingleOrDefault(c => c.Id == p.ClinicalInfoId);
+                p.GeneralInfo = _context.GeneralInfos.SingleOrDefault(c => c.Id == p.GeneralInfoId);
+                p.FinalAssessment = finalAssessmentDto.SingleOrDefault(c => c.Id == p.FinalAssessmentId);
+               
+            };
 
             return Ok(patient);
         }
@@ -30,7 +62,11 @@ namespace ARB.Controllers.API
         // GET api/<controller>/5
         public IHttpActionResult Get(int id)
         {
-            var patient = _context.Patients.SingleOrDefault(p => p.Id == id);
+            var patient = _context.Patients
+                    .Include(p=>p.ClinicalInfo)
+                    .Include(p=>p.GeneralInfo)
+                    .Include(p=>p.FinalAssessment)
+                    .SingleOrDefault(p => p.Id == id);
 
             if (patient == null)
                 return NotFound();
@@ -49,7 +85,7 @@ namespace ARB.Controllers.API
             _context.Patients.Add(patient);
             _context.SaveChanges();
 
-            patient.Id = patient.Id;
+            patientDto.Id = patient.Id;
             return Created(new Uri(Request.RequestUri + "/" + patient.Id), patientDto);
             //return Ok();
         }
@@ -67,8 +103,8 @@ namespace ARB.Controllers.API
             if (patientInDb == null)
                 return NotFound();
 
-            Mapper.Map(patientDto, patientInDb);
-
+         /*   Mapper.Map(patientDto, patientInDb);*/
+            patientInDb.BirthDate = patientDto.BirthDate;
             _context.SaveChanges();
 
             return Ok();
@@ -81,15 +117,17 @@ namespace ARB.Controllers.API
             var patientInDb = _context.Patients.SingleOrDefault(g => g.Id == id);
             var clincalinfoInDb = _context.ClinicalInfos.SingleOrDefault(c => c.Id== patientInDb.ClinicalInfoId);
             var featuresInDb = _context.Features.SingleOrDefault(c => c.Id == clincalinfoInDb.FeatureId);
-
+            var FinalAssesmentInDb = _context.FinalAssessments.SingleOrDefault(f => f.Id == patientInDb.Id);
+            var RecommendationInDb = _context.Recommendations.SingleOrDefault(r => r.Id == FinalAssesmentInDb.RecommendationId);
             if (patientInDb == null)
                 return NotFound();
           
             
             _context.Features.Remove(featuresInDb);
             _context.ClinicalInfos.Remove(clincalinfoInDb);
+            _context.Recommendations.Remove(RecommendationInDb);
+            _context.FinalAssessments.Remove(FinalAssesmentInDb);
             _context.Patients.Remove(patientInDb);
-
             _context.SaveChanges();
 
             return Ok();
