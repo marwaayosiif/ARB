@@ -70,9 +70,9 @@ namespace ARB.Controllers.API
                 testInDb.Name = TEST.Name;
                 testInDb.Number = TEST.Number;
                 testInDb.Checkbox = TEST.Checkbox;
-                testInDb.Radio = TEST.Radio;
-                testInDb.Combo = TEST.Combo;
-                _context.SaveChanges();
+            testInDb.Radio = TEST.Radio;
+            testInDb.ComboBoxId = TEST.ComboBoxId;
+            _context.SaveChanges();
 
             return Ok();
         }

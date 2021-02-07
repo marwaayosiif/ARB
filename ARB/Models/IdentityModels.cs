@@ -39,6 +39,9 @@ namespace ARB.Models
         public DbSet<BiRads> BiRads { get; set; }
         public DbSet<Recommendation> Recommendations { get; set; }
         public DbSet<test> test { get; set; }
+        //public DbSet<combo> combo { get; set; }
+        public DbSet<ComboBox> ComboBox { get; set; }
+
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

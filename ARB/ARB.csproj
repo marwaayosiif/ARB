@@ -300,6 +300,26 @@
     <Compile Include="Migrations\202102071013271_TestModelModify2.Designer.cs">
       <DependentUpon>202102071013271_TestModelModify2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102071143110_combo.cs" />
+    <Compile Include="Migrations\202102071143110_combo.Designer.cs">
+      <DependentUpon>202102071143110_combo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102071143326_Addingcombo.cs" />
+    <Compile Include="Migrations\202102071143326_Addingcombo.Designer.cs">
+      <DependentUpon>202102071143326_Addingcombo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102071147557_test2.cs" />
+    <Compile Include="Migrations\202102071147557_test2.Designer.cs">
+      <DependentUpon>202102071147557_test2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102071151459_AddingcomboBox.cs" />
+    <Compile Include="Migrations\202102071151459_AddingcomboBox.Designer.cs">
+      <DependentUpon>202102071151459_AddingcomboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102071153139_AddingcomboBoxName.cs" />
+    <Compile Include="Migrations\202102071153139_AddingcomboBoxName.Designer.cs">
+      <DependentUpon>202102071153139_AddingcomboBoxName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Asymmetries.cs" />
@@ -309,6 +329,7 @@
     <Compile Include="Models\ClacificationTypicallyBenign.cs" />
     <Compile Include="Models\ClinicalInfo.cs" />
     <Compile Include="Models\ClockFace.cs" />
+    <Compile Include="Models\ComboBox.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\Features.cs" />
     <Compile Include="Models\FinalAssessment.cs" />
@@ -438,6 +459,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102071013271_TestModelModify2.resx">
       <DependentUpon>202102071013271_TestModelModify2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102071143110_combo.resx">
+      <DependentUpon>202102071143110_combo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102071143326_Addingcombo.resx">
+      <DependentUpon>202102071143326_Addingcombo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102071147557_test2.resx">
+      <DependentUpon>202102071147557_test2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102071151459_AddingcomboBox.resx">
+      <DependentUpon>202102071151459_AddingcomboBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102071153139_AddingcomboBoxName.resx">
+      <DependentUpon>202102071153139_AddingcomboBoxName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
