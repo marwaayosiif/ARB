@@ -284,6 +284,14 @@
     <Compile Include="Migrations\202102060212586_editDoctorDatabase.Designer.cs">
       <DependentUpon>202102060212586_editDoctorDatabase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102061752074_test.cs" />
+    <Compile Include="Migrations\202102061752074_test.Designer.cs">
+      <DependentUpon>202102061752074_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102061754094_test1.cs" />
+    <Compile Include="Migrations\202102061754094_test1.Designer.cs">
+      <DependentUpon>202102061754094_test1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Asymmetries.cs" />
@@ -410,6 +418,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102060212586_editDoctorDatabase.resx">
       <DependentUpon>202102060212586_editDoctorDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102061752074_test.resx">
+      <DependentUpon>202102061752074_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102061754094_test1.resx">
+      <DependentUpon>202102061754094_test1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

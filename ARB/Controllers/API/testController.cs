@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARB.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,25 +10,54 @@ namespace ARB.Controllers.API
 {
     public class testController : ApiController
     {
+
+        private ApplicationDbContext _context;
+
+        public testController()
+        {
+            _context = new ApplicationDbContext();
+        }
         // GET api/<controller>
-        public IEnumerable<string> Get()
+        public IHttpActionResult Gettests()
         {
-            return new string[] { "value1", "value2" };
+            var test = _context.test.ToList();
+
+            return Ok(test);
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        
+        // GET /api/generalinfo/1
+        public IHttpActionResult Gettest(int id)
         {
-            return "value";
+            var test = _context.test.SingleOrDefault(g => g.Id == id);
+
+            if (test == null)
+                return NotFound();
+
+            return Ok(test);
         }
 
-        // POST api/<controller>
-        public void Post([FromBody] string value)
+
+
+        
+        // POST /api/generalinfo
+        [HttpPost]
+        public IHttpActionResult Posttest(test test)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+           
+            _context.test.Add(test);
+            _context.SaveChanges();
+
+           
+            return Created(new Uri(Request.RequestUri + "/" + test.Id), test);
+            //return Ok();
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody]string value)
         {
         }
 
