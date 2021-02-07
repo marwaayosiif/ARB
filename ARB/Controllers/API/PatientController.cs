@@ -19,9 +19,6 @@ namespace ARB.Controllers.API
             _context = new ApplicationDbContext();
         }
 
-
-     
-
         // GET api/<controller>
 
         public IHttpActionResult Get()
@@ -103,8 +100,13 @@ namespace ARB.Controllers.API
             if (patientInDb == null)
                 return NotFound();
 
-         /*   Mapper.Map(patientDto, patientInDb);*/
+            patientInDb.Name = patientDto.Name;
+            patientInDb.ClinicalInfoId = patientDto.ClinicalInfoId;
+            patientInDb.FinalAssessmentId = patientDto.FinalAssessmentId;
+            patientInDb.GeneralInfoId = patientDto.GeneralInfoId;
             patientInDb.BirthDate = patientDto.BirthDate;
+            patientInDb.Modality = patientDto.Modality;
+            patientInDb.Status = patientDto.Status;
             _context.SaveChanges();
 
             return Ok();
@@ -117,7 +119,8 @@ namespace ARB.Controllers.API
             var patientInDb = _context.Patients.SingleOrDefault(g => g.Id == id);
             var clincalinfoInDb = _context.ClinicalInfos.SingleOrDefault(c => c.Id== patientInDb.ClinicalInfoId);
             var featuresInDb = _context.Features.SingleOrDefault(c => c.Id == clincalinfoInDb.FeatureId);
-            var FinalAssesmentInDb = _context.FinalAssessments.SingleOrDefault(f => f.Id == patientInDb.Id);
+            var GeneralInfoInDb = _context.GeneralInfos.SingleOrDefault(c => c.Id== patientInDb.GeneralInfoId);
+            var FinalAssesmentInDb = _context.FinalAssessments.SingleOrDefault(f => f.Id == patientInDb.FinalAssessmentId);
             var RecommendationInDb = _context.Recommendations.SingleOrDefault(r => r.Id == FinalAssesmentInDb.RecommendationId);
             if (patientInDb == null)
                 return NotFound();
@@ -125,6 +128,7 @@ namespace ARB.Controllers.API
             
             _context.Features.Remove(featuresInDb);
             _context.ClinicalInfos.Remove(clincalinfoInDb);
+            _context.GeneralInfos.Remove(GeneralInfoInDb);
             _context.Recommendations.Remove(RecommendationInDb);
             _context.FinalAssessments.Remove(FinalAssesmentInDb);
             _context.Patients.Remove(patientInDb);
