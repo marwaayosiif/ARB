@@ -51,4 +51,6 @@ namespace ARB.Models
         public string Depth { get; set; }
         public string DistanceFromTheNipple { get; set; }
     }
+
+   
 }

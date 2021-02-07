@@ -13,11 +13,14 @@ namespace ARB.Controllers.API
     public class ClinicalInfoController : ApiController
     {
         private ApplicationDbContext _context;
-
+       
         public ClinicalInfoController()
         {
             _context = new ApplicationDbContext();
+             
         }
+
+     
         // GET api/<controller>
         public IHttpActionResult GetClinicalInfo()
         {
@@ -30,6 +33,7 @@ namespace ARB.Controllers.API
                 .Include(c => c.Quadrant)
                 .Include(c => c.SuspiciousMorphology)
                 .Include(c => c.TypicallyBenign)
+                .Include(c=>c.Features)
                 .ToList()
                 .Select(Mapper.Map<ClinicalInfo, ClinicalInfoDto>);
             return Ok(clinicalInfoDtos);
@@ -46,6 +50,7 @@ namespace ARB.Controllers.API
                 .Include(c => c.MassDensity)
                 .Include(c => c.Quadrant)
                 .Include(c => c.SuspiciousMorphology)
+                .Include(c=>c.Features)
                 .Include(c => c.TypicallyBenign)
                 .ToList().SingleOrDefault(c => c.Id == id);
             if (clinicalInfo == null)
@@ -79,8 +84,21 @@ namespace ARB.Controllers.API
             if (clinicalInfoDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            Mapper.Map(clinicalInfoDto, clinicalInfoDto);
-
+            clinicalInfoDb.AsyId = clinicalInfoDto.AsyId;
+            clinicalInfoDb.BreastCompostion = clinicalInfoDto.BreastCompostion;
+            clinicalInfoDb.ClockFaceId = clinicalInfoDto.ClockFaceId;
+            clinicalInfoDb.Depth = clinicalInfoDto.Depth;
+            clinicalInfoDb.DistanceFromTheNipple = clinicalInfoDto.DistanceFromTheNipple;
+            clinicalInfoDb.FeatureId = clinicalInfoDto.FeaturesId;
+            clinicalInfoDb.DistributionId = clinicalInfoDto.DistributionId;
+            clinicalInfoDb.Laterality = clinicalInfoDto.Laterality;
+            clinicalInfoDb.MassDensityId = clinicalInfoDto.MassDensityId;
+            clinicalInfoDb.MassMarginId = clinicalInfoDto.MassMarginId;
+            clinicalInfoDb.MassShape = clinicalInfoDto.MassShape;
+            clinicalInfoDb.NumOfMass = clinicalInfoDto.NumOfMass;
+            clinicalInfoDb.QuadrantId = clinicalInfoDto.QuadrantId;
+            clinicalInfoDb.SuspiciousMorphologyId = clinicalInfoDto.SuspiciousMorphologyId;
+            clinicalInfoDb.TypicallyBenignId = clinicalInfoDto.TypicallyBenignId;
             _context.SaveChanges();
         }
 
@@ -97,3 +115,4 @@ namespace ARB.Controllers.API
         }
     }
 }
+
