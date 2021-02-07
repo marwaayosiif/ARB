@@ -56,14 +56,40 @@ namespace ARB.Controllers.API
             //return Ok();
         }
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        [HttpPut]
+        public IHttpActionResult Updatetest(int id, test TEST)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var testInDb = _context.test.SingleOrDefault(g => g.Id == id);
+
+            if (testInDb == null)
+                return NotFound();
+            else
+                testInDb.Name = TEST.Name;
+                testInDb.Number = TEST.Number;
+                testInDb.Checkbox = TEST.Checkbox;
+                testInDb.Radio = TEST.Radio;
+                testInDb.Combo = TEST.Combo;
+                _context.SaveChanges();
+
+            return Ok();
         }
 
-        // DELETE api/<controller>/5
-        public void Delete(int id)
+        // DELETE /api/generalinfo/1
+        [HttpDelete]
+        public IHttpActionResult Deletetest(int id)
         {
+            var testInDb = _context.test.SingleOrDefault(g => g.Id == id);
+
+            if (testInDb == null)
+                return NotFound();
+
+            _context.test.Remove(testInDb);
+            _context.SaveChanges();
+
+            return Ok();
         }
     }
 }
