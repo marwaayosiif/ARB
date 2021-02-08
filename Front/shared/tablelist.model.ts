@@ -29,5 +29,5 @@ export class test{
     name:string='';
     number:number=0;
     checkbox:boolean=false;
-    // radio:string='';
+    radio:string='';
 }

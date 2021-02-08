@@ -72,6 +72,7 @@ namespace ARB.Controllers.API
                 testInDb.Number = TEST.Number;
                 testInDb.Checkbox = TEST.Checkbox;
             testInDb.ComboBoxId = TEST.ComboBoxId;
+            testInDb.Radio = TEST.Radio;
             _context.SaveChanges();
 
             return Ok();

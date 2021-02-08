@@ -83,6 +83,11 @@ Henaaa Insert "POST"
                                   <input type="radio" name="radio" #radio = "ngModel" [(ngModel)] = "service.testData.radio">
                                   <span class="checkmark"></span>
                                 </label> -->
+
+                                <div>
+                                  <input type="radio" value="yes" name="boolean" [(ngModel)]="service.testData.radio">Yes
+                                  <input type="radio" value="no" name="boolean" [(ngModel)]="service.testData.radio">No
+                                </div>
                               
                                 <div class="form-group focused">
                                   <h5 class="form-control-label" for="Mammo-history" style="margin-right: 15px; padding-top: 15px;"> Test </h5>
@@ -107,7 +112,7 @@ Henaaa Insert "POST"
                                         <th> Name</th>
                                         <th> Number</th>
                                         <th> Checkbox</th>
-                                        <!-- <th> Radio</th> -->
+                                        <th> Radio</th>
                                         <th> Combo</th>
                                         <th> Delete</th>
                                       </tr>
@@ -119,7 +124,7 @@ Henaaa Insert "POST"
                                           <td (click)="populateForm(pd)">{{pd.name}}</td>
                                           <td (click)="populateForm(pd)">{{pd.number}}</td>
                                           <td (click)="populateForm(pd)">{{pd.checkbox}}</td>
-                                          <!-- <td (click)="populateForm(pd)">{{pd.radio}}</td> -->
+                                          <td (click)="populateForm(pd)">{{pd.radio}}</td>
                                           <td (click)="populateForm(pd)">{{pd.comboBoxId}}</td>
                                           <td>
                                              <button (click)= DeleteOn(pd.id)>Delete</button>
