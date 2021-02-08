@@ -245,6 +245,7 @@
     <Compile Include="Controllers\API\ClinicalInfoController.cs" />
     <Compile Include="Controllers\API\ComboBoxController.cs" />
     <Compile Include="Controllers\API\DoctorController.cs" />
+    <Compile Include="Controllers\API\ExamDataController.cs" />
     <Compile Include="Controllers\API\FinalAssessmentController.cs" />
     <Compile Include="Controllers\API\GeneralInfoController.cs" />
     <Compile Include="Controllers\API\PatientController.cs" />
@@ -325,6 +326,14 @@
     <Compile Include="Migrations\202102071234159_RemovingRadio.Designer.cs">
       <DependentUpon>202102071234159_RemovingRadio.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102071627381_EditPatientModel.cs" />
+    <Compile Include="Migrations\202102071627381_EditPatientModel.Designer.cs">
+      <DependentUpon>202102071627381_EditPatientModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102072220524_addExamDataAndEditPatient.cs" />
+    <Compile Include="Migrations\202102072220524_addExamDataAndEditPatient.Designer.cs">
+      <DependentUpon>202102072220524_addExamDataAndEditPatient.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Asymmetries.cs" />
@@ -336,6 +345,7 @@
     <Compile Include="Models\ClockFace.cs" />
     <Compile Include="Models\ComboBox.cs" />
     <Compile Include="Models\Doctor.cs" />
+    <Compile Include="Models\ExamData.cs" />
     <Compile Include="Models\Features.cs" />
     <Compile Include="Models\FinalAssessment.cs" />
     <Compile Include="Models\GeneralInfo.cs" />
@@ -482,6 +492,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102071234159_RemovingRadio.resx">
       <DependentUpon>202102071234159_RemovingRadio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102071627381_EditPatientModel.resx">
+      <DependentUpon>202102071627381_EditPatientModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102072220524_addExamDataAndEditPatient.resx">
+      <DependentUpon>202102072220524_addExamDataAndEditPatient.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

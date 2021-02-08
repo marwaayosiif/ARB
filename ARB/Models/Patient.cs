@@ -9,16 +9,16 @@ namespace ARB.Models
     public class Patient
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTime BirthDate { get; set; }
-        public string Modality { get; set; }
-        public string Status { get; set; }
-        public ClinicalInfo ClinicalInfo { get; set; }
+ 
+        public ExamData ExamData { get; set; }
+        public int ExamDataId { get; set; }
         public int ClinicalInfoId { get; set; }
-        public GeneralInfo GeneralInfo { get; set; }
+        public ClinicalInfo ClinicalInfo { get; set; }
         public int GeneralInfoId { get; set; }
-        public FinalAssessment FinalAssessment { get; set; }
+        public GeneralInfo GeneralInfo { get; set; }
         public int FinalAssessmentId { get; set; }
+        public FinalAssessment FinalAssessment { get; set; }
+       
 
     }
 }

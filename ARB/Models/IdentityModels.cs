@@ -23,6 +23,7 @@ namespace ARB.Models
     {
 
         public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<ExamData> ExamDatas { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<ClinicalInfo> ClinicalInfos { get; set; }
         public DbSet<Asymmetries> Asymmetries { get; set; }

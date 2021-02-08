@@ -14,42 +14,60 @@ namespace ARB.Controllers.API
     {
         private ApplicationDbContext _context;
 
+
         public PatientController()
         {
             _context = new ApplicationDbContext();
+
+
+        }
+        public List<Patient> patients(){
+            var patient = _context.Patients
+                                .Include(p => p.ClinicalInfo)
+                                .Include(p => p.GeneralInfo)
+                                .Include(p => p.FinalAssessment)
+                                .Include(p => p.ExamData)
+                                .ToList();
+            return patient;
+                }
+        public List<ClinicalInfo> clinicalInfos()
+        {
+            var clinicalInfos = _context.ClinicalInfos
+                                       .Include(c => c.Asymmetries)
+                                       .Include(c => c.ClockFace)
+                                       .Include(c => c.MassMargin)
+                                       .Include(c => c.MassDensity)
+                                       .Include(c => c.Quadrant)
+                                       .Include(c => c.SuspiciousMorphology)
+                                       .Include(c => c.TypicallyBenign)
+                                       .Include(c => c.Features)
+                                       .Include(c => c.Distribution)
+                                       .ToList();
+            return clinicalInfos;
         }
 
+        public List<FinalAssessment> finalAssessments() {
+                        return (_context.FinalAssessments
+                            .Include(f => f.BiRads)
+                            .Include(f => f.Recommendation).ToList());
+        }
+
+      
         // GET api/<controller>
 
         public IHttpActionResult Get()
         {
 
-            var patient = _context.Patients
-                .ToList()
-                .Select(Mapper.Map<Patient, PatientDto>);
+       
+            var patient = patients();
 
-            var clinicalInfoDtos = _context.ClinicalInfos
-                                            .Include(c => c.Asymmetries)
-                                            .Include(c => c.ClockFace)
-                                            .Include(c => c.MassMargin)
-                                            .Include(c => c.MassDensity)
-                                            .Include(c => c.Quadrant)
-                                            .Include(c => c.SuspiciousMorphology)
-                                            .Include(c => c.TypicallyBenign)
-                                            .ToList()
-                                            .Select(Mapper.Map<ClinicalInfo, ClinicalInfoDto>);
-
-            var finalAssessmentDto = _context.FinalAssessments
-                                            .Include(f => f.BiRads)
-                                            .Include(f => f.Recommendation).ToList()
-                                            .Select(Mapper.Map<FinalAssessment, FinalAssessmentDto>);
-
-            foreach (var p in patient)
+            foreach (var p in patients())
             {
 
-                p.ClinicalInfo = clinicalInfoDtos.SingleOrDefault(c => c.Id == p.ClinicalInfoId);
+                p.ClinicalInfo = clinicalInfos().SingleOrDefault(c => c.Id == p.ClinicalInfoId);
                 p.GeneralInfo = _context.GeneralInfos.SingleOrDefault(c => c.Id == p.GeneralInfoId);
-                p.FinalAssessment = finalAssessmentDto.SingleOrDefault(c => c.Id == p.FinalAssessmentId);
+                p.FinalAssessment = finalAssessments().SingleOrDefault(c => c.Id == p.FinalAssessmentId);
+                p.ExamData = _context.ExamDatas.SingleOrDefault(c => c.Id == p.ExamDataId);
                
             };
 
@@ -59,12 +77,13 @@ namespace ARB.Controllers.API
         // GET api/<controller>/5
         public IHttpActionResult Get(int id)
         {
-            var patient = _context.Patients
-                    .Include(p=>p.ClinicalInfo)
-                    .Include(p=>p.GeneralInfo)
-                    .Include(p=>p.FinalAssessment)
-                    .SingleOrDefault(p => p.Id == id);
+            var patient = patients().SingleOrDefault(p => p.Id == id);
 
+            patient.ClinicalInfo = clinicalInfos().SingleOrDefault(c => c.Id == patient.ClinicalInfoId);
+            patient.GeneralInfo = _context.GeneralInfos.SingleOrDefault(c => c.Id == patient.GeneralInfoId);
+            patient.FinalAssessment = finalAssessments().SingleOrDefault(c => c.Id == patient.FinalAssessmentId);
+            patient.ExamData = _context.ExamDatas.SingleOrDefault(c => c.Id == patient.ExamDataId);
+            
             if (patient == null)
                 return NotFound();
 
@@ -100,13 +119,11 @@ namespace ARB.Controllers.API
             if (patientInDb == null)
                 return NotFound();
 
-            patientInDb.Name = patientDto.Name;
             patientInDb.ClinicalInfoId = patientDto.ClinicalInfoId;
             patientInDb.FinalAssessmentId = patientDto.FinalAssessmentId;
             patientInDb.GeneralInfoId = patientDto.GeneralInfoId;
-            patientInDb.BirthDate = patientDto.BirthDate;
-            patientInDb.Modality = patientDto.Modality;
-            patientInDb.Status = patientDto.Status;
+            patientInDb.ExamDataId = patientDto.ExamDataId;
+
             _context.SaveChanges();
 
             return Ok();
@@ -122,6 +139,7 @@ namespace ARB.Controllers.API
             var GeneralInfoInDb = _context.GeneralInfos.SingleOrDefault(c => c.Id== patientInDb.GeneralInfoId);
             var FinalAssesmentInDb = _context.FinalAssessments.SingleOrDefault(f => f.Id == patientInDb.FinalAssessmentId);
             var RecommendationInDb = _context.Recommendations.SingleOrDefault(r => r.Id == FinalAssesmentInDb.RecommendationId);
+            
             if (patientInDb == null)
                 return NotFound();
           

@@ -26,16 +26,17 @@ namespace ARB.Controllers.API
         {
      
             var clinicalInfoDtos = _context.ClinicalInfos
-                .Include(c => c.Asymmetries)
-                .Include(c => c.ClockFace)
-                .Include(c => c.MassMargin)
-                .Include(c => c.MassDensity)
-                .Include(c => c.Quadrant)
-                .Include(c => c.SuspiciousMorphology)
-                .Include(c => c.TypicallyBenign)
-                .Include(c=>c.Features)
-                .ToList()
-                .Select(Mapper.Map<ClinicalInfo, ClinicalInfoDto>);
+                                            .Include(c => c.Asymmetries)
+                                            .Include(c => c.ClockFace)
+                                            .Include(c => c.MassMargin)
+                                            .Include(c => c.MassDensity)
+                                            .Include(c => c.Quadrant)
+                                            .Include(c => c.SuspiciousMorphology)
+                                            .Include(c => c.Features)
+                                            .Include(c => c.TypicallyBenign)
+                                            .Include(c => c.Distribution)
+                                            .ToList()
+                                            .Select(Mapper.Map<ClinicalInfo, ClinicalInfoDto>);
             return Ok(clinicalInfoDtos);
 
         }
@@ -52,7 +53,9 @@ namespace ARB.Controllers.API
                 .Include(c => c.SuspiciousMorphology)
                 .Include(c=>c.Features)
                 .Include(c => c.TypicallyBenign)
+                .Include(c => c.Distribution)
                 .ToList().SingleOrDefault(c => c.Id == id);
+            
             if (clinicalInfo == null)
             {
                 return NotFound();
