@@ -9,7 +9,7 @@ namespace ARB.Dtos
     {
         public int Id { get; set; }
         public BiRadsDto BiRads { get; set; }
-
+        public int BiRadsId { get; set; }
         public RecommendationDto Recommendation { get; set; }
         public int RecommendationId { get; set; }
         public string RecommendationText { get; set; }

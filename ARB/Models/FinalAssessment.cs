@@ -9,7 +9,7 @@ namespace ARB.Models
     {
         public int Id { get; set; }
         public BiRads BiRads { get; set; }
-        public int BiradsId { get; set; }
+        public int BiRadsId { get; set; }
         public Recommendation Recommendation { get; set; }
         public int RecommendationId { get; set; }
         public string RecommendationText { get; set; }
