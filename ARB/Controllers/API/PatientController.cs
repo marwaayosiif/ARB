@@ -52,7 +52,8 @@ namespace ARB.Controllers.API
                             .Include(f => f.Recommendation).ToList());
         }
 
-      
+        [Route("api/patient/")]
+        [HttpGet]
         // GET api/<controller>
 
         public IHttpActionResult Get()
@@ -91,6 +92,7 @@ namespace ARB.Controllers.API
         }
 
         // POST api/<controller>
+        [Route("api/patient/")]
         [HttpPost]
         public IHttpActionResult Post(Patient patient)
         {

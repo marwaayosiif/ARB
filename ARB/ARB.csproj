@@ -338,6 +338,26 @@
     <Compile Include="Migrations\202102080439223_RadioButton.Designer.cs">
       <DependentUpon>202102080439223_RadioButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102091812086_FinalAssessmentDto.cs" />
+    <Compile Include="Migrations\202102091812086_FinalAssessmentDto.Designer.cs">
+      <DependentUpon>202102091812086_FinalAssessmentDto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102091824552_FinalAssessmentDto1.cs" />
+    <Compile Include="Migrations\202102091824552_FinalAssessmentDto1.Designer.cs">
+      <DependentUpon>202102091824552_FinalAssessmentDto1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102091936574_ModifyFinal.cs" />
+    <Compile Include="Migrations\202102091936574_ModifyFinal.Designer.cs">
+      <DependentUpon>202102091936574_ModifyFinal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102092041463_changePatientData.cs" />
+    <Compile Include="Migrations\202102092041463_changePatientData.Designer.cs">
+      <DependentUpon>202102092041463_changePatientData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102092111090_test3.cs" />
+    <Compile Include="Migrations\202102092111090_test3.Designer.cs">
+      <DependentUpon>202102092111090_test3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Asymmetries.cs" />
@@ -505,6 +525,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102080439223_RadioButton.resx">
       <DependentUpon>202102080439223_RadioButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102091812086_FinalAssessmentDto.resx">
+      <DependentUpon>202102091812086_FinalAssessmentDto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102091824552_FinalAssessmentDto1.resx">
+      <DependentUpon>202102091824552_FinalAssessmentDto1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102091936574_ModifyFinal.resx">
+      <DependentUpon>202102091936574_ModifyFinal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102092041463_changePatientData.resx">
+      <DependentUpon>202102092041463_changePatientData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102092111090_test3.resx">
+      <DependentUpon>202102092111090_test3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
