@@ -112,14 +112,23 @@ namespace ARB.Controllers.API
         }
 
         // GET api/<ComboBox>
-        [Route("GetCombo")]
+        /*[Route("GetClinicalData")]
 
         public IHttpActionResult Getcombo()
         {
-            var test = _context.ComboBox.ToList();
+            var MassDensity = _context.MassDensity.ToList();
+            var ClacificationDistribution = _context.ClacificationDistribution.ToList();
+            var ClacificationSuspiciousMorphology = _context.ClacificationSuspiciousMorphology.ToList();
+            var ClacificationTypicallyBenign = _context.ClacificationTypicallyBenign.ToList();
+            var ClockFaces = _context.ClockFaces.ToList();
+            var Quadrants = _context.Quadrants.ToList();
+            var MassMargin = _context.MassMargin.ToList();
+            var Asymmetries = _context.Asymmetries.ToList();
+
+            List<string> test ;
 
             return Ok(test);
         }
-
+*/
     }
 }

@@ -65,17 +65,17 @@ namespace ARB.Controllers.API
 
         // POST api/<controller>
         [HttpPost]
-        public IHttpActionResult CreateCustomer(ClinicalInfoDto clinicalInfoDto)
+        public IHttpActionResult CreateClinicalInfo(ClinicalInfo clinicalInfo)
         {
             if (!ModelState.IsValid)
                 /*throw new HttpResponseException(HttpStatusCode.BadRequest);*/
                 return BadRequest();
 
-            var clinicalInfo = Mapper.Map<ClinicalInfoDto, ClinicalInfo>(clinicalInfoDto);
+        /*    var clinicalInfo = Mapper.Map<ClinicalInfoDto, ClinicalInfo>(clinicalInfoDto);*/
             _context.ClinicalInfos.Add(clinicalInfo);
             _context.SaveChanges();
-            clinicalInfo.Id = clinicalInfoDto.Id;
-            return Created(new Uri(Request.RequestUri + "/" + clinicalInfo.Id), clinicalInfoDto);
+          /*  clinicalInfo.Id = clinicalInfoDto.Id;*/
+            return Created(new Uri(Request.RequestUri + "/" + clinicalInfo.Id), clinicalInfo);
         }
 
         [HttpPut]

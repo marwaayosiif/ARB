@@ -26,7 +26,7 @@ namespace ARB.Controllers.API
                                 .Include(p => p.ClinicalInfo)
                                 .Include(p => p.GeneralInfo)
                                 .Include(p => p.FinalAssessment)
-                                .Include(p => p.ExamData)
+                              /*  .Include(p => p.ExamData)*/
                                 .ToList();
             return patient;
                 }
@@ -67,7 +67,7 @@ namespace ARB.Controllers.API
                 p.ClinicalInfo = clinicalInfos().SingleOrDefault(c => c.Id == p.ClinicalInfoId);
                 p.GeneralInfo = _context.GeneralInfos.SingleOrDefault(c => c.Id == p.GeneralInfoId);
                 p.FinalAssessment = finalAssessments().SingleOrDefault(c => c.Id == p.FinalAssessmentId);
-                p.ExamData = _context.ExamDatas.SingleOrDefault(c => c.Id == p.ExamDataId);
+          /*      p.ExamData = _context.ExamDatas.SingleOrDefault(c => c.Id == p.ExamDataId);*/
                
             };
 
@@ -82,7 +82,7 @@ namespace ARB.Controllers.API
             patient.ClinicalInfo = clinicalInfos().SingleOrDefault(c => c.Id == patient.ClinicalInfoId);
             patient.GeneralInfo = _context.GeneralInfos.SingleOrDefault(c => c.Id == patient.GeneralInfoId);
             patient.FinalAssessment = finalAssessments().SingleOrDefault(c => c.Id == patient.FinalAssessmentId);
-            patient.ExamData = _context.ExamDatas.SingleOrDefault(c => c.Id == patient.ExamDataId);
+/*            patient.ExamData = _context.ExamDatas.SingleOrDefault(c => c.Id == patient.ExamDataId);*/
             
             if (patient == null)
                 return NotFound();
@@ -92,17 +92,15 @@ namespace ARB.Controllers.API
 
         // POST api/<controller>
         [HttpPost]
-        public IHttpActionResult Post(PatientDto patientDto)
+        public IHttpActionResult Post(Patient patient)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var patient = Mapper.Map<PatientDto, Patient>(patientDto);
             _context.Patients.Add(patient);
             _context.SaveChanges();
 
-            patientDto.Id = patient.Id;
-            return Created(new Uri(Request.RequestUri + "/" + patient.Id), patientDto);
+            return Created(new Uri(Request.RequestUri + "/" + patient.Id), patient);
             //return Ok();
         }
 
@@ -122,7 +120,7 @@ namespace ARB.Controllers.API
             patientInDb.ClinicalInfoId = patientDto.ClinicalInfoId;
             patientInDb.FinalAssessmentId = patientDto.FinalAssessmentId;
             patientInDb.GeneralInfoId = patientDto.GeneralInfoId;
-            patientInDb.ExamDataId = patientDto.ExamDataId;
+          /*  patientInDb.ExamDataId = patientDto.ExamDataId;*/
 
             _context.SaveChanges();
 
