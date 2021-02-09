@@ -8,6 +8,7 @@ using ARB.Models;
 
 namespace ARB.Controllers.API
 {
+    [RoutePrefix("api/combobox")]
     public class ComboBoxController : ApiController
     {
         private ApplicationDbContext _context;
@@ -17,11 +18,24 @@ namespace ARB.Controllers.API
             _context = new ApplicationDbContext();
         }
         // GET api/<ComboBox>
-        public IHttpActionResult Gettests()
+        [Route("GetMassDensities")]
+
+        public IHttpActionResult GetMassDensities()
+        {
+            var test = _context.MassDensity.ToList();
+
+            return Ok(test);
+        }
+
+        // GET api/<ComboBox>
+        [Route("GetCombo")]
+
+        public IHttpActionResult Getcombo()
         {
             var test = _context.ComboBox.ToList();
 
             return Ok(test);
         }
+
     }
 }
