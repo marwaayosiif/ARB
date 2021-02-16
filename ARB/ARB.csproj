@@ -358,6 +358,10 @@
     <Compile Include="Migrations\202102092111090_test3.Designer.cs">
       <DependentUpon>202102092111090_test3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102162003594_PregnancySection.cs" />
+    <Compile Include="Migrations\202102162003594_PregnancySection.Designer.cs">
+      <DependentUpon>202102162003594_PregnancySection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Asymmetries.cs" />
@@ -540,6 +544,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102092111090_test3.resx">
       <DependentUpon>202102092111090_test3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102162003594_PregnancySection.resx">
+      <DependentUpon>202102162003594_PregnancySection.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
