@@ -12,6 +12,7 @@ namespace ARB.Models
         public string ExamReason { get; set; }
         public string Complain { get; set; }
         public bool HadAMammogram { get; set; }
+        public string ModalityType { get; set; }
         public string WhenHadAMammogram { get; set; }
         public string WhereHadAMammogram { get; set; }
         public string HistoryOfMammogram { get; set; }
@@ -31,7 +32,13 @@ namespace ARB.Models
         public bool TakingHormones { get; set; }
         public string HowlongTakingHormones { get; set; }
         //Pergnancy 
-        
+        public bool Menopause { get; set; }
+        public bool Pregnant { get; set; }
+        public int Gravida { get; set; }
+        public int Para { get; set; }
+        public DateTime? LMP { get; set; }
+
+
 
     }
 }
