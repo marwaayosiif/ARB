@@ -4,10 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Data.Entity;
+using AutoMapper;
 using ARB.Models;
 using ARB.Dtos;
-using AutoMapper;
-
+using DnsClient;
 
 namespace ARB.Controllers.API
 {
@@ -20,28 +21,75 @@ namespace ARB.Controllers.API
         {
             _context = new ApplicationDbContext();
         }
+        public List<Patient> patients()
+        {
+            var patient = _context.Patients
+                                .Include(p => p.ClinicalInfo)
+                                .Include(p => p.GeneralInfo)
+                                .Include(p => p.FinalAssessment)
+                                /*  .Include(p => p.ExamData)*/
+                                .ToList();
+            return patient;
+        }
+        public List<ClinicalInfo> clinicalInfos()
+        {
+            var clinicalInfos = _context.ClinicalInfos
+                                       .Include(c => c.Asymmetries)
+                                       .Include(c => c.ClockFace)
+                                       .Include(c => c.MassMargin)
+                                       .Include(c => c.MassDensity)
+                                       .Include(c => c.Quadrant)
+                                       .Include(c => c.SuspiciousMorphology)
+                                       .Include(c => c.TypicallyBenign)
+                                       .Include(c => c.Features)
+                                       .Include(c => c.Distribution)
+                                       .ToList();
+            return clinicalInfos;
+        }
+
+        public List<FinalAssessment> finalAssessments()
+        {
+            return (_context.FinalAssessments
+                .Include(f => f.BiRads)
+                .Include(f => f.Recommendation).ToList());
+        }
+
+
 
         // GET /api/generalinfo
         public IHttpActionResult Get()
         {
-            var doctorDtos = _context.Doctors.ToList().Select(Mapper.Map<Doctor, DoctorDto>);
+            var doctor = _context.Doctors.Include(c => c.Patients);
+               
+            var patientsOfThisDoctor = patients().GroupBy(x => x.DoctorId).ToList();
 
-            return Ok(doctorDtos);
+            doctor.p = patientsOfThisDoctor;
+            return Ok(patientsOfThisDoctor);
         }
 
         // GET /api/generalinfo/1
-        public IHttpActionResult GetGeneralInfo(int id)
+        public IHttpActionResult Get(int id)
         {
-            var doctor = _context.Doctors.SingleOrDefault(g => g.Id == id);
+            
+
+            var doctor = _context.Doctors.Include(c=>c.Patients).SingleOrDefault(g => g.Id == id);
+            var patientsOfThisDoctor = patients().Where(c => c.DoctorId == id).ToList();
+           
 
             if (doctor == null)
                 return NotFound();
 
-            return Ok(Mapper.Map<Doctor, DoctorDto>(doctor));
+            doctor.Patients = patientsOfThisDoctor;
+           /* doctor.PatientsId = patientsOfThisDoctor.ForEach(d => d.Id);*/
+            _context.SaveChanges();
+            return Ok(doctor);
         }
+
+       
+
         // POST /api/generalinfo
         [HttpPost]
-        public IHttpActionResult PostGeneralInfo(DoctorDto doctorDto)
+        public IHttpActionResult Post(DoctorDto doctorDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();

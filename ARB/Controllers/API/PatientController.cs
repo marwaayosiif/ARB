@@ -8,8 +8,12 @@ using System.Data.Entity;
 using AutoMapper;
 using ARB.Models;
 using ARB.Dtos;
+using DnsClient;
+
 namespace ARB.Controllers.API
 {
+
+    [Route("api/patient/")]
     public class PatientController : ApiController
     {
         private ApplicationDbContext _context;
@@ -52,7 +56,7 @@ namespace ARB.Controllers.API
                             .Include(f => f.Recommendation).ToList());
         }
 
-        [Route("api/patient/")]
+    
         [HttpGet]
         // GET api/<controller>
 
@@ -76,6 +80,7 @@ namespace ARB.Controllers.API
         }
 
         // GET api/<controller>/5
+
         public IHttpActionResult Get(int id)
         {
             var patient = patients().SingleOrDefault(p => p.Id == id);
@@ -92,23 +97,43 @@ namespace ARB.Controllers.API
         }
 
         // POST api/<controller>
-        [Route("api/patient/")]
+
+
         [HttpPost]
-        public IHttpActionResult Post(Patient patient)
+     
+        public IHttpActionResult Post([FromBody] Patient patient)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest();
 
-            _context.Patients.Add(patient);
-            _context.SaveChanges();
+                _context.Patients.Add(patient);
+                
+                _context.SaveChanges();
 
-            return Created(new Uri(Request.RequestUri + "/" + patient.Id), patient);
+                return Created(new Uri(Request.RequestUri + "/" + patient.Id), patient);
+
+            }
+      
+              catch (System.InvalidOperationException exception)
+            {
+                return Ok<string>(exception);
+            
+            }
             //return Ok();
+        }
+
+        private IHttpActionResult Ok<T>(InvalidOperationException exception)
+        {
+            throw new NotImplementedException();
         }
 
 
         // PUT api/<controller>/5
+
         [HttpPut]
+      
         public IHttpActionResult Put(int id, PatientDto patientDto)
         {
             if (!ModelState.IsValid)
@@ -131,6 +156,7 @@ namespace ARB.Controllers.API
 
         // DELETE api/<controller>/5
         [HttpDelete]
+
         public IHttpActionResult Delete(int id)
         {
             var patientInDb = _context.Patients.SingleOrDefault(g => g.Id == id);

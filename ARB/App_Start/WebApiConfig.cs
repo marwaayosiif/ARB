@@ -137,4 +137,14 @@ namespace ARB
 
 },
 "FinalAssessmentId": 6
-}*/
+}
+
+	   {
+			"clinicalInfoId":1,
+			"generalInfoId":1,
+			"finalAssessmentId":1,
+			"examDataId":1
+			
+		}
+ 
+ */
