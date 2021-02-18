@@ -50,7 +50,11 @@ namespace ARB.Controllers.API
             if (examDataInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             examDataInDb.Name = examData.Name;
+            examDataInDb.EmailAddress = examData.EmailAddress;
+            examDataInDb.MobileNumber = examData.MobileNumber;
             examDataInDb.PatientID = examData.PatientID;
+            examDataInDb.Address = examData.Address;
+            examDataInDb.Modailty = examData.Modailty;
             examDataInDb.ReferringDoctor = examData.ReferringDoctor;
             examDataInDb.StudyDate = examData.StudyDate;
             examDataInDb.LastOperation = examData.LastOperation;
