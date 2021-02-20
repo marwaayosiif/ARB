@@ -8,15 +8,16 @@ using System.Data.Entity;
 using AutoMapper;
 using ARB.Models;
 using ARB.Dtos;
-using DnsClient;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNetCore.Identity;
 
 namespace ARB.Controllers.API
 {
-   
+    [RoutePrefix("api/doctor")]
     public class DoctorController : ApiController
     {
         private ApplicationDbContext _context;
-
+    
         public DoctorController()
         {
             _context = new ApplicationDbContext();
@@ -35,10 +36,10 @@ namespace ARB.Controllers.API
         {
             var clinicalInfos = _context.ClinicalInfos
                                        .Include(c => c.Asymmetries)
-                                       .Include(c => c.ClockFace)
+                                      /* .Include(c => c.ClockFace)
                                        .Include(c => c.MassMargin)
                                        .Include(c => c.MassDensity)
-                                       .Include(c => c.Quadrant)
+                                       .Include(c => c.Quadrant)*/
                                        .Include(c => c.SuspiciousMorphology)
                                        .Include(c => c.TypicallyBenign)
                                        .Include(c => c.Features)
@@ -56,38 +57,33 @@ namespace ARB.Controllers.API
 
 
 
-        // GET /api/generalinfo
+        // GET /api/doctor
         public IHttpActionResult Get()
         {
-            var doctor = _context.Doctors.Include(c => c.Patients);
+            var doctor = _context.Doctors.ToList();
                
-            var patientsOfThisDoctor = patients().GroupBy(x => x.DoctorId).ToList();
-
-            doctor.p = patientsOfThisDoctor;
-            return Ok(patientsOfThisDoctor);
+            return Ok(doctor);
         }
 
-        // GET /api/generalinfo/1
+        // GET /api/doctor/1
         public IHttpActionResult Get(int id)
         {
             
-
-            var doctor = _context.Doctors.Include(c=>c.Patients).SingleOrDefault(g => g.Id == id);
-            var patientsOfThisDoctor = patients().Where(c => c.DoctorId == id).ToList();
-           
-
+            var doctor = _context.Doctors.SingleOrDefault(g => g.Id == id);
             if (doctor == null)
                 return NotFound();
 
+            var patientsOfThisDoctor = patients().Where(c => c.DoctorId == id).ToList();
+           
             doctor.Patients = patientsOfThisDoctor;
-           /* doctor.PatientsId = patientsOfThisDoctor.ForEach(d => d.Id);*/
             _context.SaveChanges();
             return Ok(doctor);
         }
 
-       
 
-        // POST /api/generalinfo
+
+        // POST /api/doctor
+        [Route("NewDoctor")]
         [HttpPost]
         public IHttpActionResult Post(DoctorDto doctorDto)
         {
@@ -102,7 +98,35 @@ namespace ARB.Controllers.API
             return Created(new Uri(Request.RequestUri + "/" + doctor.Id), doctorDto);
         }
 
-        // PUT /api/generalinfo/1
+
+        [Route("LoginOfTheDoctor")]
+        [HttpPost]
+        public IHttpActionResult PostLogin(LoginViewModel loginViewModel)
+        {
+            var errors = ModelState
+                        .Where(x => x.Value.Errors.Count > 0)
+                        .Select(x => new { x.Key, x.Value.Errors })
+                        .ToArray();
+
+            if (!ModelState.IsValid)
+                return  Ok(errors);
+
+            var doctor = _context.Doctors.SingleOrDefault(d => d.Email == loginViewModel.Email);
+            if(doctor == null)
+            {
+                return Ok<string>("Not Found");
+
+            }
+            if (doctor.Password != loginViewModel.Password)
+            {
+                return Ok<string>("wrong password");
+            }
+            return Created(new Uri(Request.RequestUri + "/" + doctor.Id), doctor);
+        }
+
+
+
+        // PUT /api/doctor/1
         [HttpPut]
         public IHttpActionResult Put(int id, DoctorDto doctorDto)
         {
@@ -121,7 +145,7 @@ namespace ARB.Controllers.API
             return Ok();
         }
 
-        // DELETE /api/generalinfo/1
+        // DELETE /api/doctor/1
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
@@ -135,4 +159,8 @@ namespace ARB.Controllers.API
             return Ok();
         }
     }
+
 }
+
+
+

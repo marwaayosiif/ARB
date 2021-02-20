@@ -147,4 +147,48 @@ namespace ARB
 			
 		}
  
+ 
+ [
+
+		{
+		"massShape": "oval",
+		"massMarginId": 2,
+		"massDensityId": 2,
+		"distributionId": 1,
+		"laterality": "Right",	
+		"quadrantId": 2,
+		"clockFaceId": 3,
+		"depth": "12",
+		"distanceFromTheNipple": "1"
+
+		},
+		{
+
+		"massShape": "oval",
+		"massMarginId": 2,
+		"massDensityId": 2,
+		"distributionId": 1,
+		"laterality": "Right",	
+		"quadrantId": 2,
+		"clockFaceId": 3,
+		"depth": "12",
+		"distanceFromTheNipple": "1"
+		}
+]
+ "massSpecifications":
+		 [
+
+			{
+			"massShape": "oval",
+			"massMarginId": 2,
+			"massDensityId": 2,
+			"distributionId": 1,
+			"laterality": "Right",	
+			"quadrantId": 2,
+			"clockFaceId": 3,
+			"depth": "12",
+			"distanceFromTheNipple": "1"
+			}
+		]
+ 
  */

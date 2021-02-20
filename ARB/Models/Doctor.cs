@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ARB.Models
 {
@@ -10,8 +8,12 @@ namespace ARB.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
+        public string Email { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
         public List<Patient> Patients { get; set; }
-        public List<int> PatientsId { get; set; }
 
     }
 }

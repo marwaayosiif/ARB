@@ -35,6 +35,8 @@ namespace ARB.App_Start
                   .ForMember(c => c.Id, opt => opt.Ignore());
             Mapper.CreateMap<DoctorDto, Doctor>()
                 .ForMember(c => c.Id, opt => opt.Ignore());
+            Mapper.CreateMap<ClinicalInfoDto, ClinicalInfo>()
+            .ForMember(c => c.Id, opt => opt.Ignore());
         }
 
     

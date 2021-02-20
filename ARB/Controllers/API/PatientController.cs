@@ -13,7 +13,7 @@ using DnsClient;
 namespace ARB.Controllers.API
 {
 
-    [Route("api/patient/")]
+    [RoutePrefix("api/doctor")]
     public class PatientController : ApiController
     {
         private ApplicationDbContext _context;
@@ -38,10 +38,10 @@ namespace ARB.Controllers.API
         {
             var clinicalInfos = _context.ClinicalInfos
                                        .Include(c => c.Asymmetries)
-                                       .Include(c => c.ClockFace)
+                                      /* .Include(c => c.ClockFace)
                                        .Include(c => c.MassMargin)
                                        .Include(c => c.MassDensity)
-                                       .Include(c => c.Quadrant)
+                                       .Include(c => c.Quadrant)*/
                                        .Include(c => c.SuspiciousMorphology)
                                        .Include(c => c.TypicallyBenign)
                                        .Include(c => c.Features)
@@ -56,8 +56,7 @@ namespace ARB.Controllers.API
                             .Include(f => f.Recommendation).ToList());
         }
 
-    
-        [HttpGet]
+   
         // GET api/<controller>
 
         public IHttpActionResult Get()
@@ -98,37 +97,28 @@ namespace ARB.Controllers.API
 
         // POST api/<controller>
 
-
+        [Route("NewPatient")]
         [HttpPost]
      
         public IHttpActionResult Post([FromBody] Patient patient)
         {
-            try
-            {
-                if (!ModelState.IsValid)
-                    return BadRequest();
+            var errors = ModelState
+                        .Where(x => x.Value.Errors.Count > 0)
+                        .Select(x => new { x.Key, x.Value.Errors })
+                        .ToArray();
 
-                _context.Patients.Add(patient);
-                
-                _context.SaveChanges();
-
-                return Created(new Uri(Request.RequestUri + "/" + patient.Id), patient);
-
-            }
-      
-              catch (System.InvalidOperationException exception)
-            {
-                return Ok<string>(exception);
+            if (!ModelState.IsValid)
+                return Ok(errors);
             
-            }
-            //return Ok();
+            _context.Patients.Add(patient);
+                
+            _context.SaveChanges();
+
+            return Created(new Uri(Request.RequestUri + "/" + patient.Id), patient);
+
         }
 
-        private IHttpActionResult Ok<T>(InvalidOperationException exception)
-        {
-            throw new NotImplementedException();
-        }
-
+  
 
         // PUT api/<controller>/5
 
