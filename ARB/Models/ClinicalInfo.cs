@@ -18,7 +18,7 @@ namespace ARB.Models
 
         public Asymmetries Asymmetries { get; set; }
         [Display (Name = "Asymmetries")]
-        public int AsyId { get; set; }
+        public int AsymmetriesId { get; set; }
         public Features Features { get; set; }
         [ForeignKey("Features")]
         public int FeatureId { get; set; }

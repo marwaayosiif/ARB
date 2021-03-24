@@ -10,6 +10,7 @@ using ARB.Models;
 using ARB.Dtos;
 namespace ARB.Controllers.API
 {
+    [RoutePrefix("api")]
     public class ClinicalInfoController : ApiController
     {
         private ApplicationDbContext _context;
@@ -42,9 +43,10 @@ namespace ARB.Controllers.API
             return clinicalInfos;
         }
 
-    
 
+        [Route("ClinicalInfo")]
 
+        [HttpGet]
         // GET api/<controller>
         public IHttpActionResult GetClinicalInfo()
         {
@@ -70,7 +72,9 @@ namespace ARB.Controllers.API
         }
 
         // POST api/<controller>
+        [Route("ClinicalInfo")]
         [HttpPost]
+
         public IHttpActionResult CreateClinicalInfo(ClinicalInfoDto clinicalInfoDto)
         {
 
@@ -100,7 +104,7 @@ namespace ARB.Controllers.API
             if (clinicalInfoDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            clinicalInfoDb.AsyId = clinicalInfoDto.AsyId;
+            clinicalInfoDb.AsymmetriesId = clinicalInfoDto.AsyId;
             clinicalInfoDb.BreastCompostion = clinicalInfoDto.BreastCompostion;
           
             clinicalInfoDb.FeatureId = clinicalInfoDto.FeatureId;

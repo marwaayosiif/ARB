@@ -13,7 +13,7 @@ using DnsClient;
 namespace ARB.Controllers.API
 {
 
-    [RoutePrefix("api/doctor")]
+    [RoutePrefix("api")]
     public class PatientController : ApiController
     {
         private ApplicationDbContext _context;
@@ -56,9 +56,10 @@ namespace ARB.Controllers.API
                             .Include(f => f.Recommendation).ToList());
         }
 
-   
-        // GET api/<controller>
 
+        // GET api/<controller>
+        [Route("patient")]
+        [HttpGet]
         public IHttpActionResult Get()
         {
 
@@ -97,7 +98,7 @@ namespace ARB.Controllers.API
 
         // POST api/<controller>
 
-        [Route("NewPatient")]
+        [Route("patient")]
         [HttpPost]
      
         public IHttpActionResult Post([FromBody] Patient patient)

@@ -441,6 +441,10 @@
     <Compile Include="Migrations\202102092111090_test3.Designer.cs">
       <DependentUpon>202102092111090_test3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102161239421_addDoctorIntoPatientTable.cs" />
+    <Compile Include="Migrations\202102161239421_addDoctorIntoPatientTable.Designer.cs">
+      <DependentUpon>202102161239421_addDoctorIntoPatientTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\202102171339264_checkIfAnyThingNew.cs" />
     <Compile Include="Migrations\202102171339264_checkIfAnyThingNew.Designer.cs">
       <DependentUpon>202102171339264_checkIfAnyThingNew.cs</DependentUpon>
@@ -476,6 +480,26 @@
     <Compile Include="Migrations\202102200407372_addClinicalInfoIdIntoMassSpec.cs" />
     <Compile Include="Migrations\202102200407372_addClinicalInfoIdIntoMassSpec.Designer.cs">
       <DependentUpon>202102200407372_addClinicalInfoIdIntoMassSpec.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102200523244_someThingNewInPatient.cs" />
+    <Compile Include="Migrations\202102200523244_someThingNewInPatient.Designer.cs">
+      <DependentUpon>202102200523244_someThingNewInPatient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102200540496_checkIfAnyThingNew1.cs" />
+    <Compile Include="Migrations\202102200540496_checkIfAnyThingNew1.Designer.cs">
+      <DependentUpon>202102200540496_checkIfAnyThingNew1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102200548577_checkIfAnyThingNew2.cs" />
+    <Compile Include="Migrations\202102200548577_checkIfAnyThingNew2.Designer.cs">
+      <DependentUpon>202102200548577_checkIfAnyThingNew2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103240929345_checkAnyThingNew.cs" />
+    <Compile Include="Migrations\202103240929345_checkAnyThingNew.Designer.cs">
+      <DependentUpon>202103240929345_checkAnyThingNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103241023530_patientRmvDoc.cs" />
+    <Compile Include="Migrations\202103241023530_patientRmvDoc.Designer.cs">
+      <DependentUpon>202103241023530_patientRmvDoc.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -662,6 +686,9 @@
     <EmbeddedResource Include="Migrations\202102092111090_test3.resx">
       <DependentUpon>202102092111090_test3.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102161239421_addDoctorIntoPatientTable.resx">
+      <DependentUpon>202102161239421_addDoctorIntoPatientTable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102171339264_checkIfAnyThingNew.resx">
       <DependentUpon>202102171339264_checkIfAnyThingNew.cs</DependentUpon>
     </EmbeddedResource>
@@ -688,6 +715,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102200407372_addClinicalInfoIdIntoMassSpec.resx">
       <DependentUpon>202102200407372_addClinicalInfoIdIntoMassSpec.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102200523244_someThingNewInPatient.resx">
+      <DependentUpon>202102200523244_someThingNewInPatient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102200540496_checkIfAnyThingNew1.resx">
+      <DependentUpon>202102200540496_checkIfAnyThingNew1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102200548577_checkIfAnyThingNew2.resx">
+      <DependentUpon>202102200548577_checkIfAnyThingNew2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103240929345_checkAnyThingNew.resx">
+      <DependentUpon>202103240929345_checkAnyThingNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103241023530_patientRmvDoc.resx">
+      <DependentUpon>202103241023530_patientRmvDoc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

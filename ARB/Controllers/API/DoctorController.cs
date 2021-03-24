@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ARB.Controllers.API
 {
-    [RoutePrefix("api/doctor")]
+    [RoutePrefix("api")]
     public class DoctorController : ApiController
     {
         private ApplicationDbContext _context;
@@ -55,7 +55,8 @@ namespace ARB.Controllers.API
                 .Include(f => f.Recommendation).ToList());
         }
 
-
+        [Route("doctor")]
+        [HttpGet]
 
         // GET /api/doctor
         public IHttpActionResult Get()
@@ -64,18 +65,19 @@ namespace ARB.Controllers.API
                
             return Ok(doctor);
         }
-
+        [Route("doctor/{email}")]
+        [HttpGet]
         // GET /api/doctor/1
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult Get(string email)
         {
             
-            var doctor = _context.Doctors.SingleOrDefault(g => g.Id == id);
+            var doctor = _context.Doctors.SingleOrDefault(g => g.Email == email);
             if (doctor == null)
                 return NotFound();
 
-            var patientsOfThisDoctor = patients().Where(c => c.DoctorId == id).ToList();
+        /*    var patientsOfThisDoctor = patients().Where(c => c.DoctorId == id).ToList();
            
-            doctor.Patients = patientsOfThisDoctor;
+            doctor.Patients = patientsOfThisDoctor;*/
             _context.SaveChanges();
             return Ok(doctor);
         }
@@ -83,7 +85,7 @@ namespace ARB.Controllers.API
 
 
         // POST /api/doctor
-        [Route("NewDoctor")]
+        [Route("doctor")]
         [HttpPost]
         public IHttpActionResult Post(DoctorDto doctorDto)
         {
