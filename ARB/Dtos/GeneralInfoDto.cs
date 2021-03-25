@@ -8,7 +8,7 @@ namespace ARB.Dtos
     public class GeneralInfoDto
     {
         public int Id { get; set; }
-        public DateTime ExamDate { get; set; }
+        public DateTime? ExamDate { get; set; }
         public string ExamReason { get; set; }
         public string Complain { get; set; }
         public bool HadAMammogram { get; set; }

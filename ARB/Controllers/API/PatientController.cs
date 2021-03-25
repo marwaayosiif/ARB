@@ -8,8 +8,12 @@ using System.Data.Entity;
 using AutoMapper;
 using ARB.Models;
 using ARB.Dtos;
+using DnsClient;
+
 namespace ARB.Controllers.API
 {
+
+    [RoutePrefix("api")]
     public class PatientController : ApiController
     {
         private ApplicationDbContext _context;
@@ -34,10 +38,10 @@ namespace ARB.Controllers.API
         {
             var clinicalInfos = _context.ClinicalInfos
                                        .Include(c => c.Asymmetries)
-                                       .Include(c => c.ClockFace)
+                                      /* .Include(c => c.ClockFace)
                                        .Include(c => c.MassMargin)
                                        .Include(c => c.MassDensity)
-                                       .Include(c => c.Quadrant)
+                                       .Include(c => c.Quadrant)*/
                                        .Include(c => c.SuspiciousMorphology)
                                        .Include(c => c.TypicallyBenign)
                                        .Include(c => c.Features)
@@ -52,10 +56,10 @@ namespace ARB.Controllers.API
                             .Include(f => f.Recommendation).ToList());
         }
 
-        [Route("api/patient/")]
-        [HttpGet]
-        // GET api/<controller>
 
+        // GET api/<controller>
+        [Route("patient")]
+        [HttpGet]
         public IHttpActionResult Get()
         {
 
@@ -76,6 +80,7 @@ namespace ARB.Controllers.API
         }
 
         // GET api/<controller>/5
+
         public IHttpActionResult Get(int id)
         {
             var patient = patients().SingleOrDefault(p => p.Id == id);
@@ -92,23 +97,34 @@ namespace ARB.Controllers.API
         }
 
         // POST api/<controller>
-        [Route("api/patient/")]
-        [HttpPost]
-        public IHttpActionResult Post(Patient patient)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest();
 
+        [Route("patient")]
+        [HttpPost]
+     
+        public IHttpActionResult Post([FromBody] Patient patient)
+        {
+            var errors = ModelState
+                        .Where(x => x.Value.Errors.Count > 0)
+                        .Select(x => new { x.Key, x.Value.Errors })
+                        .ToArray();
+
+            if (!ModelState.IsValid)
+                return Ok(errors);
+            
             _context.Patients.Add(patient);
+                
             _context.SaveChanges();
 
             return Created(new Uri(Request.RequestUri + "/" + patient.Id), patient);
-            //return Ok();
+
         }
 
+  
 
         // PUT api/<controller>/5
+
         [HttpPut]
+      
         public IHttpActionResult Put(int id, PatientDto patientDto)
         {
             if (!ModelState.IsValid)
@@ -131,6 +147,7 @@ namespace ARB.Controllers.API
 
         // DELETE api/<controller>/5
         [HttpDelete]
+
         public IHttpActionResult Delete(int id)
         {
             var patientInDb = _context.Patients.SingleOrDefault(g => g.Id == id);

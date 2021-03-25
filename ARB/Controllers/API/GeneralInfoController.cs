@@ -39,17 +39,23 @@ namespace ARB.Controllers.API
         }
         // POST /api/generalinfo
         [HttpPost]
-        public IHttpActionResult PostGeneralInfo(GeneralInfoDto generalInfoDto)
+        public IHttpActionResult PostGeneralInfo(GeneralInfo generalInfo)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
+            var errors = ModelState
+                       .Where(x => x.Value.Errors.Count > 0)
+                       .Select(x => new { x.Key, x.Value.Errors })
+                       .ToArray();
 
-            var generalInfo = Mapper.Map<GeneralInfoDto, GeneralInfo>(generalInfoDto);
+            if (!ModelState.IsValid)
+                return Ok(errors);
+
+
+            /*var generalInfo = Mapper.Map<GeneralInfoDto, GeneralInfo>(generalInfoDto);*/
             _context.GeneralInfos.Add(generalInfo);
             _context.SaveChanges();
 
-            generalInfoDto.Id = generalInfo.Id;
-            return Created(new Uri(Request.RequestUri + "/" + generalInfo.Id), generalInfoDto);
+         /*   generalInfoDto.Id = generalInfo.Id;*/
+            return Created(new Uri(Request.RequestUri + "/" + generalInfo.Id), generalInfo);
             //return Ok();
         }
 

@@ -9,8 +9,9 @@ namespace ARB.Dtos
     {
         public int Id { get; set; }
 
-        public int ExamDataId { get; set; }
-        public ExamData ExamData { get; set; }
+        /*       public int ExamDataId { get; set; }
+               public ExamData ExamData { get; set; }*/
+        public int DoctorId { get; set; }
         public int ClinicalInfoId { get; set; }
         public ClinicalInfo ClinicalInfo { get; set; }
         public int GeneralInfoId { get; set; }

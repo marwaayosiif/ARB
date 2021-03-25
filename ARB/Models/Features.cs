@@ -19,3 +19,22 @@ namespace ARB.Models
         public bool AxillaryAdenopathy { get; set; }
     }
 }
+
+/*
+ 
+{
+"id":1,
+"skinRetraction":true,
+"nippleRetraction":true,
+"skinThickening":true,
+"architecturalDistortion":true,
+"intramammaryLymphNode":true,
+"skinLesion":true,
+"solitaryDilatedDuct":true, 
+"trabecularThickening":true, 
+"axillaryAdenopathy":true
+}
+ 
+ 
+ 
+ */

@@ -39,6 +39,5 @@ namespace ARB.Models
         public DateTime? LMP { get; set; }
 
 
-
     }
 }

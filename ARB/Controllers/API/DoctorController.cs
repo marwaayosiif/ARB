@@ -4,44 +4,90 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Data.Entity;
+using AutoMapper;
 using ARB.Models;
 using ARB.Dtos;
-using AutoMapper;
-
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNetCore.Identity;
 
 namespace ARB.Controllers.API
 {
-   
+    [RoutePrefix("api")]
     public class DoctorController : ApiController
     {
         private ApplicationDbContext _context;
-
+    
         public DoctorController()
         {
             _context = new ApplicationDbContext();
         }
-
-        // GET /api/generalinfo
-        public IHttpActionResult Get()
+        public List<Patient> patients()
         {
-            var doctorDtos = _context.Doctors.ToList().Select(Mapper.Map<Doctor, DoctorDto>);
-
-            return Ok(doctorDtos);
+            var patient = _context.Patients
+                                .Include(p => p.ClinicalInfo)
+                                .Include(p => p.GeneralInfo)
+                                .Include(p => p.FinalAssessment)
+                                /*  .Include(p => p.ExamData)*/
+                                .ToList();
+            return patient;
+        }
+        public List<ClinicalInfo> clinicalInfos()
+        {
+            var clinicalInfos = _context.ClinicalInfos
+                                       .Include(c => c.Asymmetries)
+                                      /* .Include(c => c.ClockFace)
+                                       .Include(c => c.MassMargin)
+                                       .Include(c => c.MassDensity)
+                                       .Include(c => c.Quadrant)*/
+                                       .Include(c => c.SuspiciousMorphology)
+                                       .Include(c => c.TypicallyBenign)
+                                       .Include(c => c.Features)
+                                       .Include(c => c.Distribution)
+                                       .ToList();
+            return clinicalInfos;
         }
 
-        // GET /api/generalinfo/1
-        public IHttpActionResult GetGeneralInfo(int id)
+        public List<FinalAssessment> finalAssessments()
         {
-            var doctor = _context.Doctors.SingleOrDefault(g => g.Id == id);
+            return (_context.FinalAssessments
+                .Include(f => f.BiRads)
+                .Include(f => f.Recommendation).ToList());
+        }
 
+        [Route("doctor")]
+        [HttpGet]
+
+        // GET /api/doctor
+        public IHttpActionResult Get()
+        {
+            var doctor = _context.Doctors.ToList();
+               
+            return Ok(doctor);
+        }
+        [Route("doctor/{email}")]
+        [HttpGet]
+        // GET /api/doctor/1
+        public IHttpActionResult Get(string email)
+        {
+            
+            var doctor = _context.Doctors.SingleOrDefault(g => g.Email == email);
             if (doctor == null)
                 return NotFound();
 
-            return Ok(Mapper.Map<Doctor, DoctorDto>(doctor));
+        /*    var patientsOfThisDoctor = patients().Where(c => c.DoctorId == id).ToList();
+           
+            doctor.Patients = patientsOfThisDoctor;*/
+            _context.SaveChanges();
+            return Ok(doctor);
         }
-        // POST /api/generalinfo
+
+
+
+        // POST /api/doctor
+        [Route("doctor")]
         [HttpPost]
-        public IHttpActionResult PostGeneralInfo(DoctorDto doctorDto)
+        public IHttpActionResult Post(DoctorDto doctorDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -54,7 +100,35 @@ namespace ARB.Controllers.API
             return Created(new Uri(Request.RequestUri + "/" + doctor.Id), doctorDto);
         }
 
-        // PUT /api/generalinfo/1
+
+        [Route("LoginOfTheDoctor")]
+        [HttpPost]
+        public IHttpActionResult PostLogin(LoginViewModel loginViewModel)
+        {
+            var errors = ModelState
+                        .Where(x => x.Value.Errors.Count > 0)
+                        .Select(x => new { x.Key, x.Value.Errors })
+                        .ToArray();
+
+            if (!ModelState.IsValid)
+                return  Ok(errors);
+
+            var doctor = _context.Doctors.SingleOrDefault(d => d.Email == loginViewModel.Email);
+            if(doctor == null)
+            {
+                return Ok<string>("Not Found");
+
+            }
+            if (doctor.Password != loginViewModel.Password)
+            {
+                return Ok<string>("wrong password");
+            }
+            return Created(new Uri(Request.RequestUri + "/" + doctor.Id), doctor);
+        }
+
+
+
+        // PUT /api/doctor/1
         [HttpPut]
         public IHttpActionResult Put(int id, DoctorDto doctorDto)
         {
@@ -73,7 +147,7 @@ namespace ARB.Controllers.API
             return Ok();
         }
 
-        // DELETE /api/generalinfo/1
+        // DELETE /api/doctor/1
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
@@ -87,4 +161,8 @@ namespace ARB.Controllers.API
             return Ok();
         }
     }
+
 }
+
+
+

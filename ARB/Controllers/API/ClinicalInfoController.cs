@@ -10,6 +10,7 @@ using ARB.Models;
 using ARB.Dtos;
 namespace ARB.Controllers.API
 {
+    [RoutePrefix("api")]
     public class ClinicalInfoController : ApiController
     {
         private ApplicationDbContext _context;
@@ -19,24 +20,39 @@ namespace ARB.Controllers.API
             _context = new ApplicationDbContext();
              
         }
+        public List<MassSpecification> massSpecifications()
+        {
+            var massSpecifications = _context.MassSpecifications
+                                        .Include(c => c.ClockFace)
+                                        .Include(c => c.MassMargin)
+                                        .Include(c => c.MassDensity)
+                                        .Include(c => c.Quadrant)
+                                       .ToList();
+            return massSpecifications;
+        }
 
-     
+        public List<ClinicalInfo> clinicalInfos()
+        {
+            var clinicalInfos = _context.ClinicalInfos
+                                       .Include(c => c.Asymmetries)
+                                       .Include(c => c.SuspiciousMorphology)
+                                       .Include(c => c.TypicallyBenign)
+                                       .Include(c => c.Features)
+                                       .Include(c => c.Distribution)
+                                       .ToList();
+            return clinicalInfos;
+        }
+
+
+        [Route("ClinicalInfo")]
+
+        [HttpGet]
         // GET api/<controller>
         public IHttpActionResult GetClinicalInfo()
         {
-     
-            var clinicalInfoDtos = _context.ClinicalInfos
-                                            .Include(c => c.Asymmetries)
-                                            .Include(c => c.ClockFace)
-                                            .Include(c => c.MassMargin)
-                                            .Include(c => c.MassDensity)
-                                            .Include(c => c.Quadrant)
-                                            .Include(c => c.SuspiciousMorphology)
-                                            .Include(c => c.Features)
-                                            .Include(c => c.TypicallyBenign)
-                                            .Include(c => c.Distribution)
-                                            .ToList()
-                                            .Select(Mapper.Map<ClinicalInfo, ClinicalInfoDto>);
+
+            var clinicalInfoDtos = clinicalInfos();
+                           
             return Ok(clinicalInfoDtos);
 
         }
@@ -44,38 +60,39 @@ namespace ARB.Controllers.API
         // GET api/<controller>/5-
         public IHttpActionResult Get(int id)
         {
-            var clinicalInfo = _context.ClinicalInfos
-                .Include(c => c.Asymmetries)
-                .Include(c => c.ClockFace)
-                .Include(c => c.MassMargin)
-                .Include(c => c.MassDensity)
-                .Include(c => c.Quadrant)
-                .Include(c => c.SuspiciousMorphology)
-                .Include(c=>c.Features)
-                .Include(c => c.TypicallyBenign)
-                .Include(c => c.Distribution)
-                .ToList().SingleOrDefault(c => c.Id == id);
-            
+            var clinicalInfo = clinicalInfos().SingleOrDefault(c => c.Id == id);
             if (clinicalInfo == null)
             {
                 return NotFound();
             }
+
+            var massSpecification = massSpecifications().Where(ms => ms.ClinicalInfoId == id).ToList();
+            clinicalInfo.MassSpecifications = massSpecification;
             return Ok(Mapper.Map<ClinicalInfo, ClinicalInfoDto>(clinicalInfo));
         }
 
         // POST api/<controller>
+        [Route("ClinicalInfo")]
         [HttpPost]
-        public IHttpActionResult CreateClinicalInfo(ClinicalInfo clinicalInfo)
-        {
-            if (!ModelState.IsValid)
-                /*throw new HttpResponseException(HttpStatusCode.BadRequest);*/
-                return BadRequest();
 
-        /*    var clinicalInfo = Mapper.Map<ClinicalInfoDto, ClinicalInfo>(clinicalInfoDto);*/
+        public IHttpActionResult CreateClinicalInfo(ClinicalInfoDto clinicalInfoDto)
+        {
+
+            if (!ModelState.IsValid)
+                return BadRequest();
+            var clinicalInfo = Mapper.Map<ClinicalInfoDto, ClinicalInfo>(clinicalInfoDto);
+            var massSpecification = clinicalInfoDto.MassSpecifications.ToList();
+            foreach (var mass in massSpecification)
+            {
+                mass.Id = clinicalInfoDto.Id;
+                _context.MassSpecifications.Add(mass);
+ 
+            }
+
             _context.ClinicalInfos.Add(clinicalInfo);
             _context.SaveChanges();
-          /*  clinicalInfo.Id = clinicalInfoDto.Id;*/
-            return Created(new Uri(Request.RequestUri + "/" + clinicalInfo.Id), clinicalInfo);
+            clinicalInfo.Id = clinicalInfoDto.Id;
+            return Created(new Uri(Request.RequestUri + "/" + clinicalInfo.Id), clinicalInfoDto);
         }
 
         [HttpPut]
@@ -87,21 +104,24 @@ namespace ARB.Controllers.API
             if (clinicalInfoDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            clinicalInfoDb.AsyId = clinicalInfoDto.AsyId;
+            clinicalInfoDb.AsymmetriesId = clinicalInfoDto.AsyId;
             clinicalInfoDb.BreastCompostion = clinicalInfoDto.BreastCompostion;
-            clinicalInfoDb.ClockFaceId = clinicalInfoDto.ClockFaceId;
+          
+            clinicalInfoDb.FeatureId = clinicalInfoDto.FeatureId;
+            clinicalInfoDb.DistributionId = clinicalInfoDto.DistributionId;
+ 
+            clinicalInfoDb.NumOfMass = clinicalInfoDto.NumOfMass;
+            clinicalInfoDb.SuspiciousMorphologyId = clinicalInfoDto.SuspiciousMorphologyId;
+            clinicalInfoDb.TypicallyBenignId = clinicalInfoDto.TypicallyBenignId;
+            /*clinicalInfoDb.ClockFaceId = clinicalInfoDto.ClockFaceId;
             clinicalInfoDb.Depth = clinicalInfoDto.Depth;
             clinicalInfoDb.DistanceFromTheNipple = clinicalInfoDto.DistanceFromTheNipple;
-            clinicalInfoDb.FeatureId = clinicalInfoDto.FeaturesId;
-            clinicalInfoDb.DistributionId = clinicalInfoDto.DistributionId;
+            clinicalInfoDb.QuadrantId = clinicalInfoDto.QuadrantId;
             clinicalInfoDb.Laterality = clinicalInfoDto.Laterality;
             clinicalInfoDb.MassDensityId = clinicalInfoDto.MassDensityId;
             clinicalInfoDb.MassMarginId = clinicalInfoDto.MassMarginId;
             clinicalInfoDb.MassShape = clinicalInfoDto.MassShape;
-            clinicalInfoDb.NumOfMass = clinicalInfoDto.NumOfMass;
-            clinicalInfoDb.QuadrantId = clinicalInfoDto.QuadrantId;
-            clinicalInfoDb.SuspiciousMorphologyId = clinicalInfoDto.SuspiciousMorphologyId;
-            clinicalInfoDb.TypicallyBenignId = clinicalInfoDto.TypicallyBenignId;
+                */
             _context.SaveChanges();
         }
 
