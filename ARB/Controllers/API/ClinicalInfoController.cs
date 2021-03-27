@@ -68,6 +68,7 @@ namespace ARB.Controllers.API
 
             var massSpecification = massSpecifications().Where(ms => ms.ClinicalInfoId == id).ToList();
             clinicalInfo.MassSpecifications = massSpecification;
+            clinicalInfo.FeatureId = id;
             return Ok(Mapper.Map<ClinicalInfo, ClinicalInfoDto>(clinicalInfo));
         }
 

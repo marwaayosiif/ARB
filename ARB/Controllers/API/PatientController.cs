@@ -46,6 +46,7 @@ namespace ARB.Controllers.API
                                        .Include(c => c.TypicallyBenign)
                                        .Include(c => c.Features)
                                        .Include(c => c.Distribution)
+                                       .Include(c=>c.MassSpecifications)
                                        .ToList();
             return clinicalInfos;
         }
@@ -72,6 +73,7 @@ namespace ARB.Controllers.API
                 p.ClinicalInfo = clinicalInfos().SingleOrDefault(c => c.Id == p.ClinicalInfoId);
                 p.GeneralInfo = _context.GeneralInfos.SingleOrDefault(c => c.Id == p.GeneralInfoId);
                 p.FinalAssessment = finalAssessments().SingleOrDefault(c => c.Id == p.FinalAssessmentId);
+
           /*      p.ExamData = _context.ExamDatas.SingleOrDefault(c => c.Id == p.ExamDataId);*/
                
             };

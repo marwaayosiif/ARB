@@ -25,6 +25,7 @@ namespace ARB.Controllers.API
                                 .Include(p => p.ClinicalInfo)
                                 .Include(p => p.GeneralInfo)
                                 .Include(p => p.FinalAssessment)
+                              
                                 /*  .Include(p => p.ExamData)*/
                                 .ToList();
             return patient;
@@ -68,9 +69,8 @@ namespace ARB.Controllers.API
             if (doctor == null)
                 return NotFound();
 
-         /*   var patientsOfThisDoctor = patients().Where(c => c.DoctorId == id).ToList();
-
-            doctor.Patients = patientsOfThisDoctor;*/
+            var patientsOfThisDoctor = patients().Where(c => c.DoctorId == id).ToList();
+            doctor.Patients = patientsOfThisDoctor;
             _context.SaveChanges();
             return Ok(doctor);
         }
