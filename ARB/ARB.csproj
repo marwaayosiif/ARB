@@ -501,6 +501,10 @@
     <Compile Include="Migrations\202103241023530_patientRmvDoc.Designer.cs">
       <DependentUpon>202103241023530_patientRmvDoc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103271041503_addExamDataAndDoctorIdIntoPatient.cs" />
+    <Compile Include="Migrations\202103271041503_addExamDataAndDoctorIdIntoPatient.Designer.cs">
+      <DependentUpon>202103271041503_addExamDataAndDoctorIdIntoPatient.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Asymmetries.cs" />
@@ -730,6 +734,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103241023530_patientRmvDoc.resx">
       <DependentUpon>202103241023530_patientRmvDoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103271041503_addExamDataAndDoctorIdIntoPatient.resx">
+      <DependentUpon>202103271041503_addExamDataAndDoctorIdIntoPatient.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

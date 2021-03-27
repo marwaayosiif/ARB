@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Data.Entity;
 using AutoMapper;
 using ARB.Models;
 using ARB.Dtos;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNetCore.Identity;
+
 
 namespace ARB.Controllers.API
 {
-    [RoutePrefix("api")]
+    [RoutePrefix("api/Doctor")]
     public class DoctorController : ApiController
     {
         private ApplicationDbContext _context;
@@ -36,10 +33,6 @@ namespace ARB.Controllers.API
         {
             var clinicalInfos = _context.ClinicalInfos
                                        .Include(c => c.Asymmetries)
-                                      /* .Include(c => c.ClockFace)
-                                       .Include(c => c.MassMargin)
-                                       .Include(c => c.MassDensity)
-                                       .Include(c => c.Quadrant)*/
                                        .Include(c => c.SuspiciousMorphology)
                                        .Include(c => c.TypicallyBenign)
                                        .Include(c => c.Features)
@@ -55,8 +48,8 @@ namespace ARB.Controllers.API
                 .Include(f => f.Recommendation).ToList());
         }
 
-        [Route("doctor")]
-        [HttpGet]
+    /*    [Route("doctor")]
+        [HttpGet]*/
 
         // GET /api/doctor
         public IHttpActionResult Get()
@@ -65,18 +58,18 @@ namespace ARB.Controllers.API
                
             return Ok(doctor);
         }
-        [Route("doctor/{email}")]
-        [HttpGet]
+    /*    [Route("doctor/{id}")]
+        [HttpGet]*/
         // GET /api/doctor/1
-        public IHttpActionResult Get(string email)
+        public IHttpActionResult Get(int id)
         {
             
-            var doctor = _context.Doctors.SingleOrDefault(g => g.Email == email);
+            var doctor = _context.Doctors.SingleOrDefault(g => g.Id == id);
             if (doctor == null)
                 return NotFound();
 
-        /*    var patientsOfThisDoctor = patients().Where(c => c.DoctorId == id).ToList();
-           
+         /*   var patientsOfThisDoctor = patients().Where(c => c.DoctorId == id).ToList();
+
             doctor.Patients = patientsOfThisDoctor;*/
             _context.SaveChanges();
             return Ok(doctor);
