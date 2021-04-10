@@ -10,7 +10,7 @@ using ARB.Models;
 using ARB.Dtos;
 namespace ARB.Controllers.API
 {
-    [RoutePrefix("api")]
+    [RoutePrefix("api/ClinicalInfo")]
     public class ClinicalInfoController : ApiController
     {
         private ApplicationDbContext _context;
@@ -42,17 +42,13 @@ namespace ARB.Controllers.API
                                        .ToList();
             return clinicalInfos;
         }
-
-
-        [Route("ClinicalInfo")]
-
-        [HttpGet]
+        
         // GET api/<controller>
         public IHttpActionResult GetClinicalInfo()
         {
 
             var clinicalInfoDtos = clinicalInfos();
-                           
+
             return Ok(clinicalInfoDtos);
 
         }
@@ -63,17 +59,23 @@ namespace ARB.Controllers.API
             var clinicalInfo = clinicalInfos().SingleOrDefault(c => c.Id == id);
             if (clinicalInfo == null)
             {
-                return NotFound();
+                var newClinicalInfo = new ClinicalInfo();
+                newClinicalInfo.Features = new Features();
+     
+                return Ok(new ClinicalInfo());
             }
 
             var massSpecification = massSpecifications().Where(ms => ms.ClinicalInfoId == id).ToList();
             clinicalInfo.MassSpecifications = massSpecification;
             clinicalInfo.FeatureId = id;
-            return Ok(Mapper.Map<ClinicalInfo, ClinicalInfoDto>(clinicalInfo));
+            return Ok(clinicalInfo);
         }
 
+
+
+
         // POST api/<controller>
-        [Route("ClinicalInfo")]
+        [Route("")]
         [HttpPost]
 
         public IHttpActionResult CreateClinicalInfo(ClinicalInfoDto clinicalInfoDto)
@@ -89,7 +91,7 @@ namespace ARB.Controllers.API
                 _context.MassSpecifications.Add(mass);
  
             }
-
+          
             _context.ClinicalInfos.Add(clinicalInfo);
             _context.SaveChanges();
             clinicalInfo.Id = clinicalInfoDto.Id;
@@ -105,7 +107,7 @@ namespace ARB.Controllers.API
             if (clinicalInfoDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            clinicalInfoDb.AsymmetriesId = clinicalInfoDto.AsyId;
+            clinicalInfoDb.AsymmetriesId = clinicalInfoDto.AsymmetriesId;
             clinicalInfoDb.BreastCompostion = clinicalInfoDto.BreastCompostion;
           
             clinicalInfoDb.FeatureId = clinicalInfoDto.FeatureId;

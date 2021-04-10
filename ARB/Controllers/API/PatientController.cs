@@ -13,7 +13,7 @@ using DnsClient;
 namespace ARB.Controllers.API
 {
 
-    [RoutePrefix("api")]
+    [RoutePrefix("api/patient")]
     public class PatientController : ApiController
     {
         private ApplicationDbContext _context;
@@ -25,46 +25,46 @@ namespace ARB.Controllers.API
 
 
         }
-        public List<Patient> patients(){
+        public List<Patient> patients() {
             var patient = _context.Patients
                                 .Include(p => p.ClinicalInfo)
                                 .Include(p => p.GeneralInfo)
                                 .Include(p => p.FinalAssessment)
-                              /*  .Include(p => p.ExamData)*/
+                                /*  .Include(p => p.ExamData)*/
                                 .ToList();
             return patient;
-                }
+        }
         public List<ClinicalInfo> clinicalInfos()
         {
             var clinicalInfos = _context.ClinicalInfos
                                        .Include(c => c.Asymmetries)
-                                      /* .Include(c => c.ClockFace)
-                                       .Include(c => c.MassMargin)
-                                       .Include(c => c.MassDensity)
-                                       .Include(c => c.Quadrant)*/
+                                       /* .Include(c => c.ClockFace)
+                                        .Include(c => c.MassMargin)
+                                        .Include(c => c.MassDensity)
+                                        .Include(c => c.Quadrant)*/
                                        .Include(c => c.SuspiciousMorphology)
                                        .Include(c => c.TypicallyBenign)
                                        .Include(c => c.Features)
                                        .Include(c => c.Distribution)
-                                       .Include(c=>c.MassSpecifications)
+                                       .Include(c => c.MassSpecifications)
                                        .ToList();
             return clinicalInfos;
         }
 
         public List<FinalAssessment> finalAssessments() {
-                        return (_context.FinalAssessments
-                            .Include(f => f.BiRads)
-                            .Include(f => f.Recommendation).ToList());
+            return (_context.FinalAssessments
+                .Include(f => f.BiRads)
+                .Include(f => f.Recommendation).ToList());
         }
 
 
         // GET api/<controller>
-        [Route("patient")]
+        [Route("")]
         [HttpGet]
         public IHttpActionResult Get()
         {
 
-       
+
             var patient = patients();
 
             foreach (var p in patients())
@@ -74,15 +74,16 @@ namespace ARB.Controllers.API
                 p.GeneralInfo = _context.GeneralInfos.SingleOrDefault(c => c.Id == p.GeneralInfoId);
                 p.FinalAssessment = finalAssessments().SingleOrDefault(c => c.Id == p.FinalAssessmentId);
 
-          /*      p.ExamData = _context.ExamDatas.SingleOrDefault(c => c.Id == p.ExamDataId);*/
-               
+                /*      p.ExamData = _context.ExamDatas.SingleOrDefault(c => c.Id == p.ExamDataId);*/
+
             };
 
             return Ok(patient);
         }
 
         // GET api/<controller>/5
-
+        [Route("{id}")]
+        [HttpGet]
         public IHttpActionResult Get(int id)
         {
             var patient = patients().SingleOrDefault(p => p.Id == id);
@@ -90,8 +91,8 @@ namespace ARB.Controllers.API
             patient.ClinicalInfo = clinicalInfos().SingleOrDefault(c => c.Id == patient.ClinicalInfoId);
             patient.GeneralInfo = _context.GeneralInfos.SingleOrDefault(c => c.Id == patient.GeneralInfoId);
             patient.FinalAssessment = finalAssessments().SingleOrDefault(c => c.Id == patient.FinalAssessmentId);
-/*            patient.ExamData = _context.ExamDatas.SingleOrDefault(c => c.Id == patient.ExamDataId);*/
-            
+            /*            patient.ExamData = _context.ExamDatas.SingleOrDefault(c => c.Id == patient.ExamDataId);*/
+
             if (patient == null)
                 return NotFound();
 
@@ -100,9 +101,9 @@ namespace ARB.Controllers.API
 
         // POST api/<controller>
 
-        [Route("patient")]
+        [Route("")]
         [HttpPost]
-     
+
         public IHttpActionResult Post([FromBody] Patient patient)
         {
             var errors = ModelState
@@ -112,19 +113,19 @@ namespace ARB.Controllers.API
 
             if (!ModelState.IsValid)
                 return Ok(errors);
-            
+
             _context.Patients.Add(patient);
-                
+
             _context.SaveChanges();
 
             return Created(new Uri(Request.RequestUri + "/" + patient.Id), patient);
 
         }
 
-  
+
 
         // PUT api/<controller>/5
-
+        [Route("{id,patientDto}")]
         [HttpPut]
       
         public IHttpActionResult Put(int id, PatientDto patientDto)
@@ -148,6 +149,7 @@ namespace ARB.Controllers.API
         }
 
         // DELETE api/<controller>/5
+        [Route("{id}")]
         [HttpDelete]
 
         public IHttpActionResult Delete(int id)

@@ -10,7 +10,9 @@ using ARB.Models;
 using ARB.Dtos;
 
 namespace ARB.Controllers.API
+
 {
+    [RoutePrefix("api/examData")]
     public class ExamDataController : ApiController
     {
         private ApplicationDbContext _context;
@@ -28,9 +30,27 @@ namespace ARB.Controllers.API
         }
 
         // GET api/<controller>/5
+        
+        [Route("ExamDataOfDoctor/{doctorId}")]
+
+        [HttpGet]
+        public IHttpActionResult ExamDataOfDoctor(int doctorId)
+        {
+            var examDatas = _context.ExamDatas.ToList().Where(c => c.DoctorId == doctorId);
+            if (examDatas == null)
+                return NotFound();
+
+
+            return Ok(examDatas);
+        }
+
+        [Route("{Id}")]
+
+        [HttpGet]
+
         public IHttpActionResult Get(int id)
         {
-            return Ok(_context.ExamDatas.ToList().SingleOrDefault(c=>c.Id==id));
+            return Ok(_context.ExamDatas.ToList().SingleOrDefault(c => c.Id == id));
         }
 
         // POST api/<controller>

@@ -13,7 +13,7 @@ namespace ARB.Dtos
         public int NumOfMass { get; set; }
 
         public Asymmetries Asymmetries { get; set; }
-        public int AsyId { get; set; }
+        public int AsymmetriesId { get; set; }
         public Features Features { get; set; }
         public int FeatureId { get; set; }
 

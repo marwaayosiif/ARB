@@ -33,7 +33,7 @@ namespace ARB.Controllers.API
             var generalInfo = _context.GeneralInfos.SingleOrDefault(g => g.Id == id);
 
             if (generalInfo == null)
-                return NotFound();
+                return Ok(new GeneralInfo());
 
             return Ok(Mapper.Map<GeneralInfo, GeneralInfoDto>(generalInfo));
         }

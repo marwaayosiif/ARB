@@ -40,7 +40,7 @@ namespace ARB.Controllers.API
                 .Include(f => f.Recommendation).SingleOrDefault(f => f.Id == id);
 
             if (finalAssessment == null)
-                return NotFound();
+                return Ok(new FinalAssessment());
 
             return Ok(Mapper.Map<FinalAssessment, FinalAssessmentDto>(finalAssessment));
         }
