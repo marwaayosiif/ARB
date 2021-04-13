@@ -45,14 +45,13 @@ namespace ARB.Controllers.API
         }
 
         [Route("{Id}")]
-
         [HttpGet]
 
         public IHttpActionResult Get(int id)
         {
             return Ok(_context.ExamDatas.ToList().SingleOrDefault(c => c.Id == id));
         }
-
+        [HttpPost]
         // POST api/<controller>
         public IHttpActionResult Post(ExamData examData)
         {
@@ -62,6 +61,7 @@ namespace ARB.Controllers.API
             _context.SaveChanges();
             return Created(new Uri(Request.RequestUri + "/" + examData.Id), examData);
         }
+        [HttpPut]
 
         // PUT api/<controller>/5
         public void Put(int id, ExamData examData)
@@ -81,13 +81,38 @@ namespace ARB.Controllers.API
             _context.SaveChanges();
 
         }
+        [Route("{id}")]
+        [HttpDelete]
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
             var examDataInDb = _context.ExamDatas.SingleOrDefault(e => e.Id == id);
+            var patientInDb = _context.Patients.SingleOrDefault(g => g.ExamDataId == id);
+            
+            if (examDataInDb == null )
+                return NotFound();
+            if(patientInDb != null)
+            {
+                var clincalinfoInDb = _context.ClinicalInfos.SingleOrDefault(c => c.Id == patientInDb.ClinicalInfoId);
+                var featuresInDb = _context.Features.SingleOrDefault(c => c.Id == clincalinfoInDb.FeatureId);
+                var GeneralInfoInDb = _context.GeneralInfos.SingleOrDefault(c => c.Id == patientInDb.GeneralInfoId);
+                var FinalAssesmentInDb = _context.FinalAssessments.SingleOrDefault(f => f.Id == patientInDb.FinalAssessmentId);
+                var RecommendationInDb = _context.Recommendations.SingleOrDefault(r => r.Id == FinalAssesmentInDb.RecommendationId);
+
+                _context.Features.Remove(featuresInDb);
+                _context.ClinicalInfos.Remove(clincalinfoInDb);
+                _context.GeneralInfos.Remove(GeneralInfoInDb);
+                _context.Recommendations.Remove(RecommendationInDb);
+                _context.FinalAssessments.Remove(FinalAssesmentInDb);
+                _context.Patients.Remove(patientInDb);
+            }
+
+               
             _context.ExamDatas.Remove(examDataInDb);
             _context.SaveChanges();
+
+            return Ok();
 
         }
     }
