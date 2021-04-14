@@ -97,7 +97,7 @@ namespace ARB.Controllers.API
             clinicalInfo.Id = clinicalInfoDto.Id;
             return Created(new Uri(Request.RequestUri + "/" + clinicalInfo.Id), clinicalInfoDto);
         }
-
+        [Route("")]
         [HttpPut]
         // PUT api/<controller>/5
         public void Put(int id, ClinicalInfoDto clinicalInfoDto)

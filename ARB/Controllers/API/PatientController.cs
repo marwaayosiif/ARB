@@ -81,25 +81,47 @@ namespace ARB.Controllers.API
             return Ok(patient);
         }
 
+
         // GET api/<controller>/5
-        [Route("{id}")]
+        [Route("{id}/{by}")]
         [HttpGet]
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult Get(int id , string by)
         {
-            var patient = patients().SingleOrDefault(p => p.Id == id);
+            Patient patient = new Patient();
+
+            if (by == "\"examId\"")
+            {
+                patient = patients().SingleOrDefault(p => p.ExamDataId == id);
+
+
+            }
+            else
+            {
+                patient = patients().SingleOrDefault(p => p.Id == id);
+
+            }
+        
+           
+            if (patient == null)
+                return NotFound();
 
             patient.ClinicalInfo = clinicalInfos().SingleOrDefault(c => c.Id == patient.ClinicalInfoId);
             patient.GeneralInfo = _context.GeneralInfos.SingleOrDefault(c => c.Id == patient.GeneralInfoId);
             patient.FinalAssessment = finalAssessments().SingleOrDefault(c => c.Id == patient.FinalAssessmentId);
             /*            patient.ExamData = _context.ExamDatas.SingleOrDefault(c => c.Id == patient.ExamDataId);*/
 
-            if (patient == null)
-                return NotFound();
+          
 
             return Ok(Mapper.Map<Patient, PatientDto>(patient));
         }
 
+       
+
+      
+
+
         // POST api/<controller>
+
 
         [Route("")]
         [HttpPost]
@@ -113,22 +135,26 @@ namespace ARB.Controllers.API
 
             if (!ModelState.IsValid)
                 return Ok(errors);
+            ExamData examData = _context.ExamDatas.SingleOrDefault(c => c.Id == patient.ExamDataId);
+            if (examData == null)
+            {
+                return Ok("use Put Request");
 
+            }
             _context.Patients.Add(patient);
-
             _context.SaveChanges();
-
             return Created(new Uri(Request.RequestUri + "/" + patient.Id), patient);
+
 
         }
 
 
 
         // PUT api/<controller>/5
-        [Route("{id,patientDto}")]
+        [Route("{id}")]
         [HttpPut]
       
-        public IHttpActionResult Put(int id, PatientDto patientDto)
+        public IHttpActionResult Put([FromUri] int id, [FromBody] PatientDto patientDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
