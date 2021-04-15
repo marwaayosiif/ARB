@@ -513,6 +513,10 @@
     <Compile Include="Migrations\202104021418347_addDoctorId.Designer.cs">
       <DependentUpon>202104021418347_addDoctorId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104151249530_PergnancyHistoryBoolean.cs" />
+    <Compile Include="Migrations\202104151249530_PergnancyHistoryBoolean.Designer.cs">
+      <DependentUpon>202104151249530_PergnancyHistoryBoolean.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Asymmetries.cs" />
@@ -751,6 +755,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104021418347_addDoctorId.resx">
       <DependentUpon>202104021418347_addDoctorId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104151249530_PergnancyHistoryBoolean.resx">
+      <DependentUpon>202104151249530_PergnancyHistoryBoolean.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

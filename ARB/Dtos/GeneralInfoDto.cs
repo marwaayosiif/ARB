@@ -32,6 +32,7 @@ namespace ARB.Dtos
         public bool TakingHormones { get; set; }
         public string HowlongTakingHormones { get; set; }
         //Pergnancy 
+        public bool PergnancyHistory { get; set; }
         public bool Menopause { get; set; }
         public bool Pregnant { get; set; }
         public int Gravida { get; set; }
