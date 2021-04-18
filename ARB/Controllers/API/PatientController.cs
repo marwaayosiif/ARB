@@ -109,6 +109,11 @@ namespace ARB.Controllers.API
             patient.GeneralInfo = _context.GeneralInfos.SingleOrDefault(c => c.Id == patient.GeneralInfoId);
             patient.FinalAssessment = finalAssessments().SingleOrDefault(c => c.Id == patient.FinalAssessmentId);
             /*            patient.ExamData = _context.ExamDatas.SingleOrDefault(c => c.Id == patient.ExamDataId);*/
+            patient.ClinicalInfo.MassSpecifications = _context.MassSpecifications.Where(c => c.ClinicalInfoId == patient.ClinicalInfoId)
+                                                                                 .Include(c => c.ClockFace)
+                                                                                 .Include(c => c.MassDensity)
+                                                                                 .Include(c => c.MassMargin)
+                                                                                 .Include(c => c.Quadrant).ToList();
 
           
 
@@ -199,7 +204,7 @@ namespace ARB.Controllers.API
             _context.Patients.Remove(patientInDb);
             _context.SaveChanges();
 
-            return Ok();
+            return Ok(patientInDb);
         }
     }
 }

@@ -112,7 +112,7 @@ namespace ARB.Controllers.API
             _context.ExamDatas.Remove(examDataInDb);
             _context.SaveChanges();
 
-            return Ok();
+            return Ok(examDataInDb);
 
         }
     }
