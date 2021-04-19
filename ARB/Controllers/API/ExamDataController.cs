@@ -61,11 +61,13 @@ namespace ARB.Controllers.API
             _context.SaveChanges();
             return Created(new Uri(Request.RequestUri + "/" + examData.Id), examData);
         }
+         [Route("{id}")]
         [HttpPut]
 
         // PUT api/<controller>/5
-        public void Put(int id, ExamData examData)
+        public void Put([FromUri] int id, [FromBody] ExamData examData)
         {
+            
             var examDataInDb = _context.ExamDatas.SingleOrDefault(e => e.Id == id );
             if (examDataInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);

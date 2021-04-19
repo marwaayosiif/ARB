@@ -159,21 +159,17 @@ namespace ARB.Controllers.API
         [Route("{id}")]
         [HttpPut]
       
-        public IHttpActionResult Put([FromUri] int id, [FromBody] PatientDto patientDto)
+        public IHttpActionResult Put([FromUri] int id, [FromBody] Patient patient)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var patientInDb = _context.Patients.SingleOrDefault(g => g.Id == id);
-
+            var patientInDb = patients().Single(g => g.Id == id);
+          
             if (patientInDb == null)
                 return NotFound();
 
-            patientInDb.ClinicalInfoId = patientDto.ClinicalInfoId;
-            patientInDb.FinalAssessmentId = patientDto.FinalAssessmentId;
-            patientInDb.GeneralInfoId = patientDto.GeneralInfoId;
-          /*  patientInDb.ExamDataId = patientDto.ExamDataId;*/
-
+            Mapper.Map(patient, patientInDb);
             _context.SaveChanges();
 
             return Ok();
