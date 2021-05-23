@@ -174,13 +174,13 @@ namespace ARB.Controllers.API
 
             if (by == "\"examId\"")
             {
-                patient = _context.Patients.SingleOrDefault(p => p.ExamDataId == id);
+                patient = getPatientRecord(id);
 
 
             }
             else
             {
-                patient = _context.Patients.SingleOrDefault(p => p.Id == id);
+                patient = getPatientRecord(id);
 
             }
 
