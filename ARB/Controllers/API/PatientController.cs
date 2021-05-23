@@ -171,10 +171,10 @@ namespace ARB.Controllers.API
         public IHttpActionResult Get(int id, string by)
         {
             Patient patient = new Patient();
-
+/*
             if (by == "\"examId\"")
             {
-                patient = getPatientRecord(id);
+               
 
 
             }
@@ -182,9 +182,12 @@ namespace ARB.Controllers.API
             {
                 patient = getPatientRecord(id);
 
-            }
+            }*/
 
-
+            patient = getPatientRecord(id);
+            
+            patient.ClinicalInfo.MassSpecifications = GetMassSpecifications(id);
+            
             if (patient == null)
                 return NotFound();
 
