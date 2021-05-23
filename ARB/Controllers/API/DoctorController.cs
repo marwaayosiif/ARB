@@ -21,13 +21,13 @@ namespace ARB.Controllers.API
         }
         public List<Patient> patients()
         {
-            var patient = _context.Patients
-                                .Include(p => p.ClinicalInfo)
-                                .Include(p => p.GeneralInfo)
-                                .Include(p => p.FinalAssessment)
-                              
-                                /*  .Include(p => p.ExamData)*/
-                                .ToList();
+            var patient = _context.Patients.ToList();
+            /*.Include(p => p.ClinicalInfo)
+            .Include(p => p.GeneralInfo)
+            .Include(p => p.FinalAssessment)
+
+            *//*  .Include(p => p.ExamData)*/
+
             return patient;
         }
         public List<ClinicalInfo> clinicalInfos()

@@ -70,12 +70,12 @@ namespace ARB.Controllers.API
 
             if (generalInfoInDb == null)
                 return NotFound();
-
+      
             Mapper.Map(generalInfoDto, generalInfoInDb);
 
             _context.SaveChanges();
 
-            return Ok();
+            return Ok(generalInfoInDb);
         }
 
         // DELETE /api/generalinfo/1

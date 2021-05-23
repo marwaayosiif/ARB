@@ -64,7 +64,7 @@ namespace ARB.Controllers.API
 
         //PUT /api/finalassessment/1
         [HttpPut]
-        public IHttpActionResult UpdateFianlAssessment(int id, FinalAssessmentDto finalAssessmentDto)
+        public IHttpActionResult UpdateFianlAssessment([FromUri] int id, [FromBody] FinalAssessmentDto finalAssessmentDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();

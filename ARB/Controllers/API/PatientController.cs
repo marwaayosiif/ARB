@@ -9,6 +9,11 @@ using AutoMapper;
 using ARB.Models;
 using ARB.Dtos;
 using DnsClient;
+using ARB.Controllers.API;
+using Newtonsoft.Json;
+using System.Text;
+using System.IO;
+using System.Reflection;
 
 namespace ARB.Controllers.API
 {
@@ -25,23 +30,19 @@ namespace ARB.Controllers.API
 
 
         }
-        public List<Patient> patients() {
-            var patient = _context.Patients
-                                .Include(p => p.ClinicalInfo)
-                                .Include(p => p.GeneralInfo)
-                                .Include(p => p.FinalAssessment)
-                                /*  .Include(p => p.ExamData)*/
-                                .ToList();
-            return patient;
-        }
+        /*        public List<Patient> patients() {
+                    var patient = _context.Patients
+                                        .Include(p => p.ClinicalInfo)
+                                        .Include(p => p.GeneralInfo)
+                                        .Include(p => p.FinalAssessment)
+                                        *//*  .Include(p => p.ExamData)*//*
+                                        .ToList();
+                    return patient;
+                }*/
         public List<ClinicalInfo> clinicalInfos()
         {
             var clinicalInfos = _context.ClinicalInfos
                                        .Include(c => c.Asymmetries)
-                                       /* .Include(c => c.ClockFace)
-                                        .Include(c => c.MassMargin)
-                                        .Include(c => c.MassDensity)
-                                        .Include(c => c.Quadrant)*/
                                        .Include(c => c.SuspiciousMorphology)
                                        .Include(c => c.TypicallyBenign)
                                        .Include(c => c.Features)
@@ -51,11 +52,107 @@ namespace ARB.Controllers.API
             return clinicalInfos;
         }
 
-        public List<FinalAssessment> finalAssessments() {
+        public List<FinalAssessment> finalAssessments()
+        {
             return (_context.FinalAssessments
                 .Include(f => f.BiRads)
                 .Include(f => f.Recommendation).ToList());
         }
+        Patient getPatientRecord (int id)
+        {
+            var existingPatient = _context.Patients
+                                        .Where(p => p.Id == id)
+                                        .Include(p => p.ClinicalInfo)
+                                        .Include(p => p.ClinicalInfo.Asymmetries)
+                                        .Include(p => p.ClinicalInfo.SuspiciousMorphology)
+                                        .Include(p => p.ClinicalInfo.TypicallyBenign)
+                                        .Include(p => p.ClinicalInfo.Features)
+                                        .Include(p => p.ClinicalInfo.Distribution)
+                             /*           .Include(p => p.ClinicalInfo.MassSpecifications.ClockFace)
+                                        .Include(p => p.ClinicalInfo.MassSpecifications.MassMargin)
+                                        .Include(p => p.ClinicalInfo.MassSpecifications.MassDensity)
+                                        .Include(p => p.ClinicalInfo.MassSpecifications.Quadrant)*/
+                                        .Include(p=>p.ClinicalInfo.MassSpecifications)
+                                        .Include(p => p.GeneralInfo)
+                                        .Include(p => p.FinalAssessment)
+                                        .Include(p => p.FinalAssessment.BiRads)
+                                        .Include(p => p.FinalAssessment.BiRads)
+                                        .Include(p => p.FinalAssessment.Recommendation)
+                                        .SingleOrDefault();
+            return (existingPatient);
+        }
+
+        ClinicalInfo GetClinicalInfo(int id)
+        {
+            var clinicalInfo = _context.ClinicalInfos
+                                        .Where(c=>c.Id==id)
+                                        .Include(c => c.Asymmetries)
+                                        .Include(c => c.SuspiciousMorphology)
+                                        .Include(c => c.TypicallyBenign)
+                                        .Include(c => c.Features)
+                                        .Include(c => c.Distribution)
+                                        .Include(c => c.MassSpecifications)
+                                        .SingleOrDefault();
+            return (clinicalInfo);
+        }
+
+        List<MassSpecification> GetMassSpecifications(int id)
+        {
+            var massSpecifications = _context.MassSpecifications
+                                       .Where(m => m.ClinicalInfoId == id)
+                                       .Include(c => c.ClockFace)
+                                       .Include(c => c.MassMargin)
+                                       .Include(c => c.MassDensity)
+                                       .Include(c => c.Quadrant)
+                                       .ToList();
+                                      
+            return massSpecifications;
+
+        } 
+
+        FinalAssessment getFinalAssessment(int id)
+        {
+            return (_context.FinalAssessments
+                                            .Include(f => f.BiRads)
+                                            .Include(f => f.Recommendation)
+                                            .SingleOrDefault(c => c.Id == id)
+                                            );
+
+        }
+       
+        StringBuilder sb = new StringBuilder();
+        private string m_exePath = string.Empty;
+        public void LogWrite(string logMessage)
+        {
+            m_exePath = "C:\\Users\\EG\\source\\repos\\New folder\\ARB";
+            try
+            {
+                using (StreamWriter w = File.AppendText(m_exePath + "\\" + "log.txt"))
+                {
+                    Log(logMessage, w);
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+        public void Log(string logMessage, TextWriter txtWriter)
+        {
+            try
+            {
+                txtWriter.Write("\r\nLog Entry : ");
+                txtWriter.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(),
+                    DateTime.Now.ToLongDateString());
+                txtWriter.WriteLine("  :");
+                txtWriter.WriteLine("  :{0}", logMessage);
+                txtWriter.WriteLine("-------------------------------");
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+
 
 
         // GET api/<controller>
@@ -64,65 +161,44 @@ namespace ARB.Controllers.API
         public IHttpActionResult Get()
         {
 
-
-            var patient = patients();
-
-            foreach (var p in patients())
-            {
-
-                p.ClinicalInfo = clinicalInfos().SingleOrDefault(c => c.Id == p.ClinicalInfoId);
-                p.GeneralInfo = _context.GeneralInfos.SingleOrDefault(c => c.Id == p.GeneralInfoId);
-                p.FinalAssessment = finalAssessments().SingleOrDefault(c => c.Id == p.FinalAssessmentId);
-
-                /*      p.ExamData = _context.ExamDatas.SingleOrDefault(c => c.Id == p.ExamDataId);*/
-
-            };
-
-            return Ok(patient);
+            return Ok(_context.Patients.ToList());
         }
 
 
         // GET api/<controller>/5
         [Route("{id}/{by}")]
         [HttpGet]
-        public IHttpActionResult Get(int id , string by)
+        public IHttpActionResult Get(int id, string by)
         {
             Patient patient = new Patient();
 
             if (by == "\"examId\"")
             {
-                patient = patients().SingleOrDefault(p => p.ExamDataId == id);
+                patient = _context.Patients.SingleOrDefault(p => p.ExamDataId == id);
 
 
             }
             else
             {
-                patient = patients().SingleOrDefault(p => p.Id == id);
+                patient = _context.Patients.SingleOrDefault(p => p.Id == id);
 
             }
-        
-           
+
+
             if (patient == null)
                 return NotFound();
 
-            patient.ClinicalInfo = clinicalInfos().SingleOrDefault(c => c.Id == patient.ClinicalInfoId);
-            patient.GeneralInfo = _context.GeneralInfos.SingleOrDefault(c => c.Id == patient.GeneralInfoId);
-            patient.FinalAssessment = finalAssessments().SingleOrDefault(c => c.Id == patient.FinalAssessmentId);
-            /*            patient.ExamData = _context.ExamDatas.SingleOrDefault(c => c.Id == patient.ExamDataId);*/
-            patient.ClinicalInfo.MassSpecifications = _context.MassSpecifications.Where(c => c.ClinicalInfoId == patient.ClinicalInfoId)
-                                                                                 .Include(c => c.ClockFace)
-                                                                                 .Include(c => c.MassDensity)
-                                                                                 .Include(c => c.MassMargin)
-                                                                                 .Include(c => c.Quadrant).ToList();
 
-          
+            string message = $"Patient In Get by id Request: { JsonConvert.SerializeObject(patient) }";
+            LogWrite(message);
+
 
             return Ok(Mapper.Map<Patient, PatientDto>(patient));
         }
 
-       
 
-      
+
+
 
 
         // POST api/<controller>
@@ -140,14 +216,26 @@ namespace ARB.Controllers.API
 
             if (!ModelState.IsValid)
                 return Ok(errors);
+
+
             ExamData examData = _context.ExamDatas.SingleOrDefault(c => c.Id == patient.ExamDataId);
+
             if (examData == null)
             {
-                return Ok("use Put Request");
+                return Ok("Please, Add Patient Exam Data Information First");
 
             }
+
+            string message = $"Patient In Post Request: { JsonConvert.SerializeObject(patient) }";
+
+            System.Diagnostics.Debug.WriteLine(message);
+
+            LogWrite(message);
+
             _context.Patients.Add(patient);
+
             _context.SaveChanges();
+
             return Created(new Uri(Request.RequestUri + "/" + patient.Id), patient);
 
 
@@ -158,21 +246,105 @@ namespace ARB.Controllers.API
         // PUT api/<controller>/5
         [Route("{id}")]
         [HttpPut]
-      
-        public IHttpActionResult Put([FromUri] int id, [FromBody] Patient patient)
+
+        public IHttpActionResult Put([FromUri] int id, [FromBody] PatientDto newPatient)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var patientInDb = patients().Single(g => g.Id == id);
-          
-            if (patientInDb == null)
+            var existingPatient = getPatientRecord(id);
+
+
+
+            if (existingPatient != null)
+            {
+                    // Update 
+                    _context.Entry(existingPatient).CurrentValues.SetValues(newPatient);
+
+                    var existingClinicalInfo = _context.ClinicalInfos
+                            .SingleOrDefault(c => c.Id == existingPatient.ClinicalInfo.Id);
+
+                    var existingGeneralInfo = _context.GeneralInfos.SingleOrDefault(g => g.Id == existingPatient.GeneralInfo.Id);
+
+                    var existingFinalAssessment = _context.FinalAssessments.SingleOrDefault(f=>f.Id == existingPatient.FinalAssessment.Id);
+                    
+                    var existingFeatures = _context.Features.SingleOrDefault(f => f.Id == existingPatient.ClinicalInfo.Features.Id);
+
+                    var existingMassSpecifications = GetMassSpecifications(id);
+               
+
+                if (existingClinicalInfo != null && existingGeneralInfo != null && existingFinalAssessment != null)
+                { 
+                    _context.Entry(existingClinicalInfo).CurrentValues.SetValues(newPatient.ClinicalInfo);
+                
+                    _context.Entry(existingGeneralInfo).CurrentValues.SetValues(newPatient.GeneralInfo);
+                    
+                    _context.Entry(existingFinalAssessment).CurrentValues.SetValues(newPatient.FinalAssessment);
+                    
+                    _context.Entry(existingFeatures).CurrentValues.SetValues(newPatient.ClinicalInfo.Features);
+               
+                    foreach(var element in newPatient.ClinicalInfo.MassSpecifications)
+                    {
+                        var check = existingMassSpecifications.Where(c => c.Id == element.Id).SingleOrDefault();
+                        
+                        if(check == null)
+                        {
+                            _context.MassSpecifications.Add(element);
+
+
+                        }
+
+                    }
+
+                    foreach (var element in existingMassSpecifications)
+                    {
+                        var MassSpecificationInNewPatient = newPatient.ClinicalInfo.MassSpecifications.Where(c => c.Id == element.Id).SingleOrDefault();
+                       
+                        var massSpecfictionMember = existingMassSpecifications.Where(c => c.Id == element.Id).SingleOrDefault();
+
+
+                        if (MassSpecificationInNewPatient != null)
+                                {
+                    
+                                    _context.Entry(massSpecfictionMember).CurrentValues.SetValues(MassSpecificationInNewPatient);
+
+
+                                }
+                        else
+                        {
+                            _context.MassSpecifications.Remove(massSpecfictionMember);
+
+                        }
+
+
+                    }
+
+                }
+                    else
+                        {
+                            return NotFound();
+
+                        }
+
+
+                    _context.SaveChanges();
+            }
+            else
+            {
                 return NotFound();
+            }
 
-            Mapper.Map(patient, patientInDb);
-            _context.SaveChanges();
 
-            return Ok();
+
+
+
+            string message = $"Patient In PUT Request: { JsonConvert.SerializeObject(existingPatient)}";
+
+            System.Diagnostics.Debug.WriteLine(message);
+
+            
+
+            return Ok(existingPatient);
         }
 
         // DELETE api/<controller>/5
@@ -182,16 +354,16 @@ namespace ARB.Controllers.API
         public IHttpActionResult Delete(int id)
         {
             var patientInDb = _context.Patients.SingleOrDefault(g => g.Id == id);
-            var clincalinfoInDb = _context.ClinicalInfos.SingleOrDefault(c => c.Id== patientInDb.ClinicalInfoId);
-            var featuresInDb = _context.Features.SingleOrDefault(c => c.Id == clincalinfoInDb.FeatureId);
-            var GeneralInfoInDb = _context.GeneralInfos.SingleOrDefault(c => c.Id== patientInDb.GeneralInfoId);
-            var FinalAssesmentInDb = _context.FinalAssessments.SingleOrDefault(f => f.Id == patientInDb.FinalAssessmentId);
-            var RecommendationInDb = _context.Recommendations.SingleOrDefault(r => r.Id == FinalAssesmentInDb.RecommendationId);
-            
+            var clincalinfoInDb = _context.ClinicalInfos.SingleOrDefault(c => c.Id == patientInDb.ClinicalInfo.Id);
+            var featuresInDb = _context.Features.SingleOrDefault(c => c.Id == clincalinfoInDb.Features.Id);
+            var GeneralInfoInDb = _context.GeneralInfos.SingleOrDefault(c => c.Id == patientInDb.GeneralInfo.Id);
+            var FinalAssesmentInDb = _context.FinalAssessments.SingleOrDefault(f => f.Id == patientInDb.FinalAssessment.Id);
+            var RecommendationInDb = _context.Recommendations.SingleOrDefault(r => r.Id == FinalAssesmentInDb.Recommendation.Id);
+
             if (patientInDb == null)
                 return NotFound();
-          
-            
+
+
             _context.Features.Remove(featuresInDb);
             _context.ClinicalInfos.Remove(clincalinfoInDb);
             _context.GeneralInfos.Remove(GeneralInfoInDb);
@@ -200,7 +372,28 @@ namespace ARB.Controllers.API
             _context.Patients.Remove(patientInDb);
             _context.SaveChanges();
 
+
             return Ok(patientInDb);
         }
     }
 }
+
+
+//var patientInDb = _context.Patients.SingleOrDefault(g => g.Id == id);
+
+//if (patientInDb == null)
+//    return NotFound();
+
+
+//patientInDb = Mapper.Map(patientDto, patientInDb);
+
+//var clinicalInfo = _context.ClinicalInfos.SingleOrDefault(c => c.Id == patientDto.ClinicalInfoId);
+
+//clinicalInfo = Mapper.Map(patientInDb.ClinicalInfo, clinicalInfo);
+
+//_context.Entry(patientInDb).State = System.Data.Entity.EntityState.Modified;
+
+//_context.Entry(clinicalInfo).State = System.Data.Entity.EntityState.Modified;
+
+
+//_context.SaveChanges();

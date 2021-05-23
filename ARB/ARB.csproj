@@ -341,6 +341,7 @@
     <Compile Include="Dtos\BiRadsDto.cs" />
     <Compile Include="Dtos\ClinicalInfoDto.cs" />
     <Compile Include="Dtos\DoctorDto.cs" />
+    <Compile Include="Dtos\ExamDataDto.cs" />
     <Compile Include="Dtos\FeaturesDto.cs" />
     <Compile Include="Dtos\FinalAssessmentDto.cs" />
     <Compile Include="Dtos\GeneralInfoDto.cs" />
@@ -520,6 +521,14 @@
     <Compile Include="Migrations\202104190258587_test4.cs" />
     <Compile Include="Migrations\202104190258587_test4.Designer.cs">
       <DependentUpon>202104190258587_test4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105100257514_editPatient.cs" />
+    <Compile Include="Migrations\202105100257514_editPatient.Designer.cs">
+      <DependentUpon>202105100257514_editPatient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105221815461_update.cs" />
+    <Compile Include="Migrations\202105221815461_update.Designer.cs">
+      <DependentUpon>202105221815461_update.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -765,6 +774,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104190258587_test4.resx">
       <DependentUpon>202104190258587_test4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105100257514_editPatient.resx">
+      <DependentUpon>202105100257514_editPatient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105221815461_update.resx">
+      <DependentUpon>202105221815461_update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -65,21 +65,14 @@ namespace ARB.Controllers.API
         [HttpPut]
 
         // PUT api/<controller>/5
-        public void Put([FromUri] int id, [FromBody] ExamData examData)
+        public void Put([FromUri] int id, [FromBody] ExamDataDto examDataDto)
         {
             
             var examDataInDb = _context.ExamDatas.SingleOrDefault(e => e.Id == id );
             if (examDataInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
-            examDataInDb.Name = examData.Name;
-            examDataInDb.EmailAddress = examData.EmailAddress;
-            examDataInDb.MobileNumber = examData.MobileNumber;
-            examDataInDb.PatientID = examData.PatientID;
-            examDataInDb.Address = examData.Address;
-            examDataInDb.Modailty = examData.Modailty;
-            examDataInDb.ReferringDoctor = examData.ReferringDoctor;
-            examDataInDb.StudyDate = examData.StudyDate;
-            examDataInDb.LastOperation = examData.LastOperation;
+            Mapper.Map(examDataDto, examDataInDb);
+
             _context.SaveChanges();
 
         }

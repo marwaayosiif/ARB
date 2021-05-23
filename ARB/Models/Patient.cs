@@ -9,7 +9,6 @@ namespace ARB.Models
     public class Patient
     {
         public int Id { get; set; }
-    /*    public ExamData ExamData { get; set; }*/
         public int ExamDataId { get; set; }
         public int DoctorId { get; set; }
         public int ClinicalInfoId { get; set; }
@@ -18,7 +17,6 @@ namespace ARB.Models
         public GeneralInfo GeneralInfo { get; set; }
         public int FinalAssessmentId { get; set; }
         public FinalAssessment FinalAssessment { get; set; }
-
 
     }
 }
