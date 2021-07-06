@@ -530,6 +530,10 @@
     <Compile Include="Migrations\202105221815461_update.Designer.cs">
       <DependentUpon>202105221815461_update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202107061124196_changeRelationBetweenMassAndClinicalInfo.cs" />
+    <Compile Include="Migrations\202107061124196_changeRelationBetweenMassAndClinicalInfo.Designer.cs">
+      <DependentUpon>202107061124196_changeRelationBetweenMassAndClinicalInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Asymmetries.cs" />
@@ -780,6 +784,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105221815461_update.resx">
       <DependentUpon>202105221815461_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107061124196_changeRelationBetweenMassAndClinicalInfo.resx">
+      <DependentUpon>202107061124196_changeRelationBetweenMassAndClinicalInfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

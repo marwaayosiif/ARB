@@ -274,8 +274,9 @@ namespace ARB.Controllers.API
                     var existingFeatures = _context.Features.SingleOrDefault(f => f.Id == existingPatient.ClinicalInfo.Features.Id);
 
                     var existingMassSpecifications = GetMassSpecifications(id);
-               
 
+                var newExistingMassSpecifications = newPatient.ClinicalInfo.MassSpecifications.ToList();
+               
                 if (existingClinicalInfo != null && existingGeneralInfo != null && existingFinalAssessment != null)
                 { 
                     _context.Entry(existingClinicalInfo).CurrentValues.SetValues(newPatient.ClinicalInfo);
@@ -285,42 +286,79 @@ namespace ARB.Controllers.API
                     _context.Entry(existingFinalAssessment).CurrentValues.SetValues(newPatient.FinalAssessment);
                     
                     _context.Entry(existingFeatures).CurrentValues.SetValues(newPatient.ClinicalInfo.Features);
-               
-                    foreach(var element in newPatient.ClinicalInfo.MassSpecifications)
+
+                    var counter = 0;
+                    var lengthOf_NewMasses = newExistingMassSpecifications.Count();
+                    var lenthgOf_existingMasses = existingMassSpecifications.Count();
+                    if (lengthOf_NewMasses >= lenthgOf_existingMasses) // Add Masses
                     {
-                        var check = existingMassSpecifications.Where(c => c.Id == element.Id).SingleOrDefault();
-                        
-                        if(check == null)
+                        foreach (var element in newExistingMassSpecifications)
                         {
-                            _context.MassSpecifications.Add(element);
-
-
+                            if (counter < lenthgOf_existingMasses)
+                            {
+                                _context.Entry(existingMassSpecifications[counter]).CurrentValues.SetValues(element);
+                            }
+                            else
+                            {
+                                _context.MassSpecifications.Add(element);
+                            }
+                            counter += 1;
                         }
 
                     }
-
-                    foreach (var element in existingMassSpecifications)
+                    else    // Delete 
                     {
-                        var MassSpecificationInNewPatient = newPatient.ClinicalInfo.MassSpecifications.Where(c => c.Id == element.Id).SingleOrDefault();
-                       
-                        var massSpecfictionMember = existingMassSpecifications.Where(c => c.Id == element.Id).SingleOrDefault();
-
-
-                        if (MassSpecificationInNewPatient != null)
-                                {
-                    
-                                    _context.Entry(massSpecfictionMember).CurrentValues.SetValues(MassSpecificationInNewPatient);
-
-
-                                }
-                        else
+                        foreach (var element in existingMassSpecifications)
                         {
-                            _context.MassSpecifications.Remove(massSpecfictionMember);
+                            if (counter < lengthOf_NewMasses)
+                            {
+                                _context.Entry(element).CurrentValues.SetValues(newExistingMassSpecifications[counter]);
 
+                            }
+                            else
+                            {
+                                _context.MassSpecifications.Remove(element);
+                            }
+                            counter += 1;
                         }
 
-
                     }
+                   
+                    /*  foreach(var element in newPatient.ClinicalInfo.MassSpecifications)
+                      {
+                          var check = existingMassSpecifications.Where(c => c.Id == element.Id).SingleOrDefault();
+
+                          if(check == null)
+                          {
+                              _context.MassSpecifications.Add(element);
+
+
+                          }
+
+                      }
+
+                      foreach (var element in existingMassSpecifications)
+                      {
+                          var MassSpecificationInNewPatient = newPatient.ClinicalInfo.MassSpecifications.Where(c => c.Id == element.Id).SingleOrDefault();
+
+                          var massSpecfictionMember = existingMassSpecifications.Where(c => c.Id == element.Id).SingleOrDefault();
+
+
+                          if (MassSpecificationInNewPatient != null)
+                                  {
+
+                                      _context.Entry(massSpecfictionMember).CurrentValues.SetValues(MassSpecificationInNewPatient);
+
+
+                                  }
+                          else
+                          {
+                              _context.MassSpecifications.Remove(massSpecfictionMember);
+
+                          }
+
+
+                      }*/
 
                 }
                     else

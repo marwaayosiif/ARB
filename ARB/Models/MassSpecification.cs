@@ -8,7 +8,6 @@ namespace ARB.Models
     public class MassSpecification
     {
         public int Id { get; set; }
-        public int ClinicalInfoId { get; set; }
         public String MassShape { get; set; }
         public MassMargin MassMargin { get; set; }
         public int MassMarginId { get; set; }
@@ -22,6 +21,8 @@ namespace ARB.Models
         public string Depth { get; set; }
         public string DistanceFromTheNipple { get; set; }
 
-       
+        // Navigation properties 
+        public int ClinicalInfoId { get; set; }
+/*        public ClinicalInfo clinicalInfo { get; set; }*/
     }
 }
