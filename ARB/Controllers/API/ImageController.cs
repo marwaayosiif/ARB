@@ -29,7 +29,7 @@ namespace ARB.Controllers.API
             var httpRequest = HttpContext.Current.Request;
             var postedFile = httpRequest.Files["Image"];
             imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(10).ToArray()).Replace(" ", "-");
-            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(postedFile.FileName);
+            imageName = imageName + Path.GetExtension(postedFile.FileName);
             var filePath = HttpContext.Current.Server.MapPath("~/Images/" + imageName);
             postedFile.SaveAs(filePath);
 
@@ -52,6 +52,20 @@ namespace ARB.Controllers.API
                 return NotFound();
 
             return Ok(images.FILEPATHNAME);
+        }
+
+        [HttpDelete]
+        public IHttpActionResult DeleteImage(string name)
+        {
+            var imageInDb = _context.Image.SingleOrDefault(g => g.FILEPATHNAME == name);
+
+            if (imageInDb == null)
+                return NotFound();
+
+            _context.Image.Remove(imageInDb);
+            _context.SaveChanges();
+
+            return Ok();
         }
 
     }
