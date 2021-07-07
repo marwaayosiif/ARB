@@ -11,5 +11,7 @@ namespace ARB.Models
     {
         public int Id { get; set; }
         public string ImageName { get; set; }
+        public string FILEPATHNAME { get; set; }
+
     }
 }

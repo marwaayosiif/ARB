@@ -35,13 +35,23 @@ namespace ARB.Controllers.API
 
             Image image = new Image()
             {
-                ImageName = imageName
+                ImageName = imageName,
+                FILEPATHNAME = filePath,
             };
             _context.Image.Add(image);
             _context.SaveChanges();
 
             return Request.CreateResponse(HttpStatusCode.Created);
 
+        }
+        [HttpGet]
+        public IHttpActionResult GetImages(int id)
+        {
+            var images = _context.Image.SingleOrDefault(g => g.Id == id);
+            if (images == null)
+                return NotFound();
+
+            return Ok(images.FILEPATHNAME);
         }
 
     }
