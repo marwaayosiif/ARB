@@ -28,11 +28,29 @@ namespace ARB.Controllers.API
         public HttpResponseMessage UploadImage()
         {
             string imageName = null;
+
             var httpRequest = HttpContext.Current.Request;
+
             var postedFile = httpRequest.Files["Image"];
+            
             imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(100).ToArray()).Replace(" ", "-");
+
+            var id = imageName.Split('_')[1];
+
+            System.Diagnostics.Debug.WriteLine("id");
+
+            System.Diagnostics.Debug.WriteLine(id);
+
             imageName = imageName + Path.GetExtension(postedFile.FileName);
-            var filePath = HttpContext.Current.Server.MapPath("~/Images/" + imageName);
+
+            string path1 = @"G:\SBME\GP\GP\ARB\ARB\Images";
+
+            string path2 = Path.Combine(path1, $"Patient{id}");
+
+            Directory.CreateDirectory(path2);
+
+            var filePath = HttpContext.Current.Server.MapPath($"~/Images/Patient{id}/" + imageName);
+
             postedFile.SaveAs(filePath);
 
             Image image = new Image()

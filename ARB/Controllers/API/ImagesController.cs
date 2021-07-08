@@ -40,8 +40,10 @@ namespace ARB.Controllers.API
             //imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(10).ToArray()).Replace(" ", "-");
             //imageName = imageName + Path.GetExtension(postedFile.FileName);
             //var filePath = HttpContext.Current.Server.MapPath("~/Images/" + imageName);
+
             var imageName = new String(name.Take(10).ToArray()).Replace(" ", "-");
             imageName = imageName + Path.GetExtension(name);
+            
             var filePath = HttpContext.Current.Server.MapPath("~/Images/" + imageName);
             //postedFile.SaveAs(filePath);
             System.Diagnostics.Debug.WriteLine("Image");
