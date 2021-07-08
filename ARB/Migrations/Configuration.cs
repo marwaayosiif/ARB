@@ -9,7 +9,7 @@ namespace ARB.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(ARB.Models.ApplicationDbContext context)

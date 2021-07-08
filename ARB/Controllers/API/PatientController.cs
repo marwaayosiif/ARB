@@ -60,6 +60,7 @@ namespace ARB.Controllers.API
         }
         Patient getPatientRecord (int id)
         {
+
             var existingPatient = _context.Patients
                                         .Where(p => p.Id == id)
                                         .Include(p => p.ClinicalInfo)
@@ -68,10 +69,6 @@ namespace ARB.Controllers.API
                                         .Include(p => p.ClinicalInfo.TypicallyBenign)
                                         .Include(p => p.ClinicalInfo.Features)
                                         .Include(p => p.ClinicalInfo.Distribution)
-                             /*           .Include(p => p.ClinicalInfo.MassSpecifications.ClockFace)
-                                        .Include(p => p.ClinicalInfo.MassSpecifications.MassMargin)
-                                        .Include(p => p.ClinicalInfo.MassSpecifications.MassDensity)
-                                        .Include(p => p.ClinicalInfo.MassSpecifications.Quadrant)*/
                                         .Include(p=>p.ClinicalInfo.MassSpecifications)
                                         .Include(p => p.GeneralInfo)
                                         .Include(p => p.FinalAssessment)
@@ -171,26 +168,30 @@ namespace ARB.Controllers.API
         public IHttpActionResult Get(int id, string by)
         {
             Patient patient = new Patient();
-/*
+
             if (by == "\"examId\"")
             {
-               
+                var patientInDb = _context.Patients.SingleOrDefault(p => p.ExamDataId == id);
 
+                if(patientInDb != null)
+                {
+                    var patientId = patientInDb.Id;
+                    patient = getPatientRecord(patientId);
+                }
 
             }
             else
             {
                 patient = getPatientRecord(id);
 
-            }*/
+            }
 
-            patient = getPatientRecord(id);
-            
-            patient.ClinicalInfo.MassSpecifications = GetMassSpecifications(id);
+          
             
             if (patient == null)
                 return NotFound();
 
+            patient.ClinicalInfo.MassSpecifications = GetMassSpecifications(patient.Id);
 
             string message = $"Patient In Get by id Request: { JsonConvert.SerializeObject(patient) }";
             LogWrite(message);
@@ -239,7 +240,11 @@ namespace ARB.Controllers.API
 
             _context.SaveChanges();
 
-            return Created(new Uri(Request.RequestUri + "/" + patient.Id), patient);
+            Patient patientFromDataBase = getPatientRecord(patient.Id);
+            
+            patientFromDataBase.ClinicalInfo.MassSpecifications = GetMassSpecifications(patient.Id);
+
+            return Created(new Uri(Request.RequestUri + "/" + patient.Id), patientFromDataBase);
 
 
         }
@@ -288,8 +293,11 @@ namespace ARB.Controllers.API
                     _context.Entry(existingFeatures).CurrentValues.SetValues(newPatient.ClinicalInfo.Features);
 
                     var counter = 0;
+                    
                     var lengthOf_NewMasses = newExistingMassSpecifications.Count();
+                    
                     var lenthgOf_existingMasses = existingMassSpecifications.Count();
+                    
                     if (lengthOf_NewMasses >= lenthgOf_existingMasses) // Add Masses
                     {
                         foreach (var element in newExistingMassSpecifications)
@@ -310,7 +318,7 @@ namespace ARB.Controllers.API
                     {
                         foreach (var element in existingMassSpecifications)
                         {
-                            if (counter < lengthOf_NewMasses)
+                            if (counter < lengthOf_NewMasses && lengthOf_NewMasses != 0)
                             {
                                 _context.Entry(element).CurrentValues.SetValues(newExistingMassSpecifications[counter]);
 
@@ -395,14 +403,16 @@ namespace ARB.Controllers.API
         public IHttpActionResult Delete(int id)
         {
             var patientInDb = _context.Patients.SingleOrDefault(g => g.Id == id);
+            if (patientInDb == null)
+                return NotFound();
+
             var clincalinfoInDb = _context.ClinicalInfos.SingleOrDefault(c => c.Id == patientInDb.ClinicalInfo.Id);
             var featuresInDb = _context.Features.SingleOrDefault(c => c.Id == clincalinfoInDb.Features.Id);
             var GeneralInfoInDb = _context.GeneralInfos.SingleOrDefault(c => c.Id == patientInDb.GeneralInfo.Id);
             var FinalAssesmentInDb = _context.FinalAssessments.SingleOrDefault(f => f.Id == patientInDb.FinalAssessment.Id);
             var RecommendationInDb = _context.Recommendations.SingleOrDefault(r => r.Id == FinalAssesmentInDb.Recommendation.Id);
 
-            if (patientInDb == null)
-                return NotFound();
+          
 
 
             _context.Features.Remove(featuresInDb);
@@ -413,8 +423,7 @@ namespace ARB.Controllers.API
             _context.Patients.Remove(patientInDb);
             _context.SaveChanges();
 
-
-            return Ok(patientInDb);
+            return Ok();
         }
     }
 }

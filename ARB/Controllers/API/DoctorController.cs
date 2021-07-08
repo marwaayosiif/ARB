@@ -120,7 +120,6 @@ namespace ARB.Controllers.API
         }
 
 
-
         // PUT /api/doctor/1
         [HttpPut]
         public IHttpActionResult Put(int id, DoctorDto doctorDto)
@@ -133,11 +132,10 @@ namespace ARB.Controllers.API
             if (doctorInDb == null)
                 return NotFound();
 
-            Mapper.Map(doctorDto, doctorInDb);
-
+            _context.Entry(doctorInDb).CurrentValues.SetValues(doctorDto);
             _context.SaveChanges();
 
-            return Ok();
+            return Ok(doctorInDb);
         }
 
         // DELETE /api/doctor/1

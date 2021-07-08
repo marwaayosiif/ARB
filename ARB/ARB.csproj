@@ -560,6 +560,7 @@
     <Compile Include="Models\ClacificationDistribution.cs" />
     <Compile Include="Models\ClacificationSuspiciousMorphology.cs" />
     <Compile Include="Models\ClacificationTypicallyBenign.cs" />
+    <Compile Include="Models\Email.cs" />
     <Compile Include="Models\ClinicalInfo.cs" />
     <Compile Include="Models\ClockFace.cs" />
     <Compile Include="Models\ComboBox.cs" />
@@ -587,6 +588,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ClinicalInfoViewModel.cs" />
     <Compile Include="ViewModels\FinalAssessmentViewModel.cs" />
+    <Compile Include="ViewModels\PatientViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\aspnet-ARB-20210202110132.mdf" />
@@ -656,6 +658,8 @@
     <Content Include="Views\FinalAssessment\Index.cshtml" />
     <Content Include="Views\GeneralInfo\Index.cshtml" />
     <Content Include="Views\Doctor\Index.cshtml" />
+    <Content Include="Views\Email\Index.cshtml" />
+    <Content Include="Views\Email\SendEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
