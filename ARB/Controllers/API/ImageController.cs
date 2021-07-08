@@ -68,16 +68,34 @@ namespace ARB.Controllers.API
         [HttpGet]
         public IHttpActionResult GetImages(int id)
         {
-            var images = _context.Image.SingleOrDefault(g => g.Id == id);
-            if (images == null)
-                return NotFound();
+            const string folderName = @"G:\SBME\GP\GP\ARB\ARB\Images";
+            string[] files = { };
+            try
+            {
+                 
 
-            return Ok(images.FILEPATHNAME);
+                var Fullpath = Path.Combine(folderName, $"Patient{id}");
+
+
+                files = Directory.GetFiles(Fullpath);
+
+
+                System.Diagnostics.Debug.WriteLine(files);
+
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
+
+            return Ok(files);
         }
 
         [HttpDelete]
         public IHttpActionResult DeleteImage(string name)
         {
+            
             var imageInDb = _context.Image.SingleOrDefault(g => g.FILEPATHNAME == name);
 
             if (imageInDb == null)
