@@ -10,8 +10,10 @@ namespace ARB.Models
     public class Image 
     {
         public int Id { get; set; }
+        public int PatientId { get; set; }
         public string ImageName { get; set; }
         public string FILEPATHNAME { get; set; }
+
 
     }
 }

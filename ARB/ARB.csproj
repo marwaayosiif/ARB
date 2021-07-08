@@ -332,6 +332,7 @@
     <Compile Include="Controllers\API\FinalAssessmentController.cs" />
     <Compile Include="Controllers\API\GeneralInfoController.cs" />
     <Compile Include="Controllers\API\ImageController.cs" />
+    <Compile Include="Controllers\API\ImagesController.cs" />
     <Compile Include="Controllers\API\PatientController.cs" />
     <Compile Include="Controllers\API\testController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
@@ -346,6 +347,7 @@
     <Compile Include="Dtos\FeaturesDto.cs" />
     <Compile Include="Dtos\FinalAssessmentDto.cs" />
     <Compile Include="Dtos\GeneralInfoDto.cs" />
+    <Compile Include="Dtos\ImageDto.cs" />
     <Compile Include="Dtos\PatientDto.cs" />
     <Compile Include="Dtos\RecommendationDto.cs" />
     <Compile Include="Global.asax.cs">
@@ -546,6 +548,10 @@
     <Compile Include="Migrations\202107071731455_ImageFilePathModi.cs" />
     <Compile Include="Migrations\202107071731455_ImageFilePathModi.Designer.cs">
       <DependentUpon>202107071731455_ImageFilePathModi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107080959371_patientIdAddToImages.cs" />
+    <Compile Include="Migrations\202107080959371_patientIdAddToImages.Designer.cs">
+      <DependentUpon>202107080959371_patientIdAddToImages.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202107081102050_test5.cs" />
     <Compile Include="Migrations\202107081102050_test5.Designer.cs">
@@ -822,6 +828,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202107071731455_ImageFilePathModi.resx">
       <DependentUpon>202107071731455_ImageFilePathModi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107080959371_patientIdAddToImages.resx">
+      <DependentUpon>202107080959371_patientIdAddToImages.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202107081102050_test5.resx">
       <DependentUpon>202107081102050_test5.cs</DependentUpon>
