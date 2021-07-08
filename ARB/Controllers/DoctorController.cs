@@ -91,7 +91,7 @@ namespace ARB.Controllers
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp   
             
             System.Net.NetworkCredential basicCredential1 = new
-            System.Net.NetworkCredential(from, "");
+            System.Net.NetworkCredential(from, "salmahamza@12345");
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
             client.Credentials = basicCredential1;

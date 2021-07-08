@@ -535,6 +535,22 @@
     <Compile Include="Migrations\202107061124196_changeRelationBetweenMassAndClinicalInfo.Designer.cs">
       <DependentUpon>202107061124196_changeRelationBetweenMassAndClinicalInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202107070941010_Image.cs" />
+    <Compile Include="Migrations\202107070941010_Image.Designer.cs">
+      <DependentUpon>202107070941010_Image.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107071724337_ImageFilePath.cs" />
+    <Compile Include="Migrations\202107071724337_ImageFilePath.Designer.cs">
+      <DependentUpon>202107071724337_ImageFilePath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107071731455_ImageFilePathModi.cs" />
+    <Compile Include="Migrations\202107071731455_ImageFilePathModi.Designer.cs">
+      <DependentUpon>202107071731455_ImageFilePathModi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107081102050_test5.cs" />
+    <Compile Include="Migrations\202107081102050_test5.Designer.cs">
+      <DependentUpon>202107081102050_test5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Asymmetries.cs" />
@@ -797,6 +813,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202107061124196_changeRelationBetweenMassAndClinicalInfo.resx">
       <DependentUpon>202107061124196_changeRelationBetweenMassAndClinicalInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107070941010_Image.resx">
+      <DependentUpon>202107070941010_Image.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107071724337_ImageFilePath.resx">
+      <DependentUpon>202107071724337_ImageFilePath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107071731455_ImageFilePathModi.resx">
+      <DependentUpon>202107071731455_ImageFilePathModi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107081102050_test5.resx">
+      <DependentUpon>202107081102050_test5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
