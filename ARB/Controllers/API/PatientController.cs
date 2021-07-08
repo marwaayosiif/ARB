@@ -171,12 +171,13 @@ namespace ARB.Controllers.API
 
             if (by == "\"examId\"")
             {
-                int patientId = _context.Patients.SingleOrDefault(p => p.ExamDataId == id).Id;
-                if(patientId != 0)
+                var patientInDb = _context.Patients.SingleOrDefault(p => p.ExamDataId == id);
+
+                if(patientInDb != null)
                 {
+                    var patientId = patientInDb.Id;
                     patient = getPatientRecord(patientId);
                 }
-               
 
             }
             else
@@ -185,11 +186,12 @@ namespace ARB.Controllers.API
 
             }
 
-            patient.ClinicalInfo.MassSpecifications = GetMassSpecifications(id);
+          
             
             if (patient == null)
                 return NotFound();
 
+            patient.ClinicalInfo.MassSpecifications = GetMassSpecifications(patient.Id);
 
             string message = $"Patient In Get by id Request: { JsonConvert.SerializeObject(patient) }";
             LogWrite(message);
@@ -239,6 +241,7 @@ namespace ARB.Controllers.API
             _context.SaveChanges();
 
             Patient patientFromDataBase = getPatientRecord(patient.Id);
+            
             patientFromDataBase.ClinicalInfo.MassSpecifications = GetMassSpecifications(patient.Id);
 
             return Created(new Uri(Request.RequestUri + "/" + patient.Id), patientFromDataBase);
@@ -290,8 +293,11 @@ namespace ARB.Controllers.API
                     _context.Entry(existingFeatures).CurrentValues.SetValues(newPatient.ClinicalInfo.Features);
 
                     var counter = 0;
+                    
                     var lengthOf_NewMasses = newExistingMassSpecifications.Count();
+                    
                     var lenthgOf_existingMasses = existingMassSpecifications.Count();
+                    
                     if (lengthOf_NewMasses >= lenthgOf_existingMasses) // Add Masses
                     {
                         foreach (var element in newExistingMassSpecifications)

@@ -553,10 +553,6 @@
     <Compile Include="Migrations\202107080959371_patientIdAddToImages.Designer.cs">
       <DependentUpon>202107080959371_patientIdAddToImages.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202107081102050_test5.cs" />
-    <Compile Include="Migrations\202107081102050_test5.Designer.cs">
-      <DependentUpon>202107081102050_test5.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Asymmetries.cs" />
@@ -831,9 +827,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202107080959371_patientIdAddToImages.resx">
       <DependentUpon>202107080959371_patientIdAddToImages.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202107081102050_test5.resx">
-      <DependentUpon>202107081102050_test5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
