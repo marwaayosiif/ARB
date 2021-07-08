@@ -12,6 +12,7 @@ using System.Web.Http;
 
 namespace ARB.Controllers.API
 {
+    [RoutePrefix("api/Image")]
     public class ImageController : ApiController
     {
         private ApplicationDbContext _context;
@@ -20,15 +21,16 @@ namespace ARB.Controllers.API
         {
             _context = new ApplicationDbContext();
         }
+       
         [HttpPost]
-        [Route("api/UploadImage")]
+        
         
         public HttpResponseMessage UploadImage()
         {
             string imageName = null;
             var httpRequest = HttpContext.Current.Request;
             var postedFile = httpRequest.Files["Image"];
-            imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(10).ToArray()).Replace(" ", "-");
+            imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(100).ToArray()).Replace(" ", "-");
             imageName = imageName + Path.GetExtension(postedFile.FileName);
             var filePath = HttpContext.Current.Server.MapPath("~/Images/" + imageName);
             postedFile.SaveAs(filePath);
@@ -37,6 +39,7 @@ namespace ARB.Controllers.API
             {
                 ImageName = imageName,
                 FILEPATHNAME = filePath,
+                PatientId = 1
             };
             _context.Image.Add(image);
             _context.SaveChanges();
