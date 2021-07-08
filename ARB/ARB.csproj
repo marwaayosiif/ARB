@@ -331,6 +331,7 @@
     <Compile Include="Controllers\API\ExamDataController.cs" />
     <Compile Include="Controllers\API\FinalAssessmentController.cs" />
     <Compile Include="Controllers\API\GeneralInfoController.cs" />
+    <Compile Include="Controllers\API\ImageController.cs" />
     <Compile Include="Controllers\API\PatientController.cs" />
     <Compile Include="Controllers\API\testController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
@@ -534,10 +535,6 @@
     <Compile Include="Migrations\202107061124196_changeRelationBetweenMassAndClinicalInfo.Designer.cs">
       <DependentUpon>202107061124196_changeRelationBetweenMassAndClinicalInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202107071502462_addFeildsToDoctorTable.cs" />
-    <Compile Include="Migrations\202107071502462_addFeildsToDoctorTable.Designer.cs">
-      <DependentUpon>202107071502462_addFeildsToDoctorTable.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Asymmetries.cs" />
@@ -555,6 +552,7 @@
     <Compile Include="Models\FinalAssessment.cs" />
     <Compile Include="Models\GeneralInfo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MassDensity.cs" />
     <Compile Include="Models\MassMargin.cs" />
@@ -575,6 +573,10 @@
     <Compile Include="ViewModels\PatientViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-ARB-20210202110132.mdf" />
+    <Content Include="App_Data\aspnet-ARB-20210202110132_log.ldf">
+      <DependentUpon>aspnet-ARB-20210202110132.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -642,7 +644,7 @@
     <Content Include="Views\Email\SendEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -795,9 +797,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202107061124196_changeRelationBetweenMassAndClinicalInfo.resx">
       <DependentUpon>202107061124196_changeRelationBetweenMassAndClinicalInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202107071502462_addFeildsToDoctorTable.resx">
-      <DependentUpon>202107071502462_addFeildsToDoctorTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

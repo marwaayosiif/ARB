@@ -43,6 +43,7 @@ namespace ARB.Models
         public DbSet<test> test { get; set; }
         //public DbSet<combo> combo { get; set; }
         public DbSet<ComboBox> ComboBox { get; set; }
+        public DbSet<Image> Image { get; set; }
 
 
         public ApplicationDbContext()

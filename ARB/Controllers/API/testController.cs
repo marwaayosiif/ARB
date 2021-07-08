@@ -14,10 +14,10 @@ namespace ARB.Controllers.API
 
         private ApplicationDbContext _context;
 
-        public testController()
-        {
-            _context = new ApplicationDbContext();
-        }
+            public testController()
+            {
+                _context = new ApplicationDbContext();
+            }
         // GET api/<controller>
         public IHttpActionResult Gettests()
         {
