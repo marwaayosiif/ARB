@@ -122,16 +122,12 @@ namespace ARB.Controllers.API
                 return NotFound();
     
             var allImages = new List<Byte[]>();
-            string message = $"start";
-            System.Diagnostics.Debug.WriteLine(message);
+
             foreach (var image in images)
             {
-                message = $"Images: { JsonConvert.SerializeObject(image) }";
-                System.Diagnostics.Debug.WriteLine(message);
-
+               
                 allImages.Add(image.data);
                
-
             }
             
            

@@ -10,7 +10,7 @@ namespace ARB.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string TileImage { get; set; }
+        public Byte[] TileImage { get; set; }
     }
 
 }
