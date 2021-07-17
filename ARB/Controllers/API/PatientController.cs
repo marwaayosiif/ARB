@@ -193,8 +193,8 @@ namespace ARB.Controllers.API
 
             patient.ClinicalInfo.MassSpecifications = GetMassSpecifications(patient.Id);
 
-            string message = $"Patient In Get by id Request: { JsonConvert.SerializeObject(patient) }";
-            LogWrite(message);
+          /*  string message = $"Patient In Get by id Request: { JsonConvert.SerializeObject(patient) }";
+            LogWrite(message);*/
 
 
             return Ok(Mapper.Map<Patient, PatientDto>(patient));

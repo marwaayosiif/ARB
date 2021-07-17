@@ -18,6 +18,7 @@ namespace ARB.Migrations
             Sql("INSERT INTO BiRads (Name) VALUES ('5')");
             Sql("INSERT INTO BiRads (Name) VALUES ('6')");
 
+         
             Sql("INSERT INTO Recommendations (Name) VALUES ('Ultrasound')");
             Sql("INSERT INTO Recommendations (Name) VALUES ('MRI')");
             Sql("INSERT INTO Recommendations (Name) VALUES ('Histology')");

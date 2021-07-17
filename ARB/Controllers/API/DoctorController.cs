@@ -14,7 +14,7 @@ namespace ARB.Controllers.API
     public class DoctorController : ApiController
     {
         private ApplicationDbContext _context;
-    
+
         public DoctorController()
         {
             _context = new ApplicationDbContext();
@@ -49,22 +49,22 @@ namespace ARB.Controllers.API
                 .Include(f => f.Recommendation).ToList());
         }
 
-    /*    [Route("doctor")]
-        [HttpGet]*/
+        /*    [Route("doctor")]
+            [HttpGet]*/
 
         // GET /api/doctor
         public IHttpActionResult Get()
         {
             var doctor = _context.Doctors.ToList();
-               
+
             return Ok(doctor);
         }
-    /*    [Route("doctor/{id}")]
-        [HttpGet]*/
+        /*    [Route("doctor/{id}")]
+            [HttpGet]*/
         // GET /api/doctor/1
         public IHttpActionResult Get(int id)
         {
-            
+
             var doctor = _context.Doctors.SingleOrDefault(g => g.Id == id);
             if (doctor == null)
                 return NotFound();
@@ -78,7 +78,7 @@ namespace ARB.Controllers.API
 
 
         // POST /api/doctor
-        [Route("doctor")]
+   /*     [Route("doctor")]*/
         [HttpPost]
         public IHttpActionResult Post(DoctorDto doctorDto)
         {
@@ -104,10 +104,10 @@ namespace ARB.Controllers.API
                         .ToArray();
 
             if (!ModelState.IsValid)
-                return  Ok(errors);
+                return Ok(errors);
 
             var doctor = _context.Doctors.SingleOrDefault(d => d.Email == loginViewModel.Email);
-            if(doctor == null)
+            if (doctor == null)
             {
                 return Ok<string>("Not Found");
 

@@ -17,16 +17,24 @@ namespace ARB.Migrations
             Sql("INSERT INTO MassMargins (Name) VALUES ('Indistinct')");
             Sql("INSERT INTO MassMargins (Name) VALUES ('Spiculated')");
 
+            
+
+
+
             Sql("INSERT INTO MassDensities (Name) VALUES ('High density')");
             Sql("INSERT INTO MassDensities (Name) VALUES ('Equal density')");
             Sql("INSERT INTO MassDensities (Name) VALUES ('Low density')");
             Sql("INSERT INTO MassDensities (Name) VALUES ('Fat-containing')");
+
 
             Sql("INSERT INTO Quadrants (Name) VALUES ('Upper inner')");
             Sql("INSERT INTO Quadrants (Name) VALUES ('Lower inner')");
             Sql("INSERT INTO Quadrants (Name) VALUES ('Central')");
             Sql("INSERT INTO Quadrants (Name) VALUES ('Upper outer')");
             Sql("INSERT INTO Quadrants (Name) VALUES ('Lower outer')");
+
+
+
 
             Sql("INSERT INTO ClockFaces (Name) VALUES (1)");
             Sql("INSERT INTO ClockFaces (Name) VALUES (2)");
@@ -49,7 +57,9 @@ namespace ARB.Migrations
             Sql("INSERT INTO ClacificationTypicallyBenigns (Name) VALUES ('Rim')");
             Sql("INSERT INTO ClacificationTypicallyBenigns (Name) VALUES ('Dystrophic')");
             Sql("INSERT INTO ClacificationTypicallyBenigns (Name) VALUES ('Milk of calcium Suture')");
-            
+
+
+        
             Sql("INSERT INTO ClacificationSuspiciousMorphologies (Name) VALUES ('Amorphous')");
             Sql("INSERT INTO ClacificationSuspiciousMorphologies (Name) VALUES ('Coarse heterogeneous')");
             Sql("INSERT INTO ClacificationSuspiciousMorphologies (Name) VALUES ('Fine pleomorphic')");

@@ -49,9 +49,9 @@ namespace ARB.Controllers.API
             System.Diagnostics.Debug.WriteLine(filePath);
             Image image = new Image()
             {
-                ImageName = imageName,
-                FILEPATHNAME = filePath,
-                PatientId = 1
+                ImageName = imageName
+               /* FILEPATHNAME = filePath,*/
+          /*      PatientId = 1*/
             };
             _context.Image.Add(image);
             _context.SaveChanges();

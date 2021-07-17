@@ -14,7 +14,13 @@ namespace ARB
         }
         public void ConfigureServices(IServiceCollection services)
         {
+           /* var cors = new EnableCorsAttribute("*", "*", "*");*/
             services.AddCors();
+         /*   services.AddDbContext<ApplicationDbContext>(options =>
+                                options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
+
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+*/
         }
 
         public void Configure(IApplicationBuilder app)
@@ -24,6 +30,7 @@ namespace ARB
                 .AllowAnyMethod()
                 .AllowAnyHeader() 
                 );
+
 
         }
     }
