@@ -80,8 +80,7 @@ namespace ARB.Controllers.API
                 _context.Report.Add(newReport);
 
                 _context.SaveChanges();
-                
-            
+
 
             }
             else

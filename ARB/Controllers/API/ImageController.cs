@@ -38,12 +38,13 @@ namespace ARB.Controllers.API
             
             var postedFile = httpRequest.Files["Image"];
 
-
-            imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(100).ToArray()).Replace(" ", "-");
             
+            imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(100).ToArray()).Replace(" ", "-");
+
+            return Request.CreateResponse(imageName);
             image.PatientId = imageName.Split('_')[1];
             
-            imageName = imageName + Path.GetExtension(postedFile.FileName);
+            /*imageName = imageName + Path.GetExtension(postedFile.FileName);*/
 
             if (postedFile == null)
             {

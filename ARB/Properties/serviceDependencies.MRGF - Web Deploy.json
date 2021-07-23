@@ -1,9 +1,9 @@
 {
   "dependencies": {
     "mssql1": {
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/fmrg-dbdbserver/databases/FMRG_DB",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/fmrg-dbdbserver/databases/ARB_db",
       "type": "mssql.azure",
-      "connectionId": "DefaultConnection",
+      "connectionId": "aspnet-ARB-20210202110132",
       "secretStore": "AzureAppSettings"
     }
   }
