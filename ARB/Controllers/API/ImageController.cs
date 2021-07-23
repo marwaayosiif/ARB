@@ -41,8 +41,7 @@ namespace ARB.Controllers.API
             
             imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(100).ToArray()).Replace(" ", "-");
 
-            return Request.CreateResponse(imageName);
-            image.PatientId = imageName.Split('_')[1];
+       /*     image.PatientId = imageName.Split('_')[1];*/
             
             /*imageName = imageName + Path.GetExtension(postedFile.FileName);*/
 
@@ -69,46 +68,7 @@ namespace ARB.Controllers.API
             return Request.CreateResponse(HttpStatusCode.Created, Convert.ToBase64String(image.data, 0, postedFile.ContentLength));
 
         }
-        /*   public HttpResponseMessage UploadImage()
-           {
-               string imageName = null;
-
-               var httpRequest = HttpContext.Current.Request;
-
-               var postedFile = httpRequest.Files["Image"];
-
-               imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(100).ToArray()).Replace(" ", "-");
-
-               var id = imageName.Split('_')[1];
-
-               System.Diagnostics.Debug.WriteLine("id");
-
-               System.Diagnostics.Debug.WriteLine(id);
-
-               imageName = imageName + Path.GetExtension(postedFile.FileName);
-
-               string path1 = @"G:\SBME\GP\GP\ARB\ARB\Images";
-
-               string path2 = Path.Combine(path1, $"Patient{id}");
-
-               Directory.CreateDirectory(path2);
-
-               var filePath = HttpContext.Current.Server.MapPath($"~/Images/Patient{id}/" + imageName);
-
-               postedFile.SaveAs(filePath);
-
-               Image image = new Image()
-               {
-                   ImageName = imageName,
-                   FILEPATHNAME = filePath,
-                  *//* PatientId = 1*//*
-               };
-               _context.Image.Add(image);
-               _context.SaveChanges();
-
-               return Request.CreateResponse(HttpStatusCode.Created);
-
-           }*/
+ 
         [Route("{id}")]
         [HttpGet]
       
@@ -116,7 +76,7 @@ namespace ARB.Controllers.API
         {
             string patientID = id.ToString();
             
-            var images = _context.Image.Where(g => g.PatientId == patientID).Select(c=>new {c.data}).ToList();
+            var images = _context.Image.Where(g => g.ImageName == patientID).Select(c=>new {c.data}).ToList();
 
            
             
@@ -137,17 +97,28 @@ namespace ARB.Controllers.API
             return Ok(allImages);
         }
 
-        [Route("{Id}")]
+        [Route("{Id,index}")]
         [HttpDelete]
-        public IHttpActionResult DeleteImage(int Id)
+        public IHttpActionResult DeleteImage(int Id,int index)
         {
             var name = Id.ToString();
-            var imageInDb = _context.Image.FirstOrDefault(g => g.PatientId == name);
+            var imageInDb = _context.Image.Where(g => g.ImageName == name).ToList();
 
+           
             if (imageInDb == null)
                 return NotFound();
 
-            _context.Image.Remove(imageInDb);
+            if (imageInDb.Count == 1)
+            {
+                _context.Image.Remove(imageInDb[0]);
+            }
+            else
+            {
+               
+                 _context.Image.Remove(imageInDb[index]);
+                
+            }
+           
             _context.SaveChanges();
 
             return Ok();
