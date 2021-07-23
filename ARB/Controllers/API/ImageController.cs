@@ -41,8 +41,7 @@ namespace ARB.Controllers.API
             
             imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(100).ToArray()).Replace(" ", "-");
 
-            return Request.CreateResponse(imageName);
-            image.PatientId = imageName.Split('_')[1];
+            //image.PatientId = imageName.Split('_')[1];
             
             /*imageName = imageName + Path.GetExtension(postedFile.FileName);*/
 
@@ -116,7 +115,7 @@ namespace ARB.Controllers.API
         {
             string patientID = id.ToString();
             
-            var images = _context.Image.Where(g => g.PatientId == patientID).Select(c=>new {c.data}).ToList();
+            var images = _context.Image.Where(g => g.ImageName == patientID).Select(c=>new {c.data}).ToList();
 
            
             
