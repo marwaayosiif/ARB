@@ -278,9 +278,17 @@ namespace ARB.Controllers.API
 
                     var existingGeneralInfo = _context.GeneralInfos.SingleOrDefault(g => g.Id == existingPatient.GeneralInfo.Id);
 
-                    var existingFinalAssessment = _context.FinalAssessments.SingleOrDefault(f=>f.Id == existingPatient.FinalAssessment.Id);
-                    
-                    var existingFeatures = _context.Features.SingleOrDefault(f => f.Id == existingPatient.ClinicalInfo.Features.Id);
+                var existingFinalAssessment = _context.FinalAssessments.SingleOrDefault(f=>f.Id == existingPatient.FinalAssessment.Id);
+                //var existingFinalAssessment = getFinalAssessment(existingPatient.FinalAssessment.Id);
+                //existingFinalAssessment.BiRads = newPatient.FinalAssessment.BiRads;                //existingFinalAssessment.Recommendation = newPatient.FinalAssessment.Recommendation;
+                string mess = $"Patient In PUT Request: { JsonConvert.SerializeObject(existingPatient.FinalAssessment)}";
+
+                System.Diagnostics.Debug.WriteLine(mess);
+
+                mess = $"Patient In PUT Requestss: { JsonConvert.SerializeObject(newPatient.FinalAssessment)}";
+
+                System.Diagnostics.Debug.WriteLine(mess);
+                var existingFeatures = _context.Features.SingleOrDefault(f => f.Id == existingPatient.ClinicalInfo.Features.Id);
 
                     var existingMassSpecifications = GetMassSpecifications(id);
 

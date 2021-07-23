@@ -15,8 +15,8 @@ using System.Web.Http.Cors;
 namespace ARB.Controllers.API
 {
     [RoutePrefix("api/Image")]
-    /*   [EnableCors(origins: "https://marwaayosiif.github.io", headers: "*", methods: "*")] */
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    [EnableCors(origins: "https://marwaayosiif.github.io", headers: "*", methods: "*")] 
+    //[EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class ImageController : ApiController
     {
         private ApplicationDbContext _context;

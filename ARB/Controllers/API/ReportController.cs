@@ -21,8 +21,8 @@ using System.Web;
 namespace ARB.Controllers.API
 {
     [RoutePrefix("api/Report")]
-    /*   [EnableCors(origins: "https://marwaayosiif.github.io", headers: "*", methods: "*")] */
- [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+      [EnableCors(origins: "https://marwaayosiif.github.io", headers: "*", methods: "*")] 
+ //[EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class ReportController : ApiController
     {
         private ApplicationDbContext _context;
@@ -46,17 +46,13 @@ namespace ARB.Controllers.API
         // GET api/<controller>/5
         public IHttpActionResult GetAll(int id)
         {
-            if (id.GetType() == typeof(string))
-            {
-                return Ok("Error");
-            }
-            var name = id.ToString();
-            var Report = _context.Report.FirstOrDefault(c => c.Name == name);
-            if(Report == null)
-            {
-                return Ok("Not Found");
-            }
-            return Ok(Report.TileImage);
+            byte[] report = null;            if (id.GetType() == typeof(string))            {                return Ok("Not Found");            }            var name = id.ToString();            var Reports = _context.Report.Where(r => r.Name == name).ToList();
+
+            if (Reports.Count == 0)            {                return Ok("Not Found");            }
+            if (Reports.Count == 1)            {                report = Reports[0].TileImage;            }            else
+            {                report = Reports.LastOrDefault().TileImage;
+            }            return Ok(report);
+
         }
         [HttpPost]
         // PUT api/<controller>/5
