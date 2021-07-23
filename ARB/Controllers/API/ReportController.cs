@@ -15,9 +15,14 @@ using System.Text;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Web.Http.Cors;
+using System.Web;
 
 namespace ARB.Controllers.API
 {
+    [RoutePrefix("api/Report")]
+    /*   [EnableCors(origins: "https://marwaayosiif.github.io", headers: "*", methods: "*")] */
+ [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class ReportController : ApiController
     {
         private ApplicationDbContext _context;
@@ -35,38 +40,55 @@ namespace ARB.Controllers.API
             return (_context.Report.ToList());
         }
 
+        [Route("{id}")]
+        [HttpGet]
+     
         // GET api/<controller>/5
-        public IHttpActionResult Get(string name)
+        public IHttpActionResult GetAll(int id)
         {
-            var Report = _context.Report.SingleOrDefault(c => c.Name == name);
+            if (id.GetType() == typeof(string))
+            {
+                return Ok("Error");
+            }
+            var name = id.ToString();
+            var Report = _context.Report.FirstOrDefault(c => c.Name == name);
             if(Report == null)
             {
-                return NotFound();
+                return Ok("Not Found");
             }
             return Ok(Report.TileImage);
         }
-
+        [HttpPost]
         // PUT api/<controller>/5
-        public IHttpActionResult PostBlog(Report report)
+        public HttpResponseMessage PostBlog()
         {
+            var newReport = new Report();
+
+            var httpRequest = HttpContext.Current.Request;
+
+            var postedFile = httpRequest.Files["Image"];
 
 
-            if (report != null)
+            if (postedFile != null)
             {
-                var newReport = new Report
-                {
-                    Name = report.Name,
-                    TileImage = report.TileImage
-                };
+                newReport.TileImage = new Byte[postedFile.ContentLength];
+
+                postedFile.InputStream.Read(newReport.TileImage, 0, postedFile.ContentLength);
+                
+                newReport.Name = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(100).ToArray()).Replace(" ", "-");
+
                 _context.Report.Add(newReport);
+
                 _context.SaveChanges();
+                
+            
 
             }
             else
             {
-                return BadRequest();
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
-            return Ok(report);
+            return Request.CreateResponse(HttpStatusCode.OK);
             
         }
        

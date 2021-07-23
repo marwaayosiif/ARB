@@ -104,7 +104,7 @@ namespace ARB.Controllers.API
                         .ToArray();
 
             if (!ModelState.IsValid)
-                return Ok(errors);
+                return Ok("Error");
 
             var doctor = _context.Doctors.SingleOrDefault(d => d.Email == loginViewModel.Email);
             if (doctor == null)
@@ -114,7 +114,7 @@ namespace ARB.Controllers.API
             }
             if (doctor.Password != loginViewModel.Password)
             {
-                return Ok<string>("wrong password");
+                return Ok<string>("Wrong password");
             }
             return Created(new Uri(Request.RequestUri + "/" + doctor.Id), doctor);
         }

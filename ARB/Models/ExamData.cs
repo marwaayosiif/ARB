@@ -14,6 +14,7 @@ namespace ARB.Models
         public string MobileNumber { get; set; }
         public string PatientID { get; set; }
         public string Address { get; set; }
+        
         public string Modailty { get; set; }
         public string ReferringDoctor { get; set; }
         public DateTime StudyDate { get; set; }

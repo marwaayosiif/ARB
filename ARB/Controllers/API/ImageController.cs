@@ -15,6 +15,7 @@ using System.Web.Http.Cors;
 namespace ARB.Controllers.API
 {
     [RoutePrefix("api/Image")]
+    /*   [EnableCors(origins: "https://marwaayosiif.github.io", headers: "*", methods: "*")] */
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class ImageController : ApiController
     {
@@ -67,49 +68,49 @@ namespace ARB.Controllers.API
             return Request.CreateResponse(HttpStatusCode.Created, Convert.ToBase64String(image.data, 0, postedFile.ContentLength));
 
         }
-     /*   public HttpResponseMessage UploadImage()
-        {
-            string imageName = null;
+        /*   public HttpResponseMessage UploadImage()
+           {
+               string imageName = null;
 
-            var httpRequest = HttpContext.Current.Request;
+               var httpRequest = HttpContext.Current.Request;
 
-            var postedFile = httpRequest.Files["Image"];
-            
-            imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(100).ToArray()).Replace(" ", "-");
+               var postedFile = httpRequest.Files["Image"];
 
-            var id = imageName.Split('_')[1];
+               imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(100).ToArray()).Replace(" ", "-");
 
-            System.Diagnostics.Debug.WriteLine("id");
+               var id = imageName.Split('_')[1];
 
-            System.Diagnostics.Debug.WriteLine(id);
+               System.Diagnostics.Debug.WriteLine("id");
 
-            imageName = imageName + Path.GetExtension(postedFile.FileName);
+               System.Diagnostics.Debug.WriteLine(id);
 
-            string path1 = @"G:\SBME\GP\GP\ARB\ARB\Images";
+               imageName = imageName + Path.GetExtension(postedFile.FileName);
 
-            string path2 = Path.Combine(path1, $"Patient{id}");
+               string path1 = @"G:\SBME\GP\GP\ARB\ARB\Images";
 
-            Directory.CreateDirectory(path2);
+               string path2 = Path.Combine(path1, $"Patient{id}");
 
-            var filePath = HttpContext.Current.Server.MapPath($"~/Images/Patient{id}/" + imageName);
+               Directory.CreateDirectory(path2);
 
-            postedFile.SaveAs(filePath);
+               var filePath = HttpContext.Current.Server.MapPath($"~/Images/Patient{id}/" + imageName);
 
-            Image image = new Image()
-            {
-                ImageName = imageName,
-                FILEPATHNAME = filePath,
-               *//* PatientId = 1*//*
-            };
-            _context.Image.Add(image);
-            _context.SaveChanges();
+               postedFile.SaveAs(filePath);
 
-            return Request.CreateResponse(HttpStatusCode.Created);
+               Image image = new Image()
+               {
+                   ImageName = imageName,
+                   FILEPATHNAME = filePath,
+                  *//* PatientId = 1*//*
+               };
+               _context.Image.Add(image);
+               _context.SaveChanges();
 
-        }*/
+               return Request.CreateResponse(HttpStatusCode.Created);
 
+           }*/
+        [Route("{id}")]
         [HttpGet]
-        
+      
         public IHttpActionResult GetImages(int id)
         {
             string patientID = id.ToString();
@@ -135,11 +136,12 @@ namespace ARB.Controllers.API
             return Ok(allImages);
         }
 
-
+        [Route("{Id}")]
         [HttpDelete]
-        public IHttpActionResult DeleteImage(string name)
+        public IHttpActionResult DeleteImage(int Id)
         {
-            var imageInDb = _context.Image.SingleOrDefault(g => g.PatientId == name);
+            var name = Id.ToString();
+            var imageInDb = _context.Image.FirstOrDefault(g => g.PatientId == name);
 
             if (imageInDb == null)
                 return NotFound();

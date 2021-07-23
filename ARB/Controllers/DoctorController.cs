@@ -88,10 +88,10 @@ namespace ARB.Controllers
             message.Body = mailbody;
             message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
-            SmtpClient client = new SmtpClient("smtp.gmail.com", 25); //Gmail smtp   
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp   
             
             System.Net.NetworkCredential basicCredential1 = new
-            System.Net.NetworkCredential(from, "salmahamza@12345");
+            System.Net.NetworkCredential(from, "");
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
             client.Credentials = basicCredential1;

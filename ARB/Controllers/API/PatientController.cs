@@ -171,7 +171,7 @@ namespace ARB.Controllers.API
 
             if (by == "\"examId\"")
             {
-                var patientInDb = _context.Patients.SingleOrDefault(p => p.ExamDataId == id);
+                var patientInDb = _context.Patients.FirstOrDefault(p => p.ExamDataId == id);
 
                 if(patientInDb != null)
                 {
@@ -222,19 +222,23 @@ namespace ARB.Controllers.API
                 return Ok(errors);
 
 
-            ExamData examData = _context.ExamDatas.SingleOrDefault(c => c.Id == patient.ExamDataId);
-
-            if (examData == null)
+            var examDataCount = _context.ExamDatas.Count(c => c.Id == patient.ExamDataId);
+            
+            if ( examDataCount > 1 )
             {
-                return Ok("Please, Add Patient Exam Data Information First");
-
+                return Ok("already Exist");
+            }
+            
+           else if (examDataCount == 0 )
+            {
+                
+              return Ok("Please, Add Patient Exam Data Information First");
+                
             }
 
-            string message = $"Patient In Post Request: { JsonConvert.SerializeObject(patient) }";
-
-            System.Diagnostics.Debug.WriteLine(message);
-
-            LogWrite(message);
+           
+            
+     
 
             _context.Patients.Add(patient);
 

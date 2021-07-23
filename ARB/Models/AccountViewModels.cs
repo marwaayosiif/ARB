@@ -53,6 +53,7 @@ namespace ARB.Models
         [EmailAddress]
         public string Email { get; set; }
 
+        public string Name { get; set; }
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

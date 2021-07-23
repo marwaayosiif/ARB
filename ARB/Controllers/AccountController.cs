@@ -156,10 +156,12 @@ namespace ARB.Controllers
                     UserName = model.Email
                     ,
                     Email = model.Email
+
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var doctor = new Doctor { Name = model.Name, Email = model.Email, Password = model.Password };
                     //Temp code
                     /* To add accounts 
                       var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
