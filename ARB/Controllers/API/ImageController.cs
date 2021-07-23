@@ -97,7 +97,8 @@ namespace ARB.Controllers.API
             return Ok(allImages);
         }
 
-        [Route("{Id,index}")]
+        [Route("{Id}/{index}")]
+
         [HttpDelete]
         public IHttpActionResult DeleteImage(int Id,int index)
         {
